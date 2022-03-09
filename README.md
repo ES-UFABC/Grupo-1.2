@@ -1,4 +1,4 @@
-# Grupo 1.2 - Agricultura Familiar
+# Grupo 2 - Agricultura Familiar
 
 1. Fernanda Felix da Silva
 1. Maik Henrique
