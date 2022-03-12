@@ -2,8 +2,6 @@
 [![Back-end build](https://github.com/ES-UFABC/Muda/actions/workflows/backend.yaml/badge.svg)](https://github.com/ES-UFABC/Muda/actions/workflows/backend.yaml)
 [![Front-end build](https://github.com/ES-UFABC/Muda/actions/workflows/frontend.yaml/badge.svg)](https://github.com/ES-UFABC/Muda/actions/workflows/frontend.yaml)
 
-# Grupo 2 - Agricultura Familiar
-
 ## Sobre
 
   Com um claro cenário dos efeitos da Pandemia, como a indisponibilidade de venda por canais tradicionais e a alta do desemprego, associados a crescente demanda por alimentos saudáveis pelos consumidores familiares urbanos, o Moba se propõe a facilitar a conexão de pequenos produtores de alimentos com seus respectivos consumidores a partir de uma plataforma web de compra de venda de alimentos. 
