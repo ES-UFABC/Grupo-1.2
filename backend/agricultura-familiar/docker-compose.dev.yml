@@ -13,7 +13,7 @@ services:
       - MYSQL-USER=
 
     volumes:
-      - ./:/ibicos_backend
+      - ./:/agricultura_familiar_backend
     command: ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
     depends_on:
       - mysqlserver
