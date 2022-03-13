@@ -26,10 +26,11 @@ Pré-requisitos:
 - Node.js 
 
 Para rodar a aplicação siga os seguintes passos:  
-1 - No terminal, navegue até a pasta `frontend`  
-2 - Execute `npm run dev` 
+1 - No terminal, navegue até a pasta `frontend/agricultura-familiar`  
+2 - Execute `npm install`
+3 - Execute `npm run dev`
 
-Ao final da execução a aplicação está disponível em `localhost:8080`.
+Ao final da execução a aplicação estará disponível em `localhost:9000`.
 
 ## Testes
 
