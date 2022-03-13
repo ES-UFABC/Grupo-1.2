@@ -2,7 +2,7 @@ name: Muda-Frontend
 
 defaults:
   run:
-    working-directory: ./frontend
+    working-directory: ./frontend/agricultura-familiar
 
 on:
   push:
