@@ -15,7 +15,7 @@ Pré-requisitos:
 
 - Swagger 
 
-Para acessar o contrato das APIs:
+Para acessar o contrato das APIs:  
 1 - Navegar até a pasta Backend -> contrato -> swagger.yaml
 2 - Importar o arquivo em um leitor de Swagger. Como sugestão, https://editor.swagger.io/
 
