@@ -98,7 +98,7 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>target/../.github/workflows/reports/</outputDirectory>
+							<outputDirectory>target/../../../.github/workflows/reports/</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
