@@ -1,0 +1,431 @@
+swagger: '2.0'
+info:
+  description: >-
+    Documentação das APIs que sustentam o projeto de Agricultura Familiar
+  version: 1.0.0 
+  title: Swagger Agricultura Familiar
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: larissa.almeida@aluno.ufabc.edu.br
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: agricultura_familiar
+basePath: /v1
+schemes:
+  - https
+paths:
+
+# endpoints para cadastro do consumidor
+
+  /cadastro_consumidor:
+    post:
+      tags:
+        - cadastra um novo consumidor
+      summary: cadastra um novo consumidor
+      description: ''
+      operationId: addconsumidor
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: atributos a serem informados
+          required: true
+          schema:
+            $ref: '#/definitions/cadastro_consumidor'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+  /cadastro_consumidor/{IdCPF}:
+    get:
+      tags:
+        - busca consumidor cadastrado
+      summary: busca um consumidor cadastrado
+      description: ''
+      operationId: getConsumidor
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: IdCPF
+          in: path
+          description: ID do Consumidor
+          required: true
+          type: string
+          format: int64
+      responses:
+        200:
+          description: busca resultador a partir do CPF
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/cadastro_consumidor'
+        400:
+          description: bad input parameter
+    put:
+      tags:
+        - atualiza um consumidor cadastrado
+      summary: atualiza um consumidor cadastrado
+      description: ''
+      operationId: putConsumidor
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: IdCPF
+          in: path
+          description: ID do Consumidor
+          required: true
+          type: string
+          format: int64  
+        - in: body
+          name: body
+          description: atributos a serem informados
+          required: true
+          schema:
+            $ref: '#/definitions/cadastro_consumidor'
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not found
+        '405':
+          description: Validation exception
+    delete:
+      tags:
+        - deleta um consumidor
+      summary: deleta um consumidor
+      description: ''
+      operationId: deleteConsumidor
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: IdCPF
+          in: path
+          description: ID do Consumidor
+          required: true
+          type: string
+          format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+          
+# endpoints para cadastro e busca de meios de pagamento
+
+  /cadastro_pagamentos:
+    post:
+      tags:
+        - cadastra um novo meio de pagamento
+      summary: cadastra um novo meio de pagamento
+      description: ''
+      operationId: postPagamentos
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: atributos a serem informados
+          required: true
+          schema:
+            $ref: '#/definitions/cadastro_pagamentos'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+  /cadastro_pagamentos/{IdCPF}:
+    get:
+      tags:
+        - busca meio de pagamento cadastrado
+      summary: busca meio de pagamento cadastrado
+      description: ''
+      operationId: getPagamentos
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: IdCPF
+          in: path
+          description: ID do Consumidor
+          required: true
+          type: string
+          format: int64
+      responses:
+        200:
+          description: busca resultador a partir do CPF
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/cadastro_pagamentos'
+        400:
+          description: bad input parameter
+          
+# endpoints para cadastro e busca de tipologias do produto
+
+  /cadastro_tipologia_produtos:
+    post:
+      tags:
+        - cadastra uma tipologia
+      summary: cadastra uma tipologia
+      description: ''
+      operationId: postTipologiaProdutos
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: atributos a serem informados
+          required: true
+          schema:
+            $ref: '#/definitions/cadastro_tipologias'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+    get:
+      tags:
+        - busca lista de tipologias
+      summary: busca lista de tipologias
+      description: ''
+      operationId: getTipologiaProduto
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: busca resultador a partir do CPF
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/cadastro_consumidor'
+        400:
+          description: bad input parameter
+
+#endpoints para cadastro e busca de produtos (as tipologias aceitas são apenas as do endpoint cadastro_tipologia_produtos)
+
+  /cadastro_produtos:
+    post:
+      tags:
+        - cadastra um novo produto
+      summary: cadastra um novo produto
+      description: ''
+      operationId: postProduto
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: atributos a serem informados
+          required: true
+          schema:
+            $ref: '#/definitions/cadastro_produtos'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+          
+  /cadastro_produtos/{IdTipologiaProduto}:
+    get:
+      tags:
+        - busca lista de produtos a partir da tipologia
+      summary: busca lista de produtos a partir da tipologia
+      description: ''
+      operationId: getCadastroProdutos
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: IdTipologiaProduto
+          in: path
+          description: ID do Consumidor
+          required: true
+          type: string
+          format: int64
+      responses:
+        200:
+          description: busca resultados a partir da Tipologia do Produto
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/cadastro_consumidor'
+        400:
+          description: bad input parameter
+
+definitions:
+  cadastro_consumidor:
+    type: object
+    required:
+      - nome
+      - email
+      - telefone
+      - cpf
+      - endereco
+      - flag_vinculacao_redes_sociais
+    properties:
+      nome:
+        type: string
+        example: joao
+      email:
+        type: string
+        example: joao@gmail.com
+      telefone:
+        type: string
+        example: 11975295602
+      CPF:
+        type: string
+        example: 572.355.330-56            
+      endereco:
+        type: array
+        items:
+          $ref: '#/definitions/enderecos'      
+  enderecos:
+    required:
+    - flag_endereco_principal
+    - CEP
+    - numero
+    - complemento
+    properties:
+      flag_endereco_principal:
+        type: string
+        example: S  
+      CEP:
+        type: string
+        example: 06233-030
+      numero:
+        type: string
+        example: 72
+      complemento:
+        type: string
+        example: apto 2
+#as informações de rua, bairro e municipio serão retornadas a partir do CEP, o usuário não precisa preencher o campo na tela
+      rua:
+        type: string
+        example: santa carolina           
+      bairro:
+        type: string
+        example: vila campestre 
+      municipio:
+        type: string
+        example: santo andré
+  cadastro_tipologias:
+    type: object
+    required:
+      - tipologia_produto
+    properties:
+      id_tipologia_produto:
+        type: string
+        example: cereal    
+      tipologia_produto:
+        type: string
+        example: cereal
+
+  cadastro_produtos:
+    type: object
+    required:
+      - nome_produto
+      - unidade_medida
+      - tipologia_produto
+      - sazonalidade
+      - foto
+      - preço
+      - flag_condicoes_entrega_especial
+      - estoque
+    properties:
+      nome_produto:
+        type: string
+        example: milho
+      unidade_medida:
+        type: string
+        example: joao@gmail.com
+      tipologia:
+        type: string
+        example: 11975295602
+      sazonalidade:
+        type: string
+        example: 572.355.330-56
+#alterar o tipo da foto        
+      foto:
+        type: string
+        example: '' 
+      preço:
+        type: string
+        example: 572.355.330-56
+      flag_condicoes_entrega_especial:
+        type: string
+        example: S     
+      estoque:
+        type: string
+        example: 10
+  cadastro_pagamentos:
+    type: object
+    required:
+      - meio_pagamento
+    properties:
+      meio_pagamento:
+        type: string
+        example: cartao
+      cartao:
+        type: array
+        items:
+          $ref: '#/definitions/cartoes'      
+  cartoes:
+    required:
+    - numero_cartao
+    - nome_cartao    
+    - cvv
+    - validade
+    properties:
+      numero_cartao:
+        type: string
+        example: 0000 1111 2222 3333
+      nome_cartao:
+        type: string
+        example: joao
+      cvv:
+        type: string
+        example: 006
+      validade:
+        type: string
+        example: 03/29
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
