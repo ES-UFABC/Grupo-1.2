@@ -13,7 +13,7 @@
 ### Back-end
 Pré-requisitos:
 
-Contrato das APIs-
+- Swagger 
 
 Para acessar o contrato das APIs:
 1 - Navegar até a pasta Backend -> contrato -> swagger.yaml
