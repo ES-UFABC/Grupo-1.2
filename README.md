@@ -8,7 +8,18 @@
   
   Baseia-se em sistema digital integrado de Apoio à agricultura familiar e orgânica, agroEcológica, economia solidária, povos e comunidades tradicionais e artesanato de raiz.
 
-## Como instalar
+## Como executar
+
+### Back-end
+Pré-requisitos:
+- Docker 
+
+Para o ambiente fo desenvolvido o arquivo docker-compose.dev.yml, assim para rodar a aplicação faça:  
+1 - No terminal, navegue até a pasta `backend/agricultura-familiar`  
+2 - Execute `docker-compose --file docker-compose.dev.yml up -d --build` 
+
+Ao final da execução a aplicação está disponível em `localhost:8080` e o banco de dados em `localhost:3306`  
+A aplicação está configurada para aceitar remote-debugging, assim consulte o guia da sua IDE para fazer uso desta funcionalidade.
 
 ## Testes
 
