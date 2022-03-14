@@ -7,6 +7,13 @@
   Com um claro cenário dos efeitos da pandemia, como a indisponibilidade de venda por canais tradicionais e a alta do desemprego, associados a crescente demanda por alimentos saudáveis pelos consumidores familiares urbanos, o Muda se propõe a facilitar a conexão de pequenos produtores de alimentos com seus respectivos consumidores a partir de uma plataforma web de compra de venda de alimentos. 
   
   Baseia-se em sistema digital integrado de apoio à agricultura familiar e orgânica, agroEcológica, economia solidária, povos e comunidades tradicionais e artesanato de raiz.
+  
+## Tech Stack
+
+Back-end: Spring Boot  
+Front-end: VueJS  
+Banco de dados: MySQL  
+CI: Github Actions
 
 ## Como executar
 
