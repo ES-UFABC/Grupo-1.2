@@ -12,7 +12,8 @@ import java.util.Set;
 @Data
 public class Produtor {
 
-    private Integer id;
+
+    private String cpfOuCnpj; //considerar id
     private String nome;
     private String nomeFantasia;
     private String email;
@@ -22,7 +23,6 @@ public class Produtor {
     private Boolean atendeNoEnderecoDeProducao;
     private Boolean cadastroEntidade;
     private TipoProdutor tipoProdutor;
-    private String cpfOuCnpj;
     private Boolean registroOuCertificacao;
     private Boolean agroecologico;
     private Boolean certificacaoAgroecologico;
