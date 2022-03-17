@@ -9,10 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.print.attribute.standard.Media;
+
 import com.es.agriculturafamiliar.dto.NotificacaoDTO;
 import com.es.agriculturafamiliar.entity.Notificacao;
 import com.es.agriculturafamiliar.service.NotificationService;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
@@ -24,6 +27,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import org.hamcrest.Matchers;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 
@@ -41,10 +46,16 @@ public class NotificationControllerTests {
 
 	@MockBean
 	private NotificationService notificationService;
+
+	private static ObjectMapper objectMapper;
+
+	@BeforeAll
+	private static void setup() {
+		objectMapper = new ObjectMapper();
+	}
 	
 	@Test
 	void findById_shouldReturnStatusOk_whenNotificationExists() throws Exception {
-
 		Optional<Notificacao> notificacaoOptional = Optional.of(
 			Notificacao.builder()
 			.assunto("Manutenção")
@@ -75,11 +86,13 @@ public class NotificationControllerTests {
 	}
 
 	@Test
-	void  saveNotificacao_shouldReturnStatusCreated_whenValidRequestBodyIsReceived() throws Exception {
-		NotificacaoDTO notificacaoDTO = new NotificacaoDTO();
-		ObjectMapper mapper = new ObjectMapper();
-		Notificacao notificacao = new Notificacao();
-		Notificacao.builder().dataPublicacao(LocalDateTime.MAX)
+	void saveNotificacao_shouldReturnStatusCreated_whenValidRequestBodyIsReceived() throws Exception {
+		NotificacaoDTO notificacaoDTO = NotificacaoDTO.builder().assunto("Manutenção")
+			.mensagem("Deu ruim")
+			.build();
+		
+		Notificacao notificacao = Notificacao.builder()
+			.dataPublicacao(LocalDateTime.MAX)
 			.id(32l)
 			.mensagem("Mensagem cadastrada")
 			.assunto("Manutenção")
@@ -90,8 +103,19 @@ public class NotificationControllerTests {
 
 		mockMvc.perform(post(BASE_ENDPOINT)
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(mapper.writeValueAsString(notificacaoDTO)))
+			.content(objectMapper.writeValueAsString(notificacaoDTO)))
 			.andExpect(status().isCreated());			
+	}
+
+	@Test
+	void saveNotificacao_shouldReturnBadRequest_whenMandatoryFieldIsMissing() throws JsonProcessingException, Exception {
+		NotificacaoDTO notificacao = NotificacaoDTO.builder()
+			.build();
+
+		mockMvc.perform(post(BASE_ENDPOINT)
+			.content(objectMapper.writeValueAsString(notificacao))
+			.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isBadRequest());			
 	}
 
 }

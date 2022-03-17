@@ -2,6 +2,8 @@ package com.es.agriculturafamiliar.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.es.agriculturafamiliar.dto.NotificacaoDTO;
 import com.es.agriculturafamiliar.entity.Notificacao;
 import com.es.agriculturafamiliar.service.NotificationService;
@@ -40,7 +42,7 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveNotificacao(@RequestBody NotificacaoDTO notificacaoDTO) {        
+    public ResponseEntity<?> saveNotificacao(@Valid @RequestBody NotificacaoDTO notificacaoDTO) {        
         Notificacao notificacao = modelMapper.map(notificacaoDTO, Notificacao.class);
         notificationService.saveNotificacao(notificacao);
         
