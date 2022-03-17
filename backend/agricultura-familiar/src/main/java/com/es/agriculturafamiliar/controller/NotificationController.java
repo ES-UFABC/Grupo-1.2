@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,11 +46,21 @@ public class NotificationController {
     public ResponseEntity<?> saveNotificacao(@Valid @RequestBody NotificacaoDTO notificacaoDTO) {        
         Notificacao notificacao = modelMapper.map(notificacaoDTO, Notificacao.class);
         notificationService.saveNotificacao(notificacao);
-        
+
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteNotificacaoById(@PathVariable Long id) {
+        Optional<Notificacao> optionalDeletedNotificacao = notificationService.deleteById(id);
+
+        if (optionalDeletedNotificacao.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.noContent().build();
+    }
     
 }

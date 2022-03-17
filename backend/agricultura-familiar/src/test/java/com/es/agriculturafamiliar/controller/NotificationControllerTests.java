@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
@@ -116,6 +117,28 @@ public class NotificationControllerTests {
 			.content(objectMapper.writeValueAsString(notificacao))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isBadRequest());			
+	}
+
+	@Test
+	void deleteNotificacaoById_shouldReturnNoContent_whenNotificacaoExists() throws Exception {
+		Optional<Notificacao> notificacao = Optional.of(new Notificacao());
+
+		when(notificationService.deleteById(any(Long.class)))
+			.thenReturn(notificacao);
+
+		mockMvc.perform(delete(BASE_ENDPOINT + "/{id}", "123"))
+			.andExpect(status().isNoContent());
+	}
+
+	@Test
+	void deleteNotificacaoById_shouldBadRequest_whenNotificacaoDoesNotExists() throws Exception {
+		Optional<Notificacao> notificacao = Optional.empty();
+
+		when(notificationService.deleteById(any(Long.class)))
+			.thenReturn(notificacao);
+
+		mockMvc.perform(delete(BASE_ENDPOINT + "/{id}", "123"))
+			.andExpect(status().isBadRequest());
 	}
 
 }
