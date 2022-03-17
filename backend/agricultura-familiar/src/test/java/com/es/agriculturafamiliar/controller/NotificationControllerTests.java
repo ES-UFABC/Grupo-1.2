@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -16,6 +15,7 @@ import com.es.agriculturafamiliar.service.NotificationService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -33,6 +33,9 @@ public class NotificationControllerTests {
 
 	@Autowired
 	private MockMvc mockMvc;
+
+    @MockBean
+    private ModelMapper modelMapper;
 
 	public static final String BASE_ENDPOINT = "/api/v1/admin/notifications";
 
@@ -88,8 +91,7 @@ public class NotificationControllerTests {
 		mockMvc.perform(post(BASE_ENDPOINT)
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(mapper.writeValueAsString(notificacaoDTO)))
-			.andExpect(status().isCreated());
-			
+			.andExpect(status().isCreated());			
 	}
 
 }

@@ -1,15 +1,12 @@
 package com.es.agriculturafamiliar.controller;
 
-import java.net.URI;
 import java.util.Optional;
-
-import javax.websocket.server.PathParam;
 
 import com.es.agriculturafamiliar.dto.NotificacaoDTO;
 import com.es.agriculturafamiliar.entity.Notificacao;
-import com.es.agriculturafamiliar.mapper.NotificacaoMapper;
 import com.es.agriculturafamiliar.service.NotificationService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,20 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import lombok.AllArgsConstructor;
 
 
 @RestController
 @RequestMapping("/api/v1/admin/notifications")
-@AllArgsConstructor
 public class NotificationController {
     
     @Autowired
-    private final NotificacaoMapper notificacaoMapper;
-
+    private ModelMapper modelMapper;
+    
     @Autowired
     private NotificationService notificationService;
 
@@ -47,11 +40,12 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveNotificacao(@RequestBody NotificacaoDTO notificacaoDTO) {
-        Notificacao notificacao = notificacaoMapper.NotificacaoDTOToNotificacao(notificacaoDTO);        
+    public ResponseEntity<?> saveNotificacao(@RequestBody NotificacaoDTO notificacaoDTO) {        
+        Notificacao notificacao = modelMapper.map(notificacaoDTO, Notificacao.class);
         notificationService.saveNotificacao(notificacao);
         
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
             .build();
     }
 
