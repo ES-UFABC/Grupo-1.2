@@ -14,5 +14,9 @@ public class NotificationService {
     public Optional<Notificacao> findNotificacaoById(Long id) {
         throw new NotImplementedException();        
     }
+
+    public Notificacao saveNotificacao(Notificacao notificacao) {
+        throw new NotImplementedException();
+    }
     
 }

@@ -18,7 +18,7 @@ class AgriculturaFamiliarApplicationTests {
 	private MockMvc mockMvc;
 	
 	@Test
-	void dummyEndpoint_ShouldReturnMessage_WhenGetIsPerformed() throws Exception {
+	void dummyEndpoint_shouldReturnMessage_whenGetIsPerformed() throws Exception {
 		mockMvc.perform(get("/api/dummy")).andExpect(status().isOk());
 	}
 
