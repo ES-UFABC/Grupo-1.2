@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonRootName(value = "notificacao")
 public class NotificacaoDTO {
+
     @NotEmpty
     private String assunto;
 

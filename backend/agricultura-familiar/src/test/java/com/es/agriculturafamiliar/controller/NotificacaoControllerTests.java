@@ -5,16 +5,15 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import javax.print.attribute.standard.Media;
-
 import com.es.agriculturafamiliar.dto.NotificacaoDTO;
 import com.es.agriculturafamiliar.entity.Notificacao;
-import com.es.agriculturafamiliar.service.NotificationService;
+import com.es.agriculturafamiliar.service.NotificacaoService;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -34,8 +33,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(NotificationController.class)
-public class NotificationControllerTests {
+@WebMvcTest(NotificacaoController.class)
+public class NotificacaoControllerTests {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -46,7 +45,7 @@ public class NotificationControllerTests {
 	public static final String BASE_ENDPOINT = "/api/v1/admin/notifications";
 
 	@MockBean
-	private NotificationService notificationService;
+	private NotificacaoService notificationService;
 
 	private static ObjectMapper objectMapper;
 
@@ -100,7 +99,7 @@ public class NotificationControllerTests {
 			.build();
 
 		when(notificationService.saveNotificacao(any(Notificacao.class)))
-			.thenReturn(notificacao);
+			.thenReturn(Optional.of(notificacao));
 
 		mockMvc.perform(post(BASE_ENDPOINT)
 			.contentType(MediaType.APPLICATION_JSON)
@@ -131,7 +130,7 @@ public class NotificationControllerTests {
 	}
 
 	@Test
-	void deleteNotificacaoById_shouldBadRequest_whenNotificacaoDoesNotExists() throws Exception {
+	void deleteNotificacaoById_shouldReturnBadRequest_whenNotificacaoDoesNotExists() throws Exception {
 		Optional<Notificacao> notificacao = Optional.empty();
 
 		when(notificationService.deleteById(any(Long.class)))
@@ -139,6 +138,44 @@ public class NotificationControllerTests {
 
 		mockMvc.perform(delete(BASE_ENDPOINT + "/{id}", "123"))
 			.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void updateNotificacao_shouldReturnNoContent_whenUpdateIsSuccessful() throws Exception {
+		NotificacaoDTO novaNotificacao = NotificacaoDTO.builder().assunto("Novo assunto")
+			.mensagem("Olá que tá").build();
+
+		Optional<Notificacao> notificacaoAtualizada = Optional.of(new Notificacao());
+
+		when(notificationService.update(any(), any(Long.class)))
+			.thenReturn(notificacaoAtualizada);
+
+		mockMvc.perform(put(BASE_ENDPOINT + "/{id}", "123")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(novaNotificacao)))
+			.andExpect(status().isOk());
+	}
+
+	@Test
+	void updateNotificacao_shouldReturnBadRequest_whenUpdateFails() throws Exception {
+		NotificacaoDTO novaNotificacao = NotificacaoDTO.builder().assunto("Novo assunto")
+			.mensagem("Olá que tá").build();
+
+		Optional<Notificacao> notificacaoAtualizada = Optional.empty();
+
+		when(notificationService.update(any(), any(Long.class)))
+			.thenReturn(notificacaoAtualizada);
+
+		mockMvc.perform(put(BASE_ENDPOINT + "/{id}", "123")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(novaNotificacao)))
+			.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void findAll_shouldReturnOk_whenNotificacoesAreRequested() throws Exception {
+		mockMvc.perform(get(BASE_ENDPOINT))
+			.andExpect(status().isOk());
 	}
 
 }
