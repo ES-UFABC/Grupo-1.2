@@ -42,7 +42,8 @@ public class NotificacaoControllerTests {
     @MockBean
     private ModelMapper modelMapper;
 
-	public static final String BASE_ENDPOINT = "/api/v1/admin/notifications";
+	public static final String BASE_ENDPOINT = "/api/v1/notifications";
+	public static final String ADMIN_ENDPOINT = "/api/v1/notifications/admin";
 
 	@MockBean
 	private NotificacaoService notificationService;
@@ -101,7 +102,7 @@ public class NotificacaoControllerTests {
 		when(notificationService.saveNotificacao(any(Notificacao.class)))
 			.thenReturn(Optional.of(notificacao));
 
-		mockMvc.perform(post(BASE_ENDPOINT)
+		mockMvc.perform(post(ADMIN_ENDPOINT)
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(notificacaoDTO)))
 			.andExpect(status().isCreated());			
@@ -112,7 +113,7 @@ public class NotificacaoControllerTests {
 		NotificacaoDTO notificacao = NotificacaoDTO.builder()
 			.build();
 
-		mockMvc.perform(post(BASE_ENDPOINT)
+		mockMvc.perform(post(ADMIN_ENDPOINT)
 			.content(objectMapper.writeValueAsString(notificacao))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isBadRequest());			
@@ -125,7 +126,7 @@ public class NotificacaoControllerTests {
 		when(notificationService.deleteById(any(Long.class)))
 			.thenReturn(notificacao);
 
-		mockMvc.perform(delete(BASE_ENDPOINT + "/{id}", "123"))
+		mockMvc.perform(delete(ADMIN_ENDPOINT + "/{id}", "123"))
 			.andExpect(status().isNoContent());
 	}
 
@@ -136,7 +137,7 @@ public class NotificacaoControllerTests {
 		when(notificationService.deleteById(any(Long.class)))
 			.thenReturn(notificacao);
 
-		mockMvc.perform(delete(BASE_ENDPOINT + "/{id}", "123"))
+		mockMvc.perform(delete(ADMIN_ENDPOINT + "/{id}", "123"))
 			.andExpect(status().isBadRequest());
 	}
 
@@ -150,7 +151,7 @@ public class NotificacaoControllerTests {
 		when(notificationService.update(any(), any(Long.class)))
 			.thenReturn(notificacaoAtualizada);
 
-		mockMvc.perform(put(BASE_ENDPOINT + "/{id}", "123")
+		mockMvc.perform(put(ADMIN_ENDPOINT + "/{id}", "123")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(novaNotificacao)))
 			.andExpect(status().isOk());
@@ -166,7 +167,7 @@ public class NotificacaoControllerTests {
 		when(notificationService.update(any(), any(Long.class)))
 			.thenReturn(notificacaoAtualizada);
 
-		mockMvc.perform(put(BASE_ENDPOINT + "/{id}", "123")
+		mockMvc.perform(put(ADMIN_ENDPOINT + "/{id}", "123")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(novaNotificacao)))
 			.andExpect(status().isBadRequest());

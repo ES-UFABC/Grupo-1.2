@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
-@RequestMapping("/api/v1/admin/notifications")
+@RequestMapping("/api/v1/notifications")
 public class NotificacaoController {
     
     @Autowired
@@ -50,7 +50,7 @@ public class NotificacaoController {
         return ResponseEntity.ok(findNotificacaoById.get());
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<?> saveNotificacao(@Valid @RequestBody NotificacaoDTO notificacaoDTO) {        
         Notificacao notificacao = modelMapper.map(notificacaoDTO, Notificacao.class);
         notificationService.saveNotificacao(notificacao);
@@ -60,7 +60,7 @@ public class NotificacaoController {
             .build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<?> deleteNotificacaoById(@PathVariable Long id) {
         Optional<Notificacao> optionalDeletedNotificacao = notificationService.deleteById(id);
 
@@ -71,7 +71,7 @@ public class NotificacaoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/{id}")
     public ResponseEntity<?> updateNotificacoa(@PathVariable Long id, @RequestBody NotificacaoDTO notificacao) {
         Notificacao notificacaoConvertida = modelMapper.map(notificacao, Notificacao.class);
 
