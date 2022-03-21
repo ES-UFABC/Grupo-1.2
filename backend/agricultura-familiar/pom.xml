@@ -129,6 +129,14 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
+							<excludes>
+								<exclude>com/es/agriculturafamiliar/event/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/dto/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/config/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/constants/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/listener/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/controller/DummyController.class</exclude>
+							</excludes>
 							<outputDirectory>target/../../../.github/workflows/reports/</outputDirectory>
 						</configuration>
 					</execution>

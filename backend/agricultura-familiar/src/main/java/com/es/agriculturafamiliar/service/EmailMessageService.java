@@ -17,7 +17,8 @@ public class EmailMessageService implements AsyncMessageService<EmailDTO> {
     private JavaMailSender mailSender;
 
     @Autowired
-    public EmailMessageService(AsyncMessageSenderFactory<EmailDTO, JavaMailSender, MimeMessage> asyncMessageSenderFactory, JavaMailSender mailSender) {        this.asyncMessageSenderFactory = asyncMessageSenderFactory;
+    public EmailMessageService(AsyncMessageSenderFactory<EmailDTO, JavaMailSender, MimeMessage> asyncMessageSenderFactory, JavaMailSender mailSender) {        
+        this.asyncMessageSenderFactory = asyncMessageSenderFactory;
         this.mailSender = mailSender;
     }
     
