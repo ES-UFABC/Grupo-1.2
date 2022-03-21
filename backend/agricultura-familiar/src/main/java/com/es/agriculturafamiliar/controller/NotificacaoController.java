@@ -1,7 +1,5 @@
 package com.es.agriculturafamiliar.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import com.es.agriculturafamiliar.dto.NotificacaoDTO;
@@ -41,13 +39,8 @@ public class NotificacaoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findNotificacaoById(@PathVariable Long id)  {
-        Optional<Notificacao> findNotificacaoById = notificationService.findNotificacaoById(id); 
-        
-        if (findNotificacaoById.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        return ResponseEntity.ok(findNotificacaoById.get());
+        Notificacao notificacao = notificationService.findNotificacaoById(id);         
+        return ResponseEntity.ok(notificacao);
     }
 
     @PostMapping("/admin")
@@ -62,26 +55,15 @@ public class NotificacaoController {
 
     @DeleteMapping("/admin/{id}")
     public ResponseEntity<?> deleteNotificacaoById(@PathVariable Long id) {
-        Optional<Notificacao> optionalDeletedNotificacao = notificationService.deleteById(id);
-
-        if (optionalDeletedNotificacao.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-
+        notificationService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/admin/{id}")
     public ResponseEntity<?> updateNotificacoa(@PathVariable Long id, @RequestBody NotificacaoDTO notificacao) {
         Notificacao notificacaoConvertida = modelMapper.map(notificacao, Notificacao.class);
-
-        Optional<Notificacao> notificacaoAtualizada = notificationService.update(notificacaoConvertida, id);
-
-        if (notificacaoAtualizada.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-        
-        return ResponseEntity.ok(notificacaoAtualizada.get());
+        Notificacao notificacaoAtualizada = notificationService.update(notificacaoConvertida, id);        
+        return ResponseEntity.ok(notificacaoAtualizada);
     }
     
 }

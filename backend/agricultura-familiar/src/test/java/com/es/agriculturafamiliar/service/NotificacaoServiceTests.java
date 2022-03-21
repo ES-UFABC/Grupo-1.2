@@ -2,7 +2,7 @@ package com.es.agriculturafamiliar.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import com.es.agriculturafamiliar.entity.Notificacao;
+import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.NotificacaoRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -51,11 +52,7 @@ public class NotificacaoServiceTests {
         when(notificacaoRepository.save(any(Notificacao.class)))
             .thenReturn(returnedSavedNotificacao);
         
-        Optional<Notificacao> savedNotificacaoOptional = notificacaoService.saveNotificacao(notificacao);
-        
-        assertTrue(savedNotificacaoOptional.isPresent());
-
-        Notificacao savedNotificacao = savedNotificacaoOptional.get();
+        Notificacao savedNotificacao = notificacaoService.saveNotificacao(notificacao);
 
         assertEquals(notificacao.getAssunto(), savedNotificacao.getAssunto());
         assertEquals(notificacao.getMensagem(), savedNotificacao.getMensagem());
@@ -63,30 +60,13 @@ public class NotificacaoServiceTests {
         assertNotNull(savedNotificacao.getId());
     }
 
-    @Test
-    public void saveNotificacao_shouldReturnEmptyOptional_whenNotSuccessful() {
-        Notificacao notificacao = Notificacao.builder()
-            .assunto("Hola")
-            .mensagem("Que passa")
-            .build();
-        
-        
-        when(notificacaoRepository.save(any(Notificacao.class)))
-            .thenReturn(null);
-        
-        Optional<Notificacao> savedNotificacaoOptional = notificacaoService.saveNotificacao(notificacao);
-
-        assertTrue(savedNotificacaoOptional.isEmpty());
-    }
   
     @Test
-    public void findNotificacaoById_shouldReturnEmptyOptional_whenNotSuccessful() {
+    public void findNotificacaoById_shouldThrowResourceNotFoundException_whenResourceIsNotFound() {
         when(notificacaoRepository.findById(any(Long.class)))
             .thenReturn(Optional.empty());
         
-        Optional<Notificacao> savedNotificacaoOptional = notificacaoService.findNotificacaoById(33l);
-
-        assertTrue(savedNotificacaoOptional.isEmpty());
+        assertThrows(ResourceNotFoundException.class, () -> notificacaoService.findNotificacaoById(33l));
     }
     
     @Test
@@ -102,12 +82,8 @@ public class NotificacaoServiceTests {
         when(notificacaoRepository.findById(any(Long.class)))
             .thenReturn(Optional.of(queriedNotificacao));
         
-        Optional<Notificacao> returnedNotificacaoOptional = notificacaoService.findNotificacaoById(32l);
-        
-        assertTrue(returnedNotificacaoOptional.isPresent());
-
-        Notificacao returnedNotificacao = returnedNotificacaoOptional.get();
-
+        Notificacao returnedNotificacao = notificacaoService.findNotificacaoById(32l);
+    
         assertEquals(queriedNotificacao.getAssunto(), returnedNotificacao.getAssunto());
         assertEquals(queriedNotificacao.getMensagem(), returnedNotificacao.getMensagem());
         assertEquals(queriedNotificacao.getDataPublicacao(), returnedNotificacao.getDataPublicacao());
@@ -115,13 +91,11 @@ public class NotificacaoServiceTests {
     }
 
     @Test
-    public void deleteNotificacaoById_shouldReturnEmptyOptional_whenNotSuccessful() {
+    public void deleteNotificacaoById_shouldThrowResourceNotFoundException_whenResourceIsNotFound() {
         when(notificacaoRepository.findById(any(Long.class)))
-            .thenReturn(Optional.empty());
+            .thenThrow(ResourceNotFoundException.class);       
         
-        Optional<Notificacao> savedNotificacaoOptional = notificacaoService.deleteById(33l);
-
-        assertTrue(savedNotificacaoOptional.isEmpty());
+        assertThrows(ResourceNotFoundException.class, () -> notificacaoService.deleteById(33l));        
     }
     
     @Test
@@ -136,12 +110,8 @@ public class NotificacaoServiceTests {
         when(notificacaoRepository.findById(any(Long.class)))
             .thenReturn(Optional.of(queriedNotificacao));
         
-        Optional<Notificacao> returnedNotificacaoOptional = notificacaoService.deleteById(32l);
+        Notificacao returnedNotificacao = notificacaoService.deleteById(32l);
         
-        assertTrue(returnedNotificacaoOptional.isPresent());
-
-        Notificacao returnedNotificacao = returnedNotificacaoOptional.get();
-
         assertEquals(queriedNotificacao.getAssunto(), returnedNotificacao.getAssunto());
         assertEquals(queriedNotificacao.getMensagem(), returnedNotificacao.getMensagem());
         assertEquals(queriedNotificacao.getDataPublicacao(), returnedNotificacao.getDataPublicacao());
@@ -155,9 +125,7 @@ public class NotificacaoServiceTests {
             .mensagem("Estou atualizado")            
             .build();
 
-        Optional<Notificacao> savedNotificacaoOptional = notificacaoService.update(updateNotificacao, 33l);
-
-        assertTrue(savedNotificacaoOptional.isEmpty());
+            assertThrows(ResourceNotFoundException.class, () -> notificacaoService.update(updateNotificacao, 33l));
     }
     
     @Test
@@ -179,13 +147,9 @@ public class NotificacaoServiceTests {
 
         when(notificacaoRepository.save(any(Notificacao.class)))
             .thenReturn(updateNotificacao);
+            
+        Notificacao returnedNotificacao = notificacaoService.update(updateNotificacao, queriedNotificacao.getId());
         
-        Optional<Notificacao> returnedNotificacaoOptional = notificacaoService.update(updateNotificacao, queriedNotificacao.getId());
-        
-        assertTrue(returnedNotificacaoOptional.isPresent());
-
-        Notificacao returnedNotificacao = returnedNotificacaoOptional.get();
-
         assertEquals(updateNotificacao.getAssunto(), returnedNotificacao.getAssunto());
         assertEquals(updateNotificacao.getMensagem(), returnedNotificacao.getMensagem());
         assertEquals(queriedNotificacao.getDataPublicacao(), returnedNotificacao.getDataPublicacao());

@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import com.es.agriculturafamiliar.dto.NotificacaoDTO;
 import com.es.agriculturafamiliar.entity.Notificacao;
+import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.service.NotificacaoService;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -57,17 +58,13 @@ public class NotificacaoControllerTests {
 	
 	@Test
 	void findById_shouldReturnStatusOk_whenNotificationExists() throws Exception {
-		Optional<Notificacao> notificacaoOptional = Optional.of(
-			Notificacao.builder()
+		Notificacao notificacao = Notificacao.builder()
 			.assunto("Manutenção")
             .mensagem("O sistema vai entrar em manutenção")
             .dataPublicacao(LocalDateTime.MAX)
-			.build()
-			);
+			.build();
 
-		when(notificationService.findNotificacaoById(any(Long.class))).thenReturn(notificacaoOptional);
-
-		Notificacao notificacao = notificacaoOptional.get();
+		when(notificationService.findNotificacaoById(any(Long.class))).thenReturn(notificacao);		
 		
 		mockMvc.perform(get(BASE_ENDPOINT + "/{id}", "1"))
 			.andExpect(status().isOk())
@@ -78,12 +75,10 @@ public class NotificacaoControllerTests {
 
 	@Test
 	void findById_shouldReturnStatusBadRequest_whenNotificationDoesNotExists() throws Exception {
-		Optional<Notificacao> emptyNotificacao = Optional.empty();
-
-		when(notificationService.findNotificacaoById(any(Long.class))).thenReturn(emptyNotificacao);
+		when(notificationService.findNotificacaoById(any(Long.class))).thenThrow(ResourceNotFoundException.class);
 
 		mockMvc.perform(get(BASE_ENDPOINT + "/{id}", "1"))
-			.andExpect(status().isBadRequest());
+			.andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -100,7 +95,7 @@ public class NotificacaoControllerTests {
 			.build();
 
 		when(notificationService.saveNotificacao(any(Notificacao.class)))
-			.thenReturn(Optional.of(notificacao));
+			.thenReturn(notificacao);
 
 		mockMvc.perform(post(ADMIN_ENDPOINT)
 			.contentType(MediaType.APPLICATION_JSON)
@@ -121,7 +116,7 @@ public class NotificacaoControllerTests {
 
 	@Test
 	void deleteNotificacaoById_shouldReturnNoContent_whenNotificacaoExists() throws Exception {
-		Optional<Notificacao> notificacao = Optional.of(new Notificacao());
+		Notificacao notificacao = new Notificacao();
 
 		when(notificationService.deleteById(any(Long.class)))
 			.thenReturn(notificacao);
@@ -131,14 +126,12 @@ public class NotificacaoControllerTests {
 	}
 
 	@Test
-	void deleteNotificacaoById_shouldReturnBadRequest_whenNotificacaoDoesNotExists() throws Exception {
-		Optional<Notificacao> notificacao = Optional.empty();
-
+	void deleteNotificacaoById_shouldNotFound_whenNotificacaoDoesNotExists() throws Exception {
 		when(notificationService.deleteById(any(Long.class)))
-			.thenReturn(notificacao);
+			.thenThrow(ResourceNotFoundException.class);
 
 		mockMvc.perform(delete(ADMIN_ENDPOINT + "/{id}", "123"))
-			.andExpect(status().isBadRequest());
+			.andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -146,7 +139,7 @@ public class NotificacaoControllerTests {
 		NotificacaoDTO novaNotificacao = NotificacaoDTO.builder().assunto("Novo assunto")
 			.mensagem("Olá que tá").build();
 
-		Optional<Notificacao> notificacaoAtualizada = Optional.of(new Notificacao());
+		Notificacao notificacaoAtualizada = new Notificacao();
 
 		when(notificationService.update(any(), any(Long.class)))
 			.thenReturn(notificacaoAtualizada);
@@ -158,19 +151,17 @@ public class NotificacaoControllerTests {
 	}
 
 	@Test
-	void updateNotificacao_shouldReturnBadRequest_whenUpdateFails() throws Exception {
+	void updateNotificacao_shouldNotFound_whenUpdateFailsBecauseResourceNotExists() throws Exception {
 		NotificacaoDTO novaNotificacao = NotificacaoDTO.builder().assunto("Novo assunto")
 			.mensagem("Olá que tá").build();
 
-		Optional<Notificacao> notificacaoAtualizada = Optional.empty();
-
 		when(notificationService.update(any(), any(Long.class)))
-			.thenReturn(notificacaoAtualizada);
+			.thenThrow(ResourceNotFoundException.class);
 
 		mockMvc.perform(put(ADMIN_ENDPOINT + "/{id}", "123")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(novaNotificacao)))
-			.andExpect(status().isBadRequest());
+			.andExpect(status().isNotFound());
 	}
 
 	@Test
