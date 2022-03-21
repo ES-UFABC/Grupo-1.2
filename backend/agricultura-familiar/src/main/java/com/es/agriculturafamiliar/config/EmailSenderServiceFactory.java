@@ -10,7 +10,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.spring5.SpringTemplateEngine;
-import com.es.agriculturafamiliar.dto.EmailDTO;
+
+import com.es.agriculturafamiliar.entity.Email;
 import com.es.agriculturafamiliar.exception.SendMessageException;
 
 import org.thymeleaf.context.Context;
@@ -19,7 +20,7 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
 @Component
-public class EmailSenderServiceFactory extends AsyncMessageSenderFactory<EmailDTO, JavaMailSender, MimeMessage> {
+public class EmailSenderServiceFactory extends AsyncMessageSenderFactory<Email, JavaMailSender, MimeMessage> {
     
     private SpringTemplateEngine springTemplateEngine;
 
@@ -29,13 +30,13 @@ public class EmailSenderServiceFactory extends AsyncMessageSenderFactory<EmailDT
     }
 
     @Override
-    public MimeMessage createAsyncMessageSender(EmailDTO data, JavaMailSender mailSender) {
+    public MimeMessage createAsyncMessageSender(Email data, JavaMailSender mailSender) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         configureMimeMessage(data, mimeMessage);
         return mimeMessage;
     }
 
-	private void configureMimeMessage(EmailDTO emailData, MimeMessage mimeMessage) {
+	private void configureMimeMessage(Email emailData, MimeMessage mimeMessage) {
 		try {
             Map<String, Object> variables = emailData.getVariables();
 			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
@@ -49,7 +50,7 @@ public class EmailSenderServiceFactory extends AsyncMessageSenderFactory<EmailDT
 		}
 	}
 
-	private void configureMimeMessageHelper(MimeMessageHelper mimeMessageHelper, String html, EmailDTO emailData) throws MessagingException, UnsupportedEncodingException {
+	private void configureMimeMessageHelper(MimeMessageHelper mimeMessageHelper, String html, Email emailData) throws MessagingException, UnsupportedEncodingException {
         boolean isHtmlBody = true;
 		mimeMessageHelper.setTo(emailData.getTo());
 		mimeMessageHelper.setText(html, isHtmlBody);

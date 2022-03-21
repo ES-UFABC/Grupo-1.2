@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.entity;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class EmailDTO {
+public class Email {
     private TemplateType templateName;
     private String to;
     private String subject;
