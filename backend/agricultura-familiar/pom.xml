@@ -136,6 +136,7 @@
 								<exclude>com/es/agriculturafamiliar/constants/**/*</exclude>
 								<exclude>com/es/agriculturafamiliar/listener/**/*</exclude>
 								<exclude>com/es/agriculturafamiliar/controller/DummyController.class</exclude>
+								<exclude>com/es/agriculturafamiliar/AgriculturaFamiliarApplication.class</exclude>
 							</excludes>
 							<outputDirectory>target/../../../.github/workflows/reports/</outputDirectory>
 						</configuration>
