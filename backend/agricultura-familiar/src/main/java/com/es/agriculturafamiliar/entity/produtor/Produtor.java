@@ -8,7 +8,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,13 +25,10 @@ public class Produtor {
     private String nomeFantasia;
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produtor")
-    private Endereco enderecoDeProducao;
+    @OneToMany(mappedBy = "produtor")
+    private List<Endereco> enderecos = new ArrayList<>();
 
     private String regiaoDeProducao; //geolocalização?
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produtor")
-    private Endereco enderecoDeComercializacao;
 
     private Boolean atendeNoEnderecoDeProducao;
     private Boolean cadastroEntidade;
@@ -69,8 +68,8 @@ public class Produtor {
     private Set<String> paginasExternas = new HashSet<>();
 
     public Produtor(String cpfOuCnpj, String nome, String nomeFantasia,
-                    String email, Endereco enderecoDeProducao, String regiaoDeProducao,
-                    Endereco enderecoDeComercializacao, Boolean atendeNoEnderecoDeProducao,
+                    String email, String regiaoDeProducao,
+                    Boolean atendeNoEnderecoDeProducao,
                     Boolean cadastroEntidade, TipoProdutor tipoProdutor, Boolean registroOuCertificacao,
                     Boolean agroecologico, Boolean certificacaoAgroecologico,
                     String organico, String geolocalizacao) {
@@ -78,9 +77,7 @@ public class Produtor {
         this.nome = nome;
         this.nomeFantasia = nomeFantasia;
         this.email = email;
-        this.enderecoDeProducao = enderecoDeProducao;
         this.regiaoDeProducao = regiaoDeProducao;
-        this.enderecoDeComercializacao = enderecoDeComercializacao;
         this.atendeNoEnderecoDeProducao = atendeNoEnderecoDeProducao;
         this.cadastroEntidade = cadastroEntidade;
         this.tipoProdutor = tipoProdutor.getCod();

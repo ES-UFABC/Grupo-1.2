@@ -39,9 +39,7 @@ public class ProdutorServiceTests {
         produtor.setNome("Prod Teste");
         produtor.setNomeFantasia("Prod Teste");
         produtor.setEmail("prodteste@email.com");;
-        produtor.setEnderecoDeProducao(null);
         produtor.setRegiaoDeProducao("região");
-        produtor.setEnderecoDeComercializacao(null);
         produtor.setAtendeNoEnderecoDeProducao(true);
         produtor.setCadastroEntidade(true);
         produtor.setTipoProdutor(TipoProdutor.COLETIVO);
@@ -57,9 +55,7 @@ public class ProdutorServiceTests {
         returnedSavedProdutor.setNome("Prod Teste");
         returnedSavedProdutor.setNomeFantasia("Prod Teste");
         returnedSavedProdutor.setEmail("prodteste@email.com");;
-        returnedSavedProdutor.setEnderecoDeProducao(null);
         returnedSavedProdutor.setRegiaoDeProducao("região");
-        returnedSavedProdutor.setEnderecoDeComercializacao(null);
         returnedSavedProdutor.setAtendeNoEnderecoDeProducao(true);
         returnedSavedProdutor.setCadastroEntidade(true);
         returnedSavedProdutor.setTipoProdutor(TipoProdutor.COLETIVO);

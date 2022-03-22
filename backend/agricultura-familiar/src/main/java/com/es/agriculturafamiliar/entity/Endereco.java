@@ -3,6 +3,7 @@ package com.es.agriculturafamiliar.entity;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoEndereco;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,8 +27,9 @@ public class Endereco {
     private String municipio;
     private Integer tipoEndereco;
 
-    @OneToOne
-    @JoinColumn(name = "produtor_id")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="cliente_id")
     private Produtor produtor;
 
     public Endereco(Integer id, String rua, String numero, String bairro, String cep, String municipio, TipoEndereco tipoEndereco, Produtor produtor) {

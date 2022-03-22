@@ -35,17 +35,13 @@ public class AgriculturaFamiliarApplication implements CommandLineRunner {
 
 		Endereco endereco = new Endereco(null, "rua", "112", "bairro", "cep", "municipio", TipoEndereco.PRODUCAO, null);
 		Endereco endereco2 = new Endereco(null, "rua", "112", "bairro", "cep", "municipio", TipoEndereco.COMERCIALIZACAO, null);
-		enderecoService.save(endereco);
-		enderecoService.save(endereco2);
 
 		Produtor prod = new Produtor();
 		prod.setCpfOuCnpj("43292043742");
 		prod.setNome("Prod Teste");
 		prod.setNomeFantasia("Prod Teste");
 		prod.setEmail("prodteste@email.com");;
-		prod.setEnderecoDeProducao(endereco);
 		prod.setRegiaoDeProducao("região");
-		prod.setEnderecoDeComercializacao(endereco2);
 		prod.setAtendeNoEnderecoDeProducao(true);
 		prod.setCadastroEntidade(true);
 		prod.setTipoProdutor(TipoProdutor.COLETIVO);
@@ -55,10 +51,13 @@ public class AgriculturaFamiliarApplication implements CommandLineRunner {
 		prod.setOrganico("SIM");
 		prod.setGeolocalizacao("");
 		prod.getTelefones().addAll(Arrays.asList("1234512", "1574869"));
-
 		endereco.setProdutor(prod);
 		endereco2.setProdutor(prod);
+
+		prod.getEnderecos().addAll(Arrays.asList(endereco, endereco2));
+
 		prod = produtorService.saveProdutor(prod);
+		enderecoService.saveAll(Arrays.asList(endereco, endereco2));
 
 	}
 }
