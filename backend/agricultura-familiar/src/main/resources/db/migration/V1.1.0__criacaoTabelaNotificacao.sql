@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS notificacao (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    assunto VARCHAR(200) NOT NULL,
+    data_publicacao TIMESTAMP NOT NULL,
+    mensagem TEXT NOT NULL    
+) DEFAULT CHARSET=utf8
+ENGINE InnoDB;
