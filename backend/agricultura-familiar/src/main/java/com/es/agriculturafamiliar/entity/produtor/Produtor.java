@@ -2,6 +2,7 @@ package com.es.agriculturafamiliar.entity.produtor;
 
 import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,9 @@ public class Produtor {
 
     private Boolean atendeNoEnderecoDeProducao;
     private Boolean cadastroEntidade;
-    private TipoProdutor tipoProdutor;
+
+    private Integer tipoProdutor;
+
     private Boolean registroOuCertificacao;
     private Boolean agroecologico;
     private Boolean certificacaoAgroecologico;
@@ -65,7 +68,6 @@ public class Produtor {
     @CollectionTable(name = "PAGINAS_EXTERNAS")
     private Set<String> paginasExternas = new HashSet<>();
 
-    //TO DO: TEM COMO EXCLUIR AS LISTAS DO CONSTRUTOR NO LOMBOK?
     public Produtor(String cpfOuCnpj, String nome, String nomeFantasia,
                     String email, Endereco enderecoDeProducao, String regiaoDeProducao,
                     Endereco enderecoDeComercializacao, Boolean atendeNoEnderecoDeProducao,
@@ -81,7 +83,7 @@ public class Produtor {
         this.enderecoDeComercializacao = enderecoDeComercializacao;
         this.atendeNoEnderecoDeProducao = atendeNoEnderecoDeProducao;
         this.cadastroEntidade = cadastroEntidade;
-        this.tipoProdutor = tipoProdutor;
+        this.tipoProdutor = tipoProdutor.getCod();
         this.registroOuCertificacao = registroOuCertificacao;
         this.agroecologico = agroecologico;
         this.certificacaoAgroecologico = certificacaoAgroecologico;
@@ -89,4 +91,6 @@ public class Produtor {
         this.geolocalizacao = geolocalizacao;
     }
 
+    public void setTipoProdutor(TipoProdutor tipo) {this.tipoProdutor = tipo.getCod();}
+    public TipoProdutor getTipoProdutor() {return TipoProdutor.toEnum(this.tipoProdutor);}
 }
