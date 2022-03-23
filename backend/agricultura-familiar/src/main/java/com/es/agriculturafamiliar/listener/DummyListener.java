@@ -2,6 +2,7 @@ package com.es.agriculturafamiliar.listener;
 
 import java.util.Map;
 
+import com.es.agriculturafamiliar.config.EmailProperties;
 import com.es.agriculturafamiliar.constants.TemplateType;
 import com.es.agriculturafamiliar.entity.Email;
 import com.es.agriculturafamiliar.event.DummyEvent;
@@ -18,6 +19,7 @@ import lombok.AllArgsConstructor;
 @Component
 public class DummyListener {
     private final AsyncMessageService<Email> asyncMessageService;
+    private final EmailProperties emailProperties;
 
     @EventListener
     @Async
@@ -30,7 +32,7 @@ public class DummyListener {
             .subject("testEmail")
             .variables(context)
             .to(to)
-            .from("muda.es.soft.suporte@gmail.com")            
+            .from(emailProperties.getUsername())
             .templateName(TemplateType.REGISTRATION_PRODUTOR)
             .build(); 
                      
