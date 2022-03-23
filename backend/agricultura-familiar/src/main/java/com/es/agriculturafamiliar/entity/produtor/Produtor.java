@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,9 +22,12 @@ import java.util.Set;
 public class Produtor {
 
     @Id
-    private String cpfOuCnpj; //considerar id
+    @NotBlank
+    private String cpfOuCnpj;
+    @NotBlank
     private String nome;
     private String nomeFantasia;
+    @NotBlank
     private String email;
 
     @OneToMany(mappedBy = "produtor")

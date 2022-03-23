@@ -29,7 +29,7 @@ public class Endereco {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="cliente_id")
+    @JoinColumn(name="produtor_id")
     private Produtor produtor;
 
     public Endereco(Integer id, String rua, String numero, String bairro, String cep, String municipio, TipoEndereco tipoEndereco, Produtor produtor) {

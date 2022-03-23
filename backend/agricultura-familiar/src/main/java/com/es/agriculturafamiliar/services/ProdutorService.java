@@ -24,19 +24,20 @@ public class ProdutorService {
         return produtorRepository.findAll();
     }
 
-    public Produtor searchByCpfOuCnpj(String cpfOuCnpj){
+    public Produtor findProdutorByCpfOuCnpj(String cpfOuCnpj){
         return this.produtorRepository.findById(cpfOuCnpj)
                 .orElseThrow(() -> new ObjectNotFoundException("CPF ou CNPJ não encontrado"));
     }
 
     public Produtor updateProdutor(Produtor produtor, String cpfOuCnpj){
-        var findProdutor = searchByCpfOuCnpj(cpfOuCnpj);
+        var findProdutor = findProdutorByCpfOuCnpj(cpfOuCnpj);
         produtor.setCpfOuCnpj(findProdutor.getCpfOuCnpj());
         var updatedProdutor = produtorRepository.save(produtor);
         return updatedProdutor;
     }
 
     public void deleteProdutorByCpfOuCnpj(String cpfOuCnpj){
-        produtorRepository.deleteById(cpfOuCnpj);
+        var produtor = findProdutorByCpfOuCnpj(cpfOuCnpj);
+        produtorRepository.delete(produtor);
     }
 }

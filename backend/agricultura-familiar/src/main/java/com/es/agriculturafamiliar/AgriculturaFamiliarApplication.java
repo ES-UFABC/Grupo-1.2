@@ -5,7 +5,6 @@ import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoEndereco;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
-import com.es.agriculturafamiliar.services.EnderecoService;
 import com.es.agriculturafamiliar.services.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -51,10 +50,9 @@ public class AgriculturaFamiliarApplication implements CommandLineRunner {
 		prod.setOrganico("SIM");
 		prod.setGeolocalizacao("");
 		prod.getTelefones().addAll(Arrays.asList("1234512", "1574869"));
+		prod.getEnderecos().addAll(Arrays.asList(endereco, endereco2));
 		endereco.setProdutor(prod);
 		endereco2.setProdutor(prod);
-
-		prod.getEnderecos().addAll(Arrays.asList(endereco, endereco2));
 
 		prod = produtorService.saveProdutor(prod);
 		enderecoService.saveAll(Arrays.asList(endereco, endereco2));
