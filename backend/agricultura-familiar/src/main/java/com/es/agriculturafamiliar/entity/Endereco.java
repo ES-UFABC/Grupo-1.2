@@ -2,14 +2,13 @@ package com.es.agriculturafamiliar.entity;
 
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoEndereco;
-import com.es.agriculturafamiliar.enums.TipoProdutor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
@@ -20,11 +19,17 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank
     private String rua;
+    @NotBlank
     private String numero;
+    @NotBlank
     private String bairro;
+    @NotBlank
     private String cep;
+    @NotBlank
     private String municipio;
+    @NotBlank
     private Integer tipoEndereco;
 
     @JsonIgnore

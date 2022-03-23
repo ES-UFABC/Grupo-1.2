@@ -37,7 +37,7 @@ public class ProdutorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produtor> updateProdutor(@RequestBody Produtor produtor, @PathVariable Long id){
+    public ResponseEntity<Produtor> updateProdutor(@Valid @RequestBody Produtor produtor, @PathVariable Long id){
         var produtorAtualizado = produtorService.updateProdutor(produtor, id);
         return ResponseEntity.ok(produtorAtualizado);
     }

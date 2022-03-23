@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -40,11 +41,14 @@ public class Produtor {
     private Boolean atendeNoEnderecoDeProducao = false;
     private Boolean cadastroEntidade = false;
 
+    @NotNull
     private Integer tipoProdutor;
 
     private Boolean registroOuCertificacao = false;
     private Boolean agroecologico = false;
     private Boolean certificacaoAgroecologico = false;
+
+    @NotBlank
     private String organico;
     private String geolocalizacao;
 
