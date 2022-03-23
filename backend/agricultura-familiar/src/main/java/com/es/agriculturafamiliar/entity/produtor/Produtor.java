@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +21,9 @@ import java.util.Set;
 public class Produtor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotBlank
     private String cpfOuCnpj;
     @NotBlank
@@ -30,21 +32,21 @@ public class Produtor {
     @NotBlank
     private String email;
 
-    @OneToMany(mappedBy = "produtor")
+    @OneToMany(mappedBy = "produtor", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
     private String regiaoDeProducao; //geolocalização?
 
-    private Boolean atendeNoEnderecoDeProducao;
-    private Boolean cadastroEntidade;
+    private Boolean atendeNoEnderecoDeProducao = false;
+    private Boolean cadastroEntidade = false;
 
     private Integer tipoProdutor;
 
-    private Boolean registroOuCertificacao;
-    private Boolean agroecologico;
-    private Boolean certificacaoAgroecologico;
+    private Boolean registroOuCertificacao = false;
+    private Boolean agroecologico = false;
+    private Boolean certificacaoAgroecologico = false;
     private String organico;
-    private String geolocalizacao;  //provisorio
+    private String geolocalizacao;
 
     @ManyToMany
     @JoinTable(name="PRODUTOR_TIPO_PRODUCAO",
@@ -52,7 +54,7 @@ public class Produtor {
                 inverseJoinColumns = @JoinColumn(name="tipo_producao_id"))
     private Set<TipoProducao> tiposProducao = new HashSet<>();
 
-    @ElementCollection //Mapeando uma entidade fraca como tabela. Não precisa de classe
+    @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 

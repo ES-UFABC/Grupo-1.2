@@ -18,9 +18,9 @@ public class ProdutorController {
     @Autowired
     private ProdutorService produtorService;
 
-    @GetMapping("/{cpfOuCnpj}")
-    public ResponseEntity<Produtor> findByCpfOuCnpj(@PathVariable String cpfOuCnpj){
-        var produtor = produtorService.findProdutorByCpfOuCnpj(cpfOuCnpj);
+    @GetMapping("/{id}")
+    public ResponseEntity<Produtor> findById(@PathVariable Long id){
+        var produtor = produtorService.findProdutorById(id);
         return ResponseEntity.ok(produtor);
     }
 
@@ -36,15 +36,15 @@ public class ProdutorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtor);
     }
 
-    @PutMapping("/{cpfOuCnpj}")
-    public ResponseEntity<Produtor> updateProdutor(@RequestBody Produtor produtor, @PathVariable String cpfOuCnpj){
-        var produtorAtualizado = produtorService.updateProdutor(produtor, cpfOuCnpj);
+    @PutMapping("/{id}")
+    public ResponseEntity<Produtor> updateProdutor(@RequestBody Produtor produtor, @PathVariable Long id){
+        var produtorAtualizado = produtorService.updateProdutor(produtor, id);
         return ResponseEntity.ok(produtorAtualizado);
     }
 
-    @DeleteMapping("/{cpfOuCnpj}")
-    public ResponseEntity<?> deleteProdutor(@PathVariable String cpfOuCnpj) {
-        produtorService.deleteProdutorByCpfOuCnpj(cpfOuCnpj);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProdutorById(@PathVariable Long id) {
+        produtorService.deleteProdutorById(id);
         return ResponseEntity.noContent().build();
     }
 

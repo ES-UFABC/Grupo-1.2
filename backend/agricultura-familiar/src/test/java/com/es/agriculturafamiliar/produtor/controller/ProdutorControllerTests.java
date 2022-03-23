@@ -56,21 +56,21 @@ public class ProdutorControllerTests {
 
 
     @Test
-    void findByCpfOuCnpj_shouldReturnStatusOk_whenProdutorExists() throws Exception {
+    void findById_shouldReturnStatusOk_whenProdutorExists() throws Exception {
 
-        when(produtorService.findProdutorByCpfOuCnpj(any(String.class))).thenReturn(produtor);
+        when(produtorService.findProdutorById(any(Long.class))).thenReturn(produtor);
 
-        mockMvc.perform(get(BASE_ENDPOINT +"/{cpfOuCnpj}", "43292043742"))
+        mockMvc.perform(get(BASE_ENDPOINT +"/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nome", Matchers.is(produtor.getNome())));
     }
 
     @Test
-    void findByCpfOuCnpj_shouldReturnNotFound_whenProdutorDoesNotExists() throws Exception {
+    void findById_shouldReturnNotFound_whenProdutorDoesNotExists() throws Exception {
 
-        when(produtorService.findProdutorByCpfOuCnpj(any(String.class))).thenThrow(ObjectNotFoundException.class);
+        when(produtorService.findProdutorById(any(Long.class))).thenThrow(ObjectNotFoundException.class);
 
-        mockMvc.perform(get(BASE_ENDPOINT + "/{cpfOuCnpj}", "1"))
+        mockMvc.perform(get(BASE_ENDPOINT + "/{id}", 1))
                 .andExpect(status().isNotFound());
     }
 
@@ -79,6 +79,7 @@ public class ProdutorControllerTests {
         Produtor produtorTeste = new Produtor();
         produtorTeste.setCpfOuCnpj("123456789");
         produtorTeste.setNome("teste");
+        produtorTeste.setEmail("emailteste@email.com");
 
         Assertions.assertEquals(produtorController.saveProdutor(produtorTeste).getStatusCode(), HttpStatus.CREATED);
     }
@@ -95,8 +96,8 @@ public class ProdutorControllerTests {
     }
 
     @Test
-    void deleteProdutorByCpfOuCnpj_shouldReturnNoContent_whenProdutorExists(){
-        Assertions.assertEquals(produtorController.deleteProdutor(produtor.getCpfOuCnpj()).getStatusCode(), HttpStatus.NO_CONTENT);
+    void deleteProdutorById_shouldReturnNoContent_whenProdutorExists(){
+        Assertions.assertEquals(produtorController.deleteProdutorById(produtor.getId()).getStatusCode(), HttpStatus.NO_CONTENT);
     }
 
     @Test
@@ -105,7 +106,7 @@ public class ProdutorControllerTests {
         produtorTeste.setNome("teste");
         produtorTeste.setEmail("email");
 
-        Assertions.assertEquals(produtorController.updateProdutor(produtorTeste, "43292043742").getStatusCode(), HttpStatus.OK);
+        Assertions.assertEquals(produtorController.updateProdutor(produtorTeste, 1L).getStatusCode(), HttpStatus.OK);
 
     }
 
