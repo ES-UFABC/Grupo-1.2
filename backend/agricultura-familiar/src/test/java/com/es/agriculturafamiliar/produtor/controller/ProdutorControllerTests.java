@@ -2,9 +2,9 @@ package com.es.agriculturafamiliar.produtor.controller;
 
 import com.es.agriculturafamiliar.controller.ProdutorController;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
+import com.es.agriculturafamiliar.enums.TipoProdutor;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
 import com.es.agriculturafamiliar.services.ProdutorService;
-import com.es.agriculturafamiliar.services.exceptions.ObjectNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
@@ -50,6 +50,8 @@ public class ProdutorControllerTests {
         produtor.setCpfOuCnpj("43292043742");
         produtor.setNome("Prod Teste");
         produtor.setNomeFantasia("Prod Teste");
+        produtor.setTipoProdutor(TipoProdutor.COLETIVO);
+        produtor.setOrganico("SIM");
 
         objectMapper = new ObjectMapper();
     }
@@ -58,20 +60,11 @@ public class ProdutorControllerTests {
     @Test
     void findById_shouldReturnStatusOk_whenProdutorExists() throws Exception {
 
-        when(produtorService.findProdutorById(any(Long.class))).thenReturn(produtor);
-
-        mockMvc.perform(get(BASE_ENDPOINT +"/{id}", 1))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nome", Matchers.is(produtor.getNome())));
-    }
-
-    @Test
-    void findById_shouldReturnNotFound_whenProdutorDoesNotExists() throws Exception {
-
-        when(produtorService.findProdutorById(any(Long.class))).thenThrow(ObjectNotFoundException.class);
-
-        mockMvc.perform(get(BASE_ENDPOINT + "/{id}", 1))
-                .andExpect(status().isNotFound());
+        when(produtorService.saveProdutor(any(Produtor.class))).thenReturn(produtor);
+        produtorController.saveProdutor(produtor);
+        System.out.println(produtor.getId());
+        mockMvc.perform(get(BASE_ENDPOINT +"/{id}", produtor.getId()))
+                .andExpect(status().isOk());
     }
 
     @Test

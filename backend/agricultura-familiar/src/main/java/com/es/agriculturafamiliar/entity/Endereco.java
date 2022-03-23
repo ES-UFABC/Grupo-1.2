@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -18,7 +19,7 @@ public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @NotBlank
     private String rua;
     @NotBlank
@@ -29,7 +30,7 @@ public class Endereco {
     private String cep;
     @NotBlank
     private String municipio;
-    @NotBlank
+    @NotNull
     private Integer tipoEndereco;
 
     @JsonIgnore
@@ -37,7 +38,7 @@ public class Endereco {
     @JoinColumn(name="produtor_id")
     private Produtor produtor;
 
-    public Endereco(Integer id, String rua, String numero, String bairro, String cep, String municipio, TipoEndereco tipoEndereco, Produtor produtor) {
+    public Endereco(Long id, String rua, String numero, String bairro, String cep, String municipio, TipoEndereco tipoEndereco, Produtor produtor) {
         this.id = id;
         this.rua = rua;
         this.numero = numero;
