@@ -85,6 +85,16 @@
 			<artifactId>modelmapper</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>        
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -119,6 +129,16 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
+							<excludes>
+								<exclude>com/es/agriculturafamiliar/event/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/dto/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/config/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/constants/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/listener/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/repository/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/controller/DummyController.class</exclude>
+								<exclude>com/es/agriculturafamiliar/AgriculturaFamiliarApplication.class</exclude>
+							</excludes>
 							<outputDirectory>target/../../../.github/workflows/reports/</outputDirectory>
 						</configuration>
 					</execution>
