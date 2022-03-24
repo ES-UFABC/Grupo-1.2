@@ -1,5 +1,5 @@
 
-    create table endereco (
+    create table IF NOT EXISTS endereco (
        id bigint not null auto_increment,
         bairro varchar(255),
         cep varchar(255),
@@ -11,22 +11,22 @@
         primary key (id)
     ) engine=InnoDB;
 
-    create table entidade_atendida (
+    create table IF NOT EXISTS entidade_atendida (
        produtor_id bigint not null,
         entidades_atendidas varchar(255)
     ) engine=InnoDB;
 
-    create table forma_pagamento (
+    create table IF NOT EXISTS forma_pagamento (
        produtor_id bigint not null,
         formas_pagamento varchar(255)
     ) engine=InnoDB;
 
-    create table paginas_externas (
+    create table IF NOT EXISTS paginas_externas (
        produtor_id bigint not null,
         paginas_externas varchar(255)
     ) engine=InnoDB;
 
-    create table produtor (
+    create table IF NOT EXISTS produtor (
        id bigint not null auto_increment,
         agroecologico bit,
         atende_no_endereco_de_producao bit,
@@ -44,23 +44,23 @@
         primary key (id)
     ) engine=InnoDB;
 
-    create table produtor_tipo_producao (
+    create table IF NOT EXISTS produtor_tipo_producao (
        produtor_id bigint not null,
         tipo_producao_id integer not null,
         primary key (produtor_id, tipo_producao_id)
     ) engine=InnoDB;
 
-    create table registros_certificados (
+    create table IF NOT EXISTS registros_certificados (
        produtor_id bigint not null,
         registros_ou_certificacoes varchar(255)
     ) engine=InnoDB;
 
-    create table telefone (
+    create table IF NOT EXISTS telefone (
        produtor_id bigint not null,
         telefones varchar(255)
     ) engine=InnoDB;
 
-    create table tipo_producao (
+    create table IF NOT EXISTS tipo_producao (
        id integer not null auto_increment,
         nome varchar(255),
         primary key (id)
@@ -106,7 +106,7 @@
        foreign key (produtor_id) 
        references produtor (id);
 
-    create table endereco (
+    create table IF NOT EXISTS endereco (
        id bigint not null auto_increment,
         bairro varchar(255),
         cep varchar(255),
@@ -118,22 +118,22 @@
         primary key (id)
     ) engine=InnoDB;
 
-    create table entidade_atendida (
+    create table IF NOT EXISTS entidade_atendida (
        produtor_id bigint not null,
         entidades_atendidas varchar(255)
     ) engine=InnoDB;
 
-    create table forma_pagamento (
+    create table IF NOT EXISTS forma_pagamento (
        produtor_id bigint not null,
         formas_pagamento varchar(255)
     ) engine=InnoDB;
 
-    create table paginas_externas (
+    create table IF NOT EXISTS paginas_externas (
        produtor_id bigint not null,
         paginas_externas varchar(255)
     ) engine=InnoDB;
 
-    create table produtor (
+    create table IF NOT EXISTS produtor (
        id bigint not null auto_increment,
         agroecologico bit,
         atende_no_endereco_de_producao bit,
@@ -151,64 +151,56 @@
         primary key (id)
     ) engine=InnoDB;
 
-    create table produtor_tipo_producao (
+    create table IF NOT EXISTS produtor_tipo_producao (
        produtor_id bigint not null,
         tipo_producao_id integer not null,
         primary key (produtor_id, tipo_producao_id)
     ) engine=InnoDB;
 
-    create table registros_certificados (
+    create table IF NOT EXISTS registros_certificados (
        produtor_id bigint not null,
         registros_ou_certificacoes varchar(255)
     ) engine=InnoDB;
 
-    create table telefone (
+    create table IF NOT EXISTS telefone (
        produtor_id bigint not null,
         telefones varchar(255)
     ) engine=InnoDB;
 
-    create table tipo_producao (
+    create table IF NOT EXISTS tipo_producao (
        id integer not null auto_increment,
         nome varchar(255),
         primary key (id)
     ) engine=InnoDB;
 
     alter table endereco 
-       add constraint FK6ilxxq32r2xis065me3974881 
-       foreign key (produtor_id) 
+       add foreign key (produtor_id) 
        references produtor (id);
 
-    alter table entidade_atendida 
-       add constraint FK7y57nm9a79t2hl5avh83vn23k 
-       foreign key (produtor_id) 
+    alter table entidade_atendida        
+       add foreign key (produtor_id) 
        references produtor (id);
 
-    alter table forma_pagamento 
-       add constraint FKpjt16qrn6646npnxgpxc5nqnt 
-       foreign key (produtor_id) 
+    alter table forma_pagamento        
+       add foreign key (produtor_id) 
        references produtor (id);
 
-    alter table paginas_externas 
-       add constraint FKpcmwwqa6lnhxcwdrprpq1qe4 
-       foreign key (produtor_id) 
+    alter table paginas_externas        
+       add foreign key (produtor_id) 
        references produtor (id);
 
-    alter table produtor_tipo_producao 
-       add constraint FKnjyql1vcv8iy4kxo4bktocsmv 
-       foreign key (tipo_producao_id) 
+    alter table produtor_tipo_producao        
+       add foreign key (tipo_producao_id) 
        references tipo_producao (id);
 
     alter table produtor_tipo_producao 
-       add constraint FKjm4bp8adwuu804emhb806ltuh 
-       foreign key (produtor_id) 
+       add foreign key (produtor_id) 
        references produtor (id);
 
-    alter table registros_certificados 
-       add constraint FK6v3ej6rbpq1hdluedcqfqb9ru 
-       foreign key (produtor_id) 
+    alter table registros_certificados        
+       add foreign key (produtor_id) 
        references produtor (id);
 
-    alter table telefone 
-       add constraint FKtfb0jf3q2j7x842xj1uu7pqnn 
-       foreign key (produtor_id) 
+    alter table telefone        
+       add foreign key (produtor_id) 
        references produtor (id);
