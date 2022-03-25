@@ -1,8 +1,8 @@
 package com.es.agriculturafamiliar.services;
 
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
+import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
-import com.es.agriculturafamiliar.services.exceptions.ObjectNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class ProdutorService {
 
     public Produtor findProdutorById(Long id){
         return this.produtorRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Produtor was not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Produtor was not found"));
     }
 
     public Produtor updateProdutor(Produtor produtor, Long id){

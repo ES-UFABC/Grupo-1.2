@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Endereco.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agricultura-familiar</a> &gt; <a href="index.source.html" class="el_package">com.es.agriculturafamiliar.entity</a> &gt; <span class="el_source">Endereco.java</span></div><h1>Endereco.java</h1><pre class="source lang-java linenums">package com.es.agriculturafamiliar.entity;
+
+import com.es.agriculturafamiliar.entity.produtor.Produtor;
+import com.es.agriculturafamiliar.enums.TipoEndereco;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Entity
+<span class="pc" id="L15">@Data</span>
+<span class="nc bnc" id="L16" title="All 70 branches missed.">@EqualsAndHashCode</span>
+<span class="fc" id="L17">@NoArgsConstructor</span>
+public class Endereco {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="fc" id="L22">    private Long id;</span>
+    @NotBlank
+<span class="fc" id="L24">    private String rua;</span>
+    @NotBlank
+<span class="fc" id="L26">    private String numero;</span>
+    @NotBlank
+<span class="fc" id="L28">    private String bairro;</span>
+    @NotBlank
+<span class="fc" id="L30">    private String cep;</span>
+    @NotBlank
+<span class="fc" id="L32">    private String municipio;</span>
+    @NotNull
+    private Integer tipoEndereco;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne
+    @JoinColumn(name=&quot;produtor_id&quot;)
+<span class="nc" id="L39">    private Produtor produtor;</span>
+
+<span class="fc" id="L41">    public Endereco(Long id, String rua, String numero, String bairro, String cep, String municipio, TipoEndereco tipoEndereco, Produtor produtor) {</span>
+<span class="fc" id="L42">        this.id = id;</span>
+<span class="fc" id="L43">        this.rua = rua;</span>
+<span class="fc" id="L44">        this.numero = numero;</span>
+<span class="fc" id="L45">        this.bairro = bairro;</span>
+<span class="fc" id="L46">        this.cep = cep;</span>
+<span class="fc" id="L47">        this.municipio = municipio;</span>
+<span class="fc" id="L48">        this.tipoEndereco = tipoEndereco.getCod();</span>
+<span class="fc" id="L49">        this.produtor = produtor;</span>
+<span class="fc" id="L50">    }</span>
+
+<span class="fc" id="L52">    public void setTipoEndereco(TipoEndereco tipo) {this.tipoEndereco = tipo.getCod();}</span>
+<span class="fc" id="L53">    public TipoEndereco getTipoEndereco() {return TipoEndereco.toEnum(this.tipoEndereco);}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

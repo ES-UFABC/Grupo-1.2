@@ -2,9 +2,9 @@ package com.es.agriculturafamiliar.endereco.service;
 
 import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.enums.TipoEndereco;
+import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
 import com.es.agriculturafamiliar.services.EnderecoService;
-import com.es.agriculturafamiliar.services.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -48,7 +48,7 @@ class EnderecoServiceTest {
         when(enderecoRepository.findByProdutorId(any(Long.class)))
                 .thenReturn(Optional.empty());
 
-        assertThrows(ObjectNotFoundException.class, () -> enderecoService.findByProdutorId(33l));
+        assertThrows(ResourceNotFoundException.class, () -> enderecoService.findByProdutorId(33l));
     }
 
 
@@ -57,7 +57,7 @@ class EnderecoServiceTest {
         when(enderecoRepository.findById(any(Long.class)))
                 .thenReturn(Optional.empty());
 
-        assertThrows(ObjectNotFoundException.class, () -> enderecoService.findById(33l));
+        assertThrows(ResourceNotFoundException.class, () -> enderecoService.findById(33l));
     }
 
     @Test
@@ -78,9 +78,9 @@ class EnderecoServiceTest {
     @Test
     void deleteEnderecoById_shouldThrowResourceNotFoundException_whenResourceIsNotFound() {
         when(enderecoRepository.findById(any(Long.class)))
-                .thenThrow(ObjectNotFoundException.class);
+                .thenThrow(ResourceNotFoundException.class);
 
-        assertThrows(ObjectNotFoundException.class, () -> enderecoService.deleteEnderecoById(33l));
+        assertThrows(ResourceNotFoundException.class, () -> enderecoService.deleteEnderecoById(33l));
     }
 
 }

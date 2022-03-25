@@ -6,7 +6,6 @@ import com.es.agriculturafamiliar.enums.TipoEndereco;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
 import com.es.agriculturafamiliar.services.EnderecoService;
 import com.es.agriculturafamiliar.services.ProdutorService;
-import com.es.agriculturafamiliar.services.exceptions.ObjectNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;

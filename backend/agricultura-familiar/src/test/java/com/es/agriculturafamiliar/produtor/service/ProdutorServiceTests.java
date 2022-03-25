@@ -2,9 +2,9 @@ package com.es.agriculturafamiliar.produtor.service;
 
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
+import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
 import com.es.agriculturafamiliar.services.ProdutorService;
-import com.es.agriculturafamiliar.services.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -82,7 +82,7 @@ public class ProdutorServiceTests {
         when(produtorRepository.findById(any(Long.class)))
                 .thenReturn(Optional.empty());
 
-        assertThrows(ObjectNotFoundException.class, () -> produtorService.findProdutorById(1L));
+        assertThrows(ResourceNotFoundException.class, () -> produtorService.findProdutorById(1L));
     }
 
     @Test
@@ -116,9 +116,9 @@ public class ProdutorServiceTests {
     @Test
     public void deleteProdutorById_shouldThrowObjectNotFoundException_whenResourceIsNotFound(){
         when(produtorRepository.findById(any(Long.class)))
-                .thenThrow(ObjectNotFoundException.class);
+                .thenThrow(ResourceNotFoundException.class);
 
-        assertThrows(ObjectNotFoundException.class, () -> produtorService.deleteProdutorById(1L));
+        assertThrows(ResourceNotFoundException.class, () -> produtorService.deleteProdutorById(1L));
     }
 
     @Test
@@ -127,6 +127,6 @@ public class ProdutorServiceTests {
         produtor.setCpfOuCnpj("43292043742");
         produtor.setNome("Atualizado");
 
-        assertThrows(ObjectNotFoundException.class, () -> produtorService.updateProdutor(produtor, 1345L));
+        assertThrows(ResourceNotFoundException.class, () -> produtorService.updateProdutor(produtor, 1345L));
     }
 }
