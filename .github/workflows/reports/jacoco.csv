@@ -14,9 +14,10 @@ agricultura-familiar,com.es.agriculturafamiliar.service,EmailMessageService,22,0
 agricultura-familiar,com.es.agriculturafamiliar.service,NotificacaoService,6,53,0,0,1,12,1,6,1,6
 agricultura-familiar,com.es.agriculturafamiliar.controller,ProdutorController,8,36,0,0,2,9,1,5,1,5
 agricultura-familiar,com.es.agriculturafamiliar.controller,NotificacaoController,0,58,0,0,0,15,0,6,0,6
+agricultura-familiar,com.es.agriculturafamiliar.controller,EmailCadastroController,11,9,0,0,2,2,1,2,1,2
 agricultura-familiar,com.es.agriculturafamiliar.controller,EnderecoController,8,28,0,0,2,7,1,4,1,4
 agricultura-familiar,com.es.agriculturafamiliar.services,EnderecoService,17,30,0,0,4,5,2,5,2,5
-agricultura-familiar,com.es.agriculturafamiliar.services,ProdutorService,29,25,0,0,8,4,3,4,3,4
+agricultura-familiar,com.es.agriculturafamiliar.services,ProdutorService,29,44,0,0,8,7,3,4,3,4
 agricultura-familiar,com.es.agriculturafamiliar.services,TipoProducaoService,3,0,0,0,1,0,1,0,1,0
-agricultura-familiar,com.es.agriculturafamiliar.entity.produtor,Produtor,589,444,131,45,18,31,99,39,11,39
+agricultura-familiar,com.es.agriculturafamiliar.entity.produtor,Produtor,592,447,131,45,18,31,99,39,11,39
 agricultura-familiar,com.es.agriculturafamiliar.entity.produtor,TipoProducao,174,0,30,0,11,0,27,0,12,0

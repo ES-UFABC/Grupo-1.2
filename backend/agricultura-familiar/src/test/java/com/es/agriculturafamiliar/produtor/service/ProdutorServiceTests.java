@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -28,6 +29,9 @@ public class ProdutorServiceTests {
 
     @Mock
     private static ProdutorRepository produtorRepository;
+
+    @Mock
+    private static ApplicationEventPublisher applicationEventPublisher;
 
     @BeforeEach
     public void setup() {

@@ -6,8 +6,12 @@ WORKDIR /agricultura-familiar
 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-RUN chmod +x mvnw
-RUN ./mvnw dependency:go-offline 
+RUN apk update \
+    apk upgrade \
+    apk add dos2unix \
+    chmod +x mvnw \
+    dos2unix mvnw
+
 COPY src ./src
 
-CMD ["./mvnw", "spring-boot:run"]
+CMD ["dos2unix", "/mvnw", "spring-boot:run"]

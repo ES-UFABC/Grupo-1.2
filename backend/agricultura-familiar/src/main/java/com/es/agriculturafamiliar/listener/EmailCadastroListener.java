@@ -5,9 +5,8 @@ import java.util.Map;
 import com.es.agriculturafamiliar.config.EmailProperties;
 import com.es.agriculturafamiliar.constants.TemplateType;
 import com.es.agriculturafamiliar.entity.Email;
-import com.es.agriculturafamiliar.event.DummyEvent;
+import com.es.agriculturafamiliar.event.EmailCadastroEvent;
 import com.es.agriculturafamiliar.service.AsyncMessageService;
-import com.es.agriculturafamiliar.service.EmailMessageService;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -17,15 +16,15 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Component
-public class DummyListener {
+public class EmailCadastroListener {
     private final AsyncMessageService<Email> asyncMessageService;
     private final EmailProperties emailProperties;
 
     @EventListener
     @Async
-    public void onDummyEvent(DummyEvent dummyEvent) {
-        String name = dummyEvent.getName();
-        String to = dummyEvent.getToEmail();
+    public void onDummyEvent(EmailCadastroEvent emailCadastroEvent) {
+        String name = emailCadastroEvent.getName();
+        String to = emailCadastroEvent.getToEmail();
 
         Map<String, Object> context = Map.of("name", name);
         Email email = Email.builder()

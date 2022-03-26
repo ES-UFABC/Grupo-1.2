@@ -40,13 +40,11 @@ public class Produtor {
     private Boolean cadastroEntidade = false;
 
     @NotNull
-    private Integer tipoProdutor;
+    private Integer tipoProdutor = TipoProdutor.INDIVIDUAL.getCod();
     private Boolean registroOuCertificacao = false;
     private Boolean agroecologico = false;
     private Boolean certificacaoAgroecologico = false;
-
-    @NotBlank
-    private String organico;
+    private String organico = "SIM";
     private String geolocalizacao;
 
     @ManyToMany
