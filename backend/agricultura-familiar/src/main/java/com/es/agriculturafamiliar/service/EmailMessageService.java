@@ -25,8 +25,14 @@ public class EmailMessageService implements AsyncMessageService<Email> {
     @Async
     @Override
     public void sendMessage(Email data) {
-        MimeMessage constructedMessage = asyncMessageSenderFactory.createAsyncMessageSender(data, mailSender);
-        mailSender.send(constructedMessage);
+        try{
+            MimeMessage constructedMessage = asyncMessageSenderFactory.createAsyncMessageSender(data, mailSender);
+            mailSender.send(constructedMessage);
+        } catch (Exception e){
+            System.out.println("ERRO AO ENVIAR COMUNICAÇÃO DE CADASTRO:");
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }

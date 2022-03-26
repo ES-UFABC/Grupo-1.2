@@ -25,9 +25,15 @@ public class EmailMessageService implements AsyncMessageService&lt;Email&gt; {
     @Async
     @Override
     public void sendMessage(Email data) {
-<span class="nc" id="L28">        MimeMessage constructedMessage = asyncMessageSenderFactory.createAsyncMessageSender(data, mailSender);</span>
-<span class="nc" id="L29">        mailSender.send(constructedMessage);</span>
-<span class="nc" id="L30">    }</span>
+        try{
+<span class="nc" id="L29">            MimeMessage constructedMessage = asyncMessageSenderFactory.createAsyncMessageSender(data, mailSender);</span>
+<span class="nc" id="L30">            mailSender.send(constructedMessage);</span>
+<span class="nc" id="L31">        } catch (Exception e){</span>
+<span class="nc" id="L32">            System.out.println(&quot;ERRO AO ENVIAR COMUNICAÇÃO DE CADASTRO:&quot;);</span>
+<span class="nc" id="L33">            System.out.println(e.getMessage());</span>
+<span class="nc" id="L34">        }</span>
+
+<span class="nc" id="L36">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

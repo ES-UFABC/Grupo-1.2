@@ -22,14 +22,7 @@ public class ProdutorService {
 
     public Produtor saveProdutor(Produtor produtor){
         produtor = produtorRepository.save(produtor);
-
-        try{
-            applicationEventPublisher.publishEvent(
-                    new EmailCadastroEvent(produtor.getNome(), produtor.getEmail()));
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
+        applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getEmail()));
         return this.produtorRepository.save(produtor);
     }
 

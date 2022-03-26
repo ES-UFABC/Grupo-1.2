@@ -22,13 +22,13 @@ public class EmailCadastroListener {
 
     @EventListener
     @Async
-    public void onDummyEvent(EmailCadastroEvent emailCadastroEvent) {
+    public void onEmailCadastroEvent(EmailCadastroEvent emailCadastroEvent) {
         String name = emailCadastroEvent.getName();
         String to = emailCadastroEvent.getToEmail();
 
         Map<String, Object> context = Map.of("name", name);
         Email email = Email.builder()
-            .subject("testEmail")
+            .subject("Seu cadastro foi realizado com sucesso!")
             .variables(context)
             .to(to)
             .from(emailProperties.getUsername())

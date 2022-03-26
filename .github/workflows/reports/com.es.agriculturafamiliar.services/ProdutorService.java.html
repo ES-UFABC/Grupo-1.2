@@ -23,29 +23,30 @@ public class ProdutorService {
     public Produtor saveProdutor(Produtor produtor){
 <span class="fc" id="L24">        produtor = produtorRepository.save(produtor);</span>
 <span class="fc" id="L25">        applicationEventPublisher.publishEvent(</span>
-<span class="fc" id="L26">                new EmailCadastroEvent(produtor.getNome(), produtor.getEmail()));</span>
-<span class="fc" id="L27">        return this.produtorRepository.save(produtor);</span>
+<span class="fc" id="L26">                    new EmailCadastroEvent(produtor.getNome(), produtor.getEmail())</span>
+        );
+<span class="fc" id="L28">        return this.produtorRepository.save(produtor);</span>
     }
 
     public List&lt;Produtor&gt; findAll(){
-<span class="nc" id="L31">        return produtorRepository.findAll();</span>
+<span class="nc" id="L32">        return produtorRepository.findAll();</span>
     }
 
     public Produtor findProdutorById(Long id){
-<span class="fc" id="L35">        return this.produtorRepository.findById(id)</span>
-<span class="fc" id="L36">                .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;Produtor was not found&quot;));</span>
+<span class="fc" id="L36">        return this.produtorRepository.findById(id)</span>
+<span class="fc" id="L37">                .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;Produtor was not found&quot;));</span>
     }
 
     public Produtor updateProdutor(Produtor produtor, Long id){
-<span class="nc" id="L40">        var findProdutor = findProdutorById(id);</span>
-<span class="nc" id="L41">        produtor.setId(findProdutor.getId());</span>
-<span class="nc" id="L42">        var updatedProdutor = produtorRepository.save(produtor);</span>
-<span class="nc" id="L43">        return updatedProdutor;</span>
+<span class="nc" id="L41">        var findProdutor = findProdutorById(id);</span>
+<span class="nc" id="L42">        produtor.setId(findProdutor.getId());</span>
+<span class="nc" id="L43">        var updatedProdutor = produtorRepository.save(produtor);</span>
+<span class="nc" id="L44">        return updatedProdutor;</span>
     }
 
     public void deleteProdutorById(Long id){
-<span class="nc" id="L47">        var produtor = findProdutorById(id);</span>
-<span class="nc" id="L48">        produtorRepository.delete(produtor);</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L48">        var produtor = findProdutorById(id);</span>
+<span class="nc" id="L49">        produtorRepository.delete(produtor);</span>
+<span class="nc" id="L50">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
