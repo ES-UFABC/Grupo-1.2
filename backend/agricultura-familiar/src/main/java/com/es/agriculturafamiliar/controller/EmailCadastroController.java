@@ -1,6 +1,6 @@
 package com.es.agriculturafamiliar.controller;
 
-import com.es.agriculturafamiliar.event.DummyEvent;
+import com.es.agriculturafamiliar.event.EmailCadastroEvent;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 @RestController()
 @RequestMapping("/api/dummy")
 @AllArgsConstructor
-public class DummyController {
+public class EmailCadastroController {
 
     private final ApplicationEventPublisher applicationEventPublisher;
     
@@ -25,7 +25,7 @@ public class DummyController {
 
     @GetMapping("/email")
     public ResponseEntity<?> sendEMail(@RequestParam String name, @RequestParam String toEmail) {
-        applicationEventPublisher.publishEvent(new DummyEvent(name, toEmail));
+        applicationEventPublisher.publishEvent(new EmailCadastroEvent(name, toEmail));
         return ResponseEntity.ok().build();
     }
 }

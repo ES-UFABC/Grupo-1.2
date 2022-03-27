@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class DummyEvent {
+public class EmailCadastroEvent {
     private final String name;
     private final String toEmail;
         
