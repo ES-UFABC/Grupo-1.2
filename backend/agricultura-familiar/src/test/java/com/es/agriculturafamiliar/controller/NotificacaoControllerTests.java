@@ -61,7 +61,7 @@ public class NotificacaoControllerTests {
 		Notificacao notificacao = Notificacao.builder()
 			.assunto("Manutenção")
             .mensagem("O sistema vai entrar em manutenção")
-            .dataPublicacao(LocalDateTime.MAX)
+            .dataPublicacao(LocalDateTime.now())
 			.build();
 
 		when(notificationService.findNotificacaoById(any(Long.class))).thenReturn(notificacao);		
@@ -69,8 +69,7 @@ public class NotificacaoControllerTests {
 		mockMvc.perform(get(BASE_ENDPOINT + "/{id}", "1"))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.assunto", Matchers.is(notificacao.getAssunto())))
-			.andExpect(jsonPath("$.mensagem", Matchers.is(notificacao.getMensagem())))
-			.andExpect(jsonPath("$.dataPublicacao", Matchers.is(notificacao.getDataPublicacao().toString())));
+			.andExpect(jsonPath("$.mensagem", Matchers.is(notificacao.getMensagem())));
 	}
 
 	@Test
