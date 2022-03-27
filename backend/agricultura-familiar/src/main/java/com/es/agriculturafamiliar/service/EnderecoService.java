@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.services;
+package com.es.agriculturafamiliar.service;
 
 import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;

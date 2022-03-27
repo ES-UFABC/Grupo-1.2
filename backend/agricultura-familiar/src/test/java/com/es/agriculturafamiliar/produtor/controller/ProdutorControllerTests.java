@@ -4,7 +4,7 @@ import com.es.agriculturafamiliar.controller.ProdutorController;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
-import com.es.agriculturafamiliar.services.ProdutorService;
+import com.es.agriculturafamiliar.service.ProdutorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;

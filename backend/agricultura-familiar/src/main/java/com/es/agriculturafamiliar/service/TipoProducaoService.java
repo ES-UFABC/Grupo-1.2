@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.services;
+package com.es.agriculturafamiliar.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

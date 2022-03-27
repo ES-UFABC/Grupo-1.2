@@ -9,7 +9,7 @@ COPY mvnw pom.xml ./
 RUN apk update \
     apk upgrade \
     apk add dos2unix \
-    chmod +x mvnw \
+    chmod 777 ./mvnw \
     dos2unix mvnw
     
 COPY src ./src

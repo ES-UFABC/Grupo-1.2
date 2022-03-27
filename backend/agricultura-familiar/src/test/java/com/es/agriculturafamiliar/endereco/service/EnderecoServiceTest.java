@@ -4,7 +4,8 @@ import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.enums.TipoEndereco;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
-import com.es.agriculturafamiliar.services.EnderecoService;
+import com.es.agriculturafamiliar.service.EnderecoService;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
