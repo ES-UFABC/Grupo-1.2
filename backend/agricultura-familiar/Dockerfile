@@ -11,7 +11,7 @@ RUN apk update \
     apk add dos2unix \
     chmod +x mvnw \
     dos2unix mvnw
-
+    
 COPY src ./src
 
 CMD ["dos2unix", "/mvnw", "spring-boot:run"]
