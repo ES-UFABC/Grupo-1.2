@@ -35,7 +35,7 @@
           <b-form-row>
             <b-col>
               <b-form-group id="input-group-txt-celular1"
-                            label="Celular para contato 1"
+                            label="Celular"
                             label-for="txt-celular1">
                 <b-input-group>
                   <b-input-group-prepend>
@@ -52,7 +52,7 @@
 
               </b-form-group>
             </b-col>
-            <b-col>
+            <!--<b-col>
               <b-form-group id="input-group-txt-celular2"
                             label="Celular para contato 2"
                             label-for="txt-celular2">
@@ -70,7 +70,7 @@
                 </b-input-group>
 
               </b-form-group>
-            </b-col>
+            </b-col>-->
           </b-form-row>
 
           <!-- CPF -->
@@ -100,7 +100,7 @@
                               label="CEP"
                               label-for="txt-cep">
                   <b-form-input id="txt-cep"
-                                v-model="form.endereco[0].CEP"
+                                v-model="form.CEP"
                                 v-mask="'#####-###'"
                                 type="text"
                                 placeholder=""
@@ -113,7 +113,7 @@
                               label="Municipio"
                               label-for="txt-municipio">
                   <b-form-input id="txt-municipio"
-                                v-model="form.endereco[0].municipio"
+                                v-model="form.municipio"
                                 type="text"
                                 placeholder=""
                                 required></b-form-input>
@@ -135,7 +135,7 @@
                       </b-input-group-text>
                     </b-input-group-prepend>
                     <b-form-input id="txt-endereco"
-                                  v-model="form.endereco[0].rua"
+                                  v-model="form.rua"
                                   type="text"
                                   placeholder=""></b-form-input>
                   </b-input-group>
@@ -153,7 +153,7 @@
                               label-for="txt-numero">
 
                   <b-form-input id="txt-numero"
-                                v-model="form.endereco[0].numero"
+                                v-model="form.numero"
                                 type="text"
                                 placeholder=""></b-form-input>
 
@@ -164,7 +164,7 @@
                               label="Bairro"
                               label-for="txt-bairro">
                   <b-form-input id="txt-bairro"
-                                v-model="form.endereco[0].bairro"
+                                v-model="form.bairro"
                                 type="text"
                                 placeholder=""></b-form-input>
 
@@ -176,7 +176,7 @@
                               label-for="txt-complemento">
 
                   <b-form-input id="txt-complemento"
-                                v-model="form.endereco[0].complemento"
+                                v-model="form.complemento"
                                 type="text"
                                 placeholder=""></b-form-input>
 
@@ -200,27 +200,42 @@
     data() {
       return {
         form: {
-          nome: "joao",
-          email: "joao@gmail.com",
-          telefone: "11975295602",
-          CPF: "572.355.330-56",
-          endereco: [
-            {
-              flag_endereco_principal: "S",
-              CEP: "06233-030",
-              numero: "72",
-              complemento: "apto 2",
-              rua: "santa carolina",
-              bairro: "vila campestre",
-              municipio: "santo andré"
-            }
-          ]
+          nome: '',
+          email: '',
+          telefone: '',
+          CPF: '',
+          CEP: '',
+          numero: '',
+          complemento: '',
+          rua: '',
+          bairro: '',
+          municipio: ''
         },
         show: true
       }
     },
     computed: {
-      apiUrl: () => 'http://localhost:8080/v1/cadastro_consumidor'
+      apiUrl: () => 'http://localhost:8080/v1/cadastro_consumidor',
+      apiCepUrl: () => 'https://viacep.com.br/ws/{CEP}/json/',
+      model() {
+        return {
+          nome: this.form.nome,
+          email: this.form.email,
+          telefone: this.form.telefone,
+          CPF: this.form.CPF,
+          endereco: [
+            {
+              flag_endereco_principal: "S",
+              CEP: this.form.CEP,
+              numero: this.form.numero,
+              complemento: this.form.complemento,
+              rua: this.form.rua,
+              bairro: this.form.bairro,
+              municipio: this.form.municipio
+            }
+          ]
+        }
+      }
     },
     mounted() {
       console.log(process.env)
@@ -229,14 +244,60 @@
       onSubmit(event) {
         event.preventDefault()
         console.log(this.form);
-        axios.post(apiUrl, this.form)
+        axios.post(this.apiUrl, this.model)
           .then((response) => {
             console.log(response);
+            switch (response.status == 201) {
+              case 201:
+                alert(`Consumidor ${this.form.nome} cadastrado com sucesso!`);
+                break;
+              case 400:
+                alert(`Erro ao cadastrar, por favor contate o suporte.`);
+                break;
+              case 409:
+                alert(`Consumidor já cadastrado...`);
+                break;
+              default:
+                alert('Erro...');
+                break;
+            }
           }, (error) => {
             console.log(error);
+            switch (error.status == 201) {
+              case 201:
+                alert(`Consumidor ${this.form.nome} cadastrado com sucesso!`);
+                break;
+              case 400:
+                alert(`Erro ao cadastrar, por favor contate o suporte.`);
+                break;
+              case 409:
+                alert(`Consumidor já cadastrado...`);
+                break;
+              default:
+                alert('Erro...');
+                break;
+            }
           });
 
-        //alert(JSON.stringify(this.form))
+      },
+      getCep() {
+        axios.get(this.apiCepUrl.replace('{CEP}', this.form.CEP))
+          .then((response) => {
+            this.form.complemento = response.data.complemento;
+            this.form.rua = response.data.logradouro;
+            this.form.bairro = response.data.bairro;
+            this.form.municipio = response.data.localidade;
+          })
+          .error((error) => {
+          })
+      }
+    },
+    watch: {
+      'form.CEP': function (newCEP, oldCEP) {
+        console.log(newCEP, oldCEP)
+        let cep = newCEP.replace('-', '');
+        if (cep.length == 8)
+          this.getCep()
       }
     }
   }
