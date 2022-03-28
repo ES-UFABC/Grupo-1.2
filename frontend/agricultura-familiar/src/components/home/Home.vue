@@ -1,16 +1,13 @@
 <template>
-  <div :class="{root: true, sidebarClose: false}">
-    <transition name="router-animation">
-      <router-view />
-    </transition>
-  </div>
+  <b-container class="bg" fluid ref="content">
+    <router-view />
+  </b-container>
 </template>
-
 <script>
   export default {
-    name: 'App',
+    name: 'Home',
     created() {
-      //this.$router.push('/home');
+      console.log(this.$router);
       //const currentPath = this.$router.history.current.path;
       //if (window.localStorage.getItem('authenticated') === 'false') {
       //  this.$router.push('/login');
@@ -18,8 +15,14 @@
       //if (currentPath === '/' || currentPath === '/app') {
       //  this.$router.push('/app/dashboard');
       //}
-    }
+    },
   };
 </script>
 
-<!--<style src="./styles/theme.scss" lang="scss" />-->
+<style type="scss">
+  div.bg {
+    /*background-image: require('@/assets/bg-vector-green.svg');*/
+    background: url(../../assets/bg-vector-green.svg) no-repeat;
+    background-size: cover;
+  }
+</style>
