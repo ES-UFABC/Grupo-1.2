@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@CrossOrigin(maxAge = 3660)
 @MudaBasePath
 @RequiredArgsConstructor
 public class CadastroConsumidorController {
@@ -23,6 +24,7 @@ public class CadastroConsumidorController {
     private final CadastroConsumidorMapper mapper;
     private final CadastroConsumidorUseCase useCase;
 
+    @CrossOrigin("http://localhost:9000")
     @PostMapping(PATH)
     public ResponseEntity<CadastroConsumidorDtoOut> cadastraConsumidor(@Valid @RequestBody CadastroConsumidorDtoIn requestDTO) {
 
