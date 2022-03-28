@@ -1,6 +1,6 @@
 <template>
   <b-row>
-    <b-col sm="4" md="4" xs="12" lg="12" class="content animated fadeInUp">
+    <b-col sm="10" md="10" lg="8" offset-sm="1" offset-md="1" offset-lg="2" class="content animated fadeInUp">
       <b-form @submit="onSubmit" v-if="show">
         <b-card>
           <h3>Seus dados</h3>
@@ -200,6 +200,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -223,14 +224,24 @@
         show: true
       }
     },
+    computed: {
+      apiUrl: () => ''
+    },
     mounted() {
-
-      console.log(this.$router);
+      console.log(process.env)
     },
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
+
+        axios.post(apiUrl, this.form)
+          .then((response) => {
+            console.log(response);
+          }, (error) => {
+            console.log(error);
+          });
+
+        //alert(JSON.stringify(this.form))
       }
     }
   }
