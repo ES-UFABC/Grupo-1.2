@@ -1,19 +1,8 @@
 <template>
   <div :class="{root: true, sidebarClose: false}">
-    <!--<Helper />
-  <Header />
-  <Sidebar />-->
-    <div>
-
-    </div>
-    <b-container ref="content">
-      <transition name="router-animation">
-        <router-view />
-      </transition>
-    </b-container>
-    <footer class="contentFooter">
-      Muda
-    </footer>
+    <transition name="router-animation">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -29,7 +18,7 @@
       //if (currentPath === '/' || currentPath === '/app') {
       //  this.$router.push('/app/dashboard');
       //}
-    },
+    }
   };
 </script>
 

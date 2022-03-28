@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <p>aaaa</p>
+  <b-container class="bg" fluid ref="content">
     <router-view />
-
-  </div>
+  </b-container>
 </template>
 <script>
   export default {
@@ -20,3 +18,11 @@
     },
   };
 </script>
+
+<style type="scss">
+  div.bg {
+    /*background-image: require('@/assets/bg-vector-green.svg');*/
+    background: url(../../assets/bg-vector-green.svg) no-repeat;
+    background-size: cover;
+  }
+</style>
