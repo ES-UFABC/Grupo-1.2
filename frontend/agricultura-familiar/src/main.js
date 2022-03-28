@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import VueMask from 'v-mask';
 
 import './styles/app.scss';
 
@@ -8,7 +9,7 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
-
+Vue.use(VueMask);
 
 
 import App from './App'

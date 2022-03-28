@@ -45,6 +45,7 @@
                   </b-input-group-prepend>
                   <b-form-input id="txt-celular1"
                                 v-model="form.telefone"
+                                v-mask="'(##) #####-####'"
                                 type="tel"
                                 placeholder=""></b-form-input>
                 </b-input-group>
@@ -63,6 +64,7 @@
                   </b-input-group-prepend>
                   <b-form-input id="txt-celular2"
                                 v-model="form.telefone"
+                                v-mask="'(##) #####-####'"
                                 type="tel"
                                 placeholder=""></b-form-input>
                 </b-input-group>
@@ -79,6 +81,7 @@
                             label-for="txt-cpf">
                 <b-form-input id="txt-cpf"
                               v-model="form.CPF"
+                              v-mask="'###.###.###-##'"
                               type="text"
                               placeholder=""
                               required></b-form-input>
@@ -98,6 +101,7 @@
                               label-for="txt-cep">
                   <b-form-input id="txt-cep"
                                 v-model="form.endereco[0].CEP"
+                                v-mask="'#####-###'"
                                 type="text"
                                 placeholder=""
                                 required debounce="500"></b-form-input>
@@ -179,15 +183,6 @@
                 </b-form-group>
               </b-col>
             </b-form-row>
-
-            <!-- Checkbox -->
-            <b-form-row>
-              <b-col>
-                <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
-                  <b-form-checkbox value="me">Não entrego na mesma região que produzo</b-form-checkbox>
-                </b-form-group>
-              </b-col>
-            </b-form-row>
           </div>
 
         </b-card>
@@ -225,7 +220,7 @@
       }
     },
     computed: {
-      apiUrl: () => ''
+      apiUrl: () => 'http://localhost:8080/v1/cadastro_consumidor'
     },
     mounted() {
       console.log(process.env)
@@ -233,7 +228,7 @@
     methods: {
       onSubmit(event) {
         event.preventDefault()
-
+        console.log(this.form);
         axios.post(apiUrl, this.form)
           .then((response) => {
             console.log(response);

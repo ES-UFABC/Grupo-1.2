@@ -38,3 +38,8 @@ build/
 
 ### Reports ###
 .github/workflows/reports/*
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/grupo-1.2-projeto-agricultura-familiar/v16/.suo
+/.vs/grupo-1.2-projeto-agricultura-familiar/config/applicationhost.config
+/.vs/grupo-1.2-projeto-agricultura-familiar/v16/TestStore/0
