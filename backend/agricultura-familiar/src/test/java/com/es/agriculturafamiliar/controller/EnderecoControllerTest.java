@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.endereco.controller;
+package com.es.agriculturafamiliar.controller;
 
 import com.es.agriculturafamiliar.controller.EnderecoController;
 import com.es.agriculturafamiliar.entity.Endereco;

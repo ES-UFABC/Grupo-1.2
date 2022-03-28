@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.endereco.service;
+package com.es.agriculturafamiliar.service;
 
 import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.enums.TipoEndereco;

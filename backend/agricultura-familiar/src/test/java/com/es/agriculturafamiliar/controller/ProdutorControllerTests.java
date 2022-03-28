@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.produtor.controller;
+package com.es.agriculturafamiliar.controller;
 
 import com.es.agriculturafamiliar.controller.ProdutorController;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;

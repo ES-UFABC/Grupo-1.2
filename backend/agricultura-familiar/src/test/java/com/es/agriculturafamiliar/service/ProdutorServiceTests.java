@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.produtor.service;
+package com.es.agriculturafamiliar.service;
 
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
