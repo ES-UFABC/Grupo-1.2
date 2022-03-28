@@ -7,6 +7,7 @@ import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoOu
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroConsumidorUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CadastroConsumidorController {
 
-    private final String PATH = "cadastro_consumidor";
+    private final String PATH = "/cadastro_consumidor";
     private final CadastroConsumidorMapper mapper;
     private final CadastroConsumidorUseCase useCase;
 
@@ -66,10 +67,12 @@ public class CadastroConsumidorController {
         return ResponseEntity.ok(resultado);
     }
 
-//    @DeleteMapping(PATH + "/{IdCPF}")
-//    public ResponseEntity<?> deletaConsumidor (
-//            @PathVariable(name = "IdCPF") String idCPF) {
-//
-//        useCase.deletaConsumidor(idCPF);
-//    }
+    @DeleteMapping(PATH + "/{IdCPF}")
+    public ResponseEntity<Object> deletaConsumidor (
+            @PathVariable(name = "IdCPF") String idCPF) {
+
+        useCase.deletaConsumidor(idCPF);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

@@ -5,18 +5,21 @@ import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroCons
 import com.es.agriculturafamiliar.repository.cadastroconsumidor.CadastroConsumidorRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-
+@ExtendWith(MockitoExtension.class)
 public class CadastroConsumidorUseCaseTest {
-    @Mock
+    @InjectMocks
     private CadastroConsumidorUseCase usecase;
 
-    @InjectMocks
+    @Mock
     private CadastroConsumidorRepository repository;
 
     @Test
@@ -26,10 +29,35 @@ public class CadastroConsumidorUseCaseTest {
     }
 
     @Test
-    public void sucessoAoCadastrar_consumidorCriadoComSucesso() {
+    public void sucessoAoConsultar_consumidorJaExiste() {
+        usecase.consultaConsumidor(Mockito.anyString());
+        Mockito.verify(repository, Mockito.times(1)).consultaPorChave(Mockito.anyString());
+    }
+
+    @Test
+    public void sucessoAoAtualizar_cpfExiste() {
+        Mockito.when(usecase.consultaConsumidor(Mockito.anyString())).thenReturn(Optional.of(mockCadastroConsumidor()));
+        usecase.atualizaConsumidor(mockCadastroConsumidor());
+        Mockito.verify(repository, Mockito.times(1)).salvar(mockCadastroConsumidor());
+    }
+
+    @Test
+    public void erroAoAtualizar_cpfNaoExiste() {
         Mockito.when(usecase.consultaConsumidor(Mockito.anyString())).thenReturn(Optional.empty());
-        usecase.cadastraConsumidor(mockCadastroConsumidor());
-        Mockito.verify(repository.salvar(mockCadastroConsumidor()), Mockito.times(1));
+        Assertions.assertThrows(NoSuchElementException.class, () -> usecase.atualizaConsumidor(mockCadastroConsumidor()));
+    }
+
+    @Test
+    public void sucessoAoDeletar_cpfExiste() {
+        Mockito.when(usecase.consultaConsumidor(Mockito.anyString())).thenReturn(Optional.of(mockCadastroConsumidor()));
+        usecase.deletaConsumidor(Mockito.anyString());
+        Mockito.verify(repository, Mockito.times(1)).delete(Mockito.anyString());
+    }
+
+    @Test
+    public void erroAoDeletar_cpfNaoExiste() {
+        Mockito.when(usecase.consultaConsumidor(Mockito.anyString())).thenReturn(Optional.empty());
+        Assertions.assertThrows(NoSuchElementException.class, () -> usecase.deletaConsumidor(Mockito.anyString()));
     }
 
     private CadastroConsumidorDomain mockCadastroConsumidor() {
