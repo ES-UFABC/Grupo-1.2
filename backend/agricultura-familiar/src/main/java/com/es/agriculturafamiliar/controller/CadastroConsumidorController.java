@@ -3,7 +3,6 @@ package com.es.agriculturafamiliar.controller;
 import com.es.agriculturafamiliar.controller.basepath.MudaBasePath;
 import com.es.agriculturafamiliar.controller.mapper.CadastroConsumidorMapper;
 import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoIn;
-import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoOut;
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroConsumidorUseCase;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class CadastroConsumidorController {
 
     @CrossOrigin("http://localhost:9000")
     @PostMapping(PATH)
-    public ResponseEntity<CadastroConsumidorDtoOut> cadastraConsumidor(@Valid @RequestBody CadastroConsumidorDtoIn requestDTO) {
+    public ResponseEntity<CadastroConsumidorDtoIn> cadastraConsumidor(@Valid @RequestBody CadastroConsumidorDtoIn requestDTO) {
 
         final Optional<CadastroConsumidorDomain> usecaseDomainOut = useCase.cadastraConsumidor(mapper.toModel(requestDTO));
 
@@ -34,13 +33,13 @@ public class CadastroConsumidorController {
             throw new NoSuchElementException();
         }
 
-        final CadastroConsumidorDtoOut resultado = mapper.toDto(usecaseDomainOut.get());
+        final CadastroConsumidorDtoIn resultado = mapper.toDto(usecaseDomainOut.get());
 
         return ResponseEntity.ok(resultado);
     }
 
     @PutMapping(PATH + "/{IdCPF}")
-    public ResponseEntity<CadastroConsumidorDtoOut> atualizaConsumidor (
+    public ResponseEntity<CadastroConsumidorDtoIn> atualizaConsumidor (
             @PathVariable(name = "IdCPF") String idCPF,
             @Valid @RequestBody CadastroConsumidorDtoIn requestDTO
             ) {
@@ -50,13 +49,13 @@ public class CadastroConsumidorController {
             throw new NoSuchElementException();
         }
 
-        final CadastroConsumidorDtoOut resultado = mapper.toDto(usecaseDomainOut.get());
+        final CadastroConsumidorDtoIn resultado = mapper.toDto(usecaseDomainOut.get());
 
         return ResponseEntity.ok(resultado);
     }
 
     @GetMapping(PATH + "/{IdCPF}")
-    public ResponseEntity<CadastroConsumidorDtoOut> consultaConsumidor (
+    public ResponseEntity<CadastroConsumidorDtoIn> consultaConsumidor (
             @PathVariable(name = "IdCPF") String idCPF) {
         final Optional<CadastroConsumidorDomain> usecaseDomainOut = useCase.consultaConsumidor(idCPF);
 
@@ -64,7 +63,7 @@ public class CadastroConsumidorController {
             throw new NoSuchElementException();
         }
 
-        final CadastroConsumidorDtoOut resultado = mapper.toDto(usecaseDomainOut.get());
+        final CadastroConsumidorDtoIn resultado = mapper.toDto(usecaseDomainOut.get());
 
         return ResponseEntity.ok(resultado);
     }

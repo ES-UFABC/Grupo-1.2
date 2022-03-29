@@ -21,6 +21,10 @@ import javax.validation.constraints.Positive;
 public class EnderecoDto {
 
     @NonNull
+    @Pattern(regexp = "^[0-9]+", message = "id_endereco deve ser numérico")
+    private Integer idEndereco;
+
+    @NonNull
     @Pattern(regexp = "(S|N)", message = "o endereço principal só pode receber os valores S ou N")
     private String flagEnderecoPrincipal;
 

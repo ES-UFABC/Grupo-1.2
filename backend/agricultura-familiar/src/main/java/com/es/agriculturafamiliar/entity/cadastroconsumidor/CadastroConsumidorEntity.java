@@ -2,6 +2,7 @@ package com.es.agriculturafamiliar.entity.cadastroconsumidor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "consumidor")
 public class CadastroConsumidorEntity {
