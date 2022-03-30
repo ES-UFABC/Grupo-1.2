@@ -1,5 +1,15 @@
 package com.es.agriculturafamiliar.models.domain.cadastroconsumidor;
 
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class EnderecoDomain {
     private Integer id_endereco;
     private String flagEnderecoPrincipal;
