@@ -2,6 +2,9 @@ package com.es.agriculturafamiliar.models.usecase.cadastroconsumidor;
 
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import com.es.agriculturafamiliar.repository.cadastroconsumidor.CadastroConsumidorRepository;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -9,9 +12,10 @@ import org.springframework.stereotype.Component;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@RequiredArgsConstructor
+
 @Component
 @Slf4j
+@AllArgsConstructor
 public class CadastroConsumidorUseCase {
 
     private final CadastroConsumidorRepository repository;
