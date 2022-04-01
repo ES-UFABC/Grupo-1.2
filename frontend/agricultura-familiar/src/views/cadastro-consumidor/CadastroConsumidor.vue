@@ -101,10 +101,10 @@
                               label-for="txt-cep">
                   <b-form-input id="txt-cep"
                                 v-model="form.CEP"
+                                 @change="getCep"
                                 v-mask="'#####-###'"
                                 type="text"
-                                placeholder=""
-                                required debounce="500"></b-form-input>
+                                placeholder=""></b-form-input>
 
                 </b-form-group>
               </b-col>
@@ -215,7 +215,7 @@
       }
     },
     computed: {
-      apiUrl: () => 'http://localhost:8080/v1/cadastro_consumidor',
+      apiUrl: () => 'http://localhost:8080/agricultura_familiar/v1/cadastro_consumidor',
       apiCepUrl: () => 'https://viacep.com.br/ws/{CEP}/json/',
       model() {
         return {
@@ -288,16 +288,8 @@
             this.form.bairro = response.data.bairro;
             this.form.municipio = response.data.localidade;
           })
-          .error((error) => {
+          .catch((error) => {
           })
-      }
-    },
-    watch: {
-      'form.CEP': function (newCEP, oldCEP) {
-        console.log(newCEP, oldCEP)
-        let cep = newCEP.replace('-', '');
-        if (cep.length == 8)
-          this.getCep()
       }
     }
   }
