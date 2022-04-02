@@ -6,12 +6,13 @@ import com.es.agriculturafamiliar.repository.cadastroconsumidor.jpa.CadastroCons
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
-@Component
+@Repository
 public class CadastroConsumidorRepository {
 
     private final CadastroConsumidorEntityMapper mapper;
