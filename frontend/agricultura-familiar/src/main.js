@@ -11,6 +11,7 @@ Vue.use(IconsPlugin)
 
 Vue.use(VueMask);
 
+import store from './stores';
 
 import App from './App'
 import router from './routes';
@@ -18,6 +19,7 @@ import router from './routes';
 
 new Vue({
   el: '#app',
+  store,
   router,
   render: h => h(App)
 })
