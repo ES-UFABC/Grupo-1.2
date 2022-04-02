@@ -215,8 +215,10 @@
       }
     },
     computed: {
-      apiUrl: () => 'http://localhost:8080/agricultura_familiar/v1/cadastro_consumidor',
-      apiCepUrl: () => 'https://viacep.com.br/ws/{CEP}/json/',
+      apiUrl: () => `${process.env.SERVER_URI}/cadastro_consumidor`,
+      apiCepUrl() {
+        return process.env.VIACEP_API_URI.replace('{CEP}', this.form.CEP || '');
+      },
       model() {
         return {
           nome: this.form.nome,
@@ -238,7 +240,7 @@
       }
     },
     mounted() {
-      console.log(process.env)
+      console.log(process.env.VIACEP_API_URI)
     },
     methods: {
       onSubmit(event) {
