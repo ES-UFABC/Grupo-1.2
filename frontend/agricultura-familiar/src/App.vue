@@ -10,6 +10,7 @@
 <script>
   import axios from 'axios';
   import { mapActions, mapState } from 'vuex';
+
   export default {
     name: 'App',
     methods: {
@@ -50,6 +51,9 @@
       //if (currentPath === '/' || currentPath === '/app') {
       //  this.$router.push('/app/dashboard');
       //}
+    },
+    mounted() {
+
     }
   };
 </script>
