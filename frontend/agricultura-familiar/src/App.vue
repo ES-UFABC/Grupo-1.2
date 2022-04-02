@@ -1,8 +1,6 @@
 <template>
   <div :class="{root: true, sidebarClose: false}">
-    <div v-if="this.isLoading">
-      <div>Loading... ({{refCount}})</div>
-    </div>
+    <div v-if="isLoading" class="loading"></div>
     <transition name="router-animation">
       <router-view />
     </transition>
