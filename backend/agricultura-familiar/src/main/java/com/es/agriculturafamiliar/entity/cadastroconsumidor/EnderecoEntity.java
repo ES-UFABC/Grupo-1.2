@@ -8,6 +8,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+
+
 @AllArgsConstructor
 @Data
 @Entity
@@ -33,4 +35,10 @@ public class EnderecoEntity {
     private String bairro;
     @Column(name = "municipio")
     private String municipio;
+
+    @ManyToOne
+    @JoinColumn(name="cpf")
+    private CadastroConsumidorEntity consumidor;
+
+    
 }

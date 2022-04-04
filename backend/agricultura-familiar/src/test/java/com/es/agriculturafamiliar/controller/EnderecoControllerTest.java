@@ -45,7 +45,7 @@ public class EnderecoControllerTest {
     @MockBean
     private ProdutorService produtorService;
 
-    public static final String BASE_ENDPOINT = "/api/v1/endereco";
+    public static final String BASE_ENDPOINT = "/endereco";
     private static ObjectMapper objectMapper;
 
     @BeforeAll

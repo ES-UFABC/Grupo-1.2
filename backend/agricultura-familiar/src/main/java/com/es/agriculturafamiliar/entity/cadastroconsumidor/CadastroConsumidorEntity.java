@@ -22,7 +22,13 @@ public class CadastroConsumidorEntity {
     private String email;
     @Column(name = "telefone")
     private String telefone;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_endereco")
+    @OneToMany(mappedBy= "consumidor", cascade = CascadeType.ALL)
     private List<EnderecoEntity> endereco;
+
+    @PrePersist
+	private void prePersist() {        
+	    if(endereco != null) {
+	    	endereco.forEach(e -> e.setConsumidor(this));
+	    };
+	}
 }

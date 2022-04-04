@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.net.URI;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -33,7 +35,7 @@ public class CadastroConsumidorController {
 
         final CadastroConsumidorDtoOut resultado = mapper.toDto(usecaseDomainOut.get());
 
-        return ResponseEntity.ok(resultado);
+        return ResponseEntity.created(URI.create("/" + usecaseDomainOut.get().getCpf())).build();
     }
 
     @PutMapping("/{IdCPF}")
