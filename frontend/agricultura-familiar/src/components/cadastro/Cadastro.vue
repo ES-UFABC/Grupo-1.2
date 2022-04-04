@@ -1,17 +1,9 @@
 <script>
+  import alerts from '../../utils/alerts';
   export default {
     name: 'Cadastro',
     data () {
       return {
-        form: {},
-        endereco: {
-          CEP: '',
-          numero: '',
-          complemento: '',
-          rua: '',
-          bairro: '',
-          municipio: ''
-        }
       }
     },
 
@@ -23,7 +15,13 @@
 
         this.$http.post(uri, this.model)
           .then((response) => {
-            this.exibirRespostaDaSubmissao(response);
+            var opts = this.tratarResponse(response);
+            if (opts.type == 'error')
+              alerts.ErrorAlert.fire({ text: opts.text });
+            else if (opts.type == 'success')
+              alerts.SucessToaster.fire({ text: opts.text }).then(() => this.$router.push('/'));
+            else if (opts.type == 'warning')
+              alerts.WarningToaster.fire({ text: text });
           })
           .catch((error) => {
             console.log(error);

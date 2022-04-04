@@ -75,7 +75,7 @@
             </b-input-group-text>
           </b-input-group-prepend>
           <b-form-input id="txt-celular2"
-                        v-model="form.telefone2"
+                        v-model="produtor.telefone2"
                         v-mask="'(##) #####-####'"
                         type="tel"
                         placeholder=""></b-form-input>
@@ -212,8 +212,16 @@
       console.log(this);
     },
     methods: {
-      exibirRespostaDaSubmissao(response) {
-        console.log(response);
+      tratarResponse(response) {
+        switch (response.status) {
+          case 201:
+            return { text: 'Produtor cadastrado com sucesso!', type: 'success' };
+          case 409:
+            return { text: 'Produtor já cadastrado...', type: 'warning' };
+          default:
+          case 400:
+            return { text: 'Erro ao cadastrar, por favor contate o suporte.', type: 'error' };
+        }
       },
       preencherEnderecoProducao(payload) {
         this.enderecoProducao = payload;
