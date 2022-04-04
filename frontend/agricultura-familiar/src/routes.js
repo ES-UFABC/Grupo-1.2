@@ -14,22 +14,26 @@ export default new VueRouter ({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
+      title: 'Home',
       component: Home,
       children: [
         {
           path: 'login',
-          name: 'Login',
+          name: 'login',
+          title: 'Login',
           component: Login,
         },
         {
           path: 'cadastro/consumidor',
-          name: 'Cadastro Consumidor',
+          name: 'cadastro_consumidor',
+          title: 'Cadastro Consumidor',
           component: CadastroConsumidor,
         },
         {
           path: 'cadastro/produtor',
-          name: 'Cadastro Produtor',
+          name: 'cadastro_produtor',
+          title: 'Cadastro Produtor',
           component: CadastroProdutor,
         }
       ]
