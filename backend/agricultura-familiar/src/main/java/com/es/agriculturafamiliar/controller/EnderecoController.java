@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/api/v1/endereco")
+@RequestMapping("/endereco")
 public class EnderecoController {
 
     @Autowired

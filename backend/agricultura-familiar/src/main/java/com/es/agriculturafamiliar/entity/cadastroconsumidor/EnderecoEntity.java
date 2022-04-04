@@ -2,6 +2,8 @@ package com.es.agriculturafamiliar.entity.cadastroconsumidor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,12 +12,13 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "endereco_consumidor")
+@NoArgsConstructor
 public class EnderecoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native",strategy = "native")
     @Column(name = "id_endereco")
-    private Integer id_endereco;
+    private Integer idEndereco;
     @Column(name = "flag_endereco_principal")
     private String flagEnderecoPrincipal;
     @Column(name = "cep")

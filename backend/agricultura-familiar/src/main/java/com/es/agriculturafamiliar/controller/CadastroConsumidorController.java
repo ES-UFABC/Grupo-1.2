@@ -1,6 +1,5 @@
 package com.es.agriculturafamiliar.controller;
 
-import com.es.agriculturafamiliar.controller.basepath.MudaBasePath;
 import com.es.agriculturafamiliar.controller.mapper.CadastroConsumidorMapper;
 import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoIn;
 import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoOut;
@@ -15,15 +14,15 @@ import javax.validation.Valid;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@MudaBasePath
 @RequiredArgsConstructor
+@RestController
+@RequestMapping("/cadastro/consumidor")
 public class CadastroConsumidorController {
-
-    private final String PATH = "/cadastro_consumidor";
+    
     private final CadastroConsumidorMapper mapper;
     private final CadastroConsumidorUseCase useCase;
 
-    @PostMapping(PATH)
+    @PostMapping
     public ResponseEntity<CadastroConsumidorDtoOut> cadastraConsumidor(@Valid @RequestBody CadastroConsumidorDtoIn requestDTO) {
 
         final Optional<CadastroConsumidorDomain> usecaseDomainOut = useCase.cadastraConsumidor(mapper.toModel(requestDTO));
@@ -37,7 +36,7 @@ public class CadastroConsumidorController {
         return ResponseEntity.ok(resultado);
     }
 
-    @PutMapping(PATH + "/{IdCPF}")
+    @PutMapping("/{IdCPF}")
     public ResponseEntity<CadastroConsumidorDtoOut> atualizaConsumidor (
             @PathVariable(name = "IdCPF") String idCPF,
             @Valid @RequestBody CadastroConsumidorDtoIn requestDTO
@@ -53,7 +52,7 @@ public class CadastroConsumidorController {
         return ResponseEntity.ok(resultado);
     }
 
-    @GetMapping(PATH + "/{IdCPF}")
+    @GetMapping("/{IdCPF}")
     public ResponseEntity<CadastroConsumidorDtoOut> consultaConsumidor (
             @PathVariable(name = "IdCPF") String idCPF) {
         final Optional<CadastroConsumidorDomain> usecaseDomainOut = useCase.consultaConsumidor(idCPF);
@@ -67,7 +66,7 @@ public class CadastroConsumidorController {
         return ResponseEntity.ok(resultado);
     }
 
-    @DeleteMapping(PATH + "/{IdCPF}")
+    @DeleteMapping("/{IdCPF}")
     public ResponseEntity<Object> deletaConsumidor (
             @PathVariable(name = "IdCPF") String idCPF) {
 

@@ -2,7 +2,7 @@ package com.es.agriculturafamiliar.entity.cadastroconsumidor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,10 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "consumidor")
+@NoArgsConstructor
 public class CadastroConsumidorEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native",strategy = "native")
     @Column(name = "cpf")
     private String cpf;
     @Column(name = "nome")
@@ -23,7 +22,7 @@ public class CadastroConsumidorEntity {
     private String email;
     @Column(name = "telefone")
     private String telefone;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
     private List<EnderecoEntity> endereco;
 }
