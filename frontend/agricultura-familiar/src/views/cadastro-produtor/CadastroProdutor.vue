@@ -220,7 +220,7 @@
             return { text: 'Produtor já cadastrado...', type: 'warning' };
           default:
           case 400:
-            return { text: 'Erro ao cadastrar, por favor contate o suporte.', type: 'error' };
+            return { text: `Erro: ${response.data.description} <br/>Por favor contate o suporte.`, type: 'error' };
         }
       },
       preencherEnderecoProducao(payload) {

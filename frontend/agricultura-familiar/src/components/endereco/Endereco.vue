@@ -136,7 +136,6 @@
             this.endereco.bairro = response.data.bairro;
             this.endereco.municipio = response.data.localidade;
             //TODO: colocar foco no input referente ao número
-            console.log(this.numero.$el);
             this.salvarEndereco();
           })
           .catch((error) => {
