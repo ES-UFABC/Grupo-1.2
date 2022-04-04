@@ -5,7 +5,6 @@ import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsu
 import com.es.agriculturafamiliar.repository.cadastroconsumidor.jpa.CadastroConsumidorRepositoryCrud;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -27,6 +26,11 @@ public class CadastroConsumidorRepository {
     public Optional<CadastroConsumidorDomain> consultaPorChave(String idCPF) {
         var consultaCadastroConsumidor = cadastroConsumidorRepositoryCrud.findById(idCPF);
         log.info("Consumidor CPF {} consultado com sucesso", idCPF);
+
+        if (consultaCadastroConsumidor.isEmpty()) {
+            return Optional.empty();
+        }
+        
         return Optional.of(mapper.toModel(consultaCadastroConsumidor.get()));
     }
 

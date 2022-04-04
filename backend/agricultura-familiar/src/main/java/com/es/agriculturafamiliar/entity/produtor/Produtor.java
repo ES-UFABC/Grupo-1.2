@@ -2,6 +2,8 @@ package com.es.agriculturafamiliar.entity.produtor;
 
 import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode
+@AllArgsConstructor
 public class Produtor {
 
     @Id
