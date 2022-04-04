@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col sm="10" md="10" lg="8" offset-sm="1" offset-md="1" offset-lg="2" class="content animated fadeInUp">
-      <b-form @submit="onSubmit" v-if="show">
+      <b-form @submit="enviar" v-if="show">
         <b-card>
           <h3>Seus dados</h3>
           <hr />
@@ -10,7 +10,7 @@
             <b-col>
               <b-form-group id="input-group-txt-nome-completo" label="Nome Completo" label-for="txt-nome-completo">
                 <b-form-input id="txt-nome-completo"
-                              v-model="form.nome"
+                              v-model="produtor.nome"
                               placeholder=""
                               required></b-form-input>
               </b-form-group>
@@ -21,9 +21,10 @@
             <b-col>
               <b-form-group id="input-group-txt-apelido" label="Apelido" label-for="txt-apelido">
                 <b-form-input id="txt-apelido"
-                              v-model="form.apelido"
+                              v-model="produtor.apelido"
                               placeholder=""
                               required></b-form-input>
+                <b-form-text id="input-live-help">Nome que aparecerá para seus clientes.</b-form-text>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -34,7 +35,7 @@
                             label="Email"
                             label-for="txt-email">
                 <b-form-input id="txt-email"
-                              v-model="form.email"
+                              v-model="produtor.email"
                               type="email"
                               placeholder=""
                               required></b-form-input>
@@ -55,7 +56,7 @@
                     </b-input-group-text>
                   </b-input-group-prepend>
                   <b-form-input id="txt-celular1"
-                                v-model="form.telefone"
+                                v-model="produtor.telefone"
                                 v-mask="'(##) #####-####'"
                                 type="tel"
                                 placeholder=""></b-form-input>
@@ -63,7 +64,7 @@
 
               </b-form-group>
             </b-col>
-            <!--<b-col>
+            <b-col>
       <b-form-group id="input-group-txt-celular2"
                     label="Celular para contato 2"
                     label-for="txt-celular2">
@@ -74,14 +75,14 @@
             </b-input-group-text>
           </b-input-group-prepend>
           <b-form-input id="txt-celular2"
-                        v-model="form.telefone"
+                        v-model="form.telefone2"
                         v-mask="'(##) #####-####'"
                         type="tel"
                         placeholder=""></b-form-input>
         </b-input-group>
 
       </b-form-group>
-    </b-col>-->
+    </b-col>
           </b-form-row>
 
           <!-- CPF -->
@@ -91,7 +92,7 @@
                             label="CPF ou CNPJ"
                             label-for="txt-cpf-cnpj">
                 <b-form-input id="txt-cpf"
-                              v-model="form.CPF_CNPJ"
+                              v-model="produtor.CPFCNPJ"
                               v-mask="'###.###.###-##'"
                               type="text"
                               placeholder=""
@@ -103,108 +104,28 @@
                             label="Site externo"
                             label-for="txt-site-externo">
                 <b-form-input id="txt-site-externo"
-                              v-model="form.site"
+                              v-model="produtor.site"
                               type="text"
-                              placeholder=""
-                              required></b-form-input>
+                              placeholder=""></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
 
-          <div :class="{'bg-secondary': false, 'text-light': false}">
+          <div :class="{'bg-secondary': false, 'text-light': false, 'my-lg-4': true}">
+            <Endereco titulo="Endereço de Produção"
+                      @salvar-endereco="preencherEnderecoProducao"></Endereco>
 
-            <h3>Endereço de Entrega</h3>
-            <hr />
-            <!-- CEP e Cidade -->
-            <b-form-row>
-              <b-col>
-                <b-form-group id="input-group-txt-cep"
-                              label="CEP"
-                              label-for="txt-cep">
-                  <b-form-input id="txt-cep"
-                                v-model="form.CEP"
-                                v-mask="'#####-###'"
-                                type="text"
-                                placeholder=""
-                                required debounce="500"></b-form-input>
+            <b-form-checkbox id="bool-tipo-endereco-principal"
+                             v-model="tipoEnderecoPrincipal"
+                             name="tipoEnderecoPrincipal"
+                             value="COMERCIALIZACAO"
+                             unchecked-value="PRODUCAO">
+              Não entrego na mesma região que produzo
+            </b-form-checkbox>
 
-                </b-form-group>
-              </b-col>
-              <b-col>
-                <b-form-group id="input-group-txt-municipio"
-                              label="Municipio"
-                              label-for="txt-municipio">
-                  <b-form-input id="txt-municipio"
-                                v-model="form.municipio"
-                                type="text"
-                                placeholder=""
-                                required></b-form-input>
-
-                </b-form-group>
-              </b-col>
-            </b-form-row>
-
-            <!-- Endereço -->
-            <b-form-row>
-              <b-col>
-                <b-form-group id="input-group-txt-endereco"
-                              label="Endereço"
-                              label-for="txt-endereco">
-                  <b-input-group>
-                    <b-input-group-prepend>
-                      <b-input-group-text>
-                        <b-icon icon="x" />
-                      </b-input-group-text>
-                    </b-input-group-prepend>
-                    <b-form-input id="txt-endereco"
-                                  v-model="form.rua"
-                                  type="text"
-                                  placeholder=""></b-form-input>
-                  </b-input-group>
-
-                </b-form-group>
-              </b-col>
-            </b-form-row>
-
-
-            <!-- Numero, Bairro e Complemento -->
-            <b-form-row>
-              <b-col>
-                <b-form-group id="input-group-txt-numero"
-                              label="Número"
-                              label-for="txt-numero">
-
-                  <b-form-input id="txt-numero"
-                                v-model="form.numero"
-                                type="text"
-                                placeholder=""></b-form-input>
-
-                </b-form-group>
-              </b-col>
-              <b-col>
-                <b-form-group id="input-group-txt-bairro"
-                              label="Bairro"
-                              label-for="txt-bairro">
-                  <b-form-input id="txt-bairro"
-                                v-model="form.bairro"
-                                type="text"
-                                placeholder=""></b-form-input>
-
-                </b-form-group>
-              </b-col>
-              <b-col>
-                <b-form-group id="input-group-txt-complemento"
-                              label="Complemento"
-                              label-for="txt-complemento">
-
-                  <b-form-input id="txt-complemento"
-                                v-model="form.complemento"
-                                type="text"
-                                placeholder=""></b-form-input>
-
-                </b-form-group>
-              </b-col>
-            </b-form-row>
+            <Endereco v-if="!this.entregaNaMesmaRegiaoDeProducao"
+                      titulo="Endereço de Entrega"
+                      @salvar-endereco="preencherEnderecoEntrega"></Endereco>
           </div>
 
           <!-- Biografia -->
@@ -213,12 +134,13 @@
               <b-form-group id="input-group-txt-cpf-cnpj"
                             label="Biografia"
                             label-for="txt-cpf-cnpj">
-                <b-form-textarea id="txt-cpf"
-                              v-model="form.CPF_CNPJ"
-                              v-mask="'###.###.###-##'"
-                              type="text"
-                              placeholder=""
-                              required></b-form-textarea>
+                <b-form-textarea id="txt-biografia"
+                                 v-model="produtor.biografia"
+                                 type="text"
+                                 placeholder=""
+                                 required></b-form-textarea>
+
+                <b-form-text id="input-live-help">Escreva um pouco sobre o que você produz e pode oferecer</b-form-text>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -232,132 +154,77 @@
 </template>
 
 <script>
+  import Cadastro from '../../components/cadastro/Cadastro';
+  import Endereco from '../../components/endereco/Endereco';
   export default {
+    name: 'CadastroProdutor',
+    extends: Cadastro,
+    components: { Endereco },
     data() {
       return {
-        form: {
+        show: true,
+        endpoint: 'produtor/',
+        produtor: {
           nome: '',
+          apelido: '',
           email: '',
           telefone: '',
-          CPF: '',
-          CEP: '',
-          numero: '',
-          complemento: '',
-          rua: '',
-          bairro: '',
-          municipio: ''
+          telefone2: '',
+          CPFCNPJ: '',
+          entregaNaMesmaRegiaoDeProducao: true
         },
-        show: true
+        enderecoProducao: null,
+        enderecoEntrega: null,
+        tipoEnderecoPrincipal: 'PRODUCAO'
       }
     },
     computed: {
-      apiUrl: () => 'http://localhost:8080/v1/cadastro_consumidor',
-      apiCepUrl: () => 'https://viacep.com.br/ws/{CEP}/json/',
+      entregaNaMesmaRegiaoDeProducao() {
+        return this.tipoEnderecoPrincipal === 'PRODUCAO'
+      },
       model() {
         return {
-          "agroecologico": true,
-          "atendeNoEnderecoDeProducao": true,
-          "cadastroEntidade": true,
-          "certificacaoAgroecologico": true,
-          "cpfOuCnpj": "string",
-          "email": "string",
-          "enderecos": [
-            {
-              "bairro": "string",
-              "cep": "string",
-              "id": 0,
-              "municipio": "string",
-              "numero": "string",
-              "produtor": "string",
-              "rua": "string",
-              "tipoEndereco": "PRODUCAO"
-            }
-          ],
-          "entidadesAtendidas": [
-            "string"
-          ],
-          "formasPagamento": [
-            "string"
-          ],
-          "geolocalizacao": "string",
-          "id": 0,
-          "nome": "string",
-          "nomeFantasia": "string",
-          "organico": "string",
-          "paginasExternas": [
-            "string"
-          ],
-          "regiaoDeProducao": "string",
-          "registroOuCertificacao": true,
-          "registrosOuCertificacoes": [
-            "string"
-          ],
-          "telefones": [
-            "string"
-          ],
-          "tipoProdutor": "INDIVIDUAL",
-          "tiposProducao": [
-            {
-              "id": 0,
-              "nome": "string",
-              "produtores": [
-                "string"
-              ]
-            }
-          ]
+          id: 0,
+          nome: this.produtor.nome,
+          cpfOuCnpj: this.produtor.CPFCNPJ,
+          email: this.produtor.email,
+          nomeFantasia: this.produtor.apelido,
+          agroecologico: true,
+          atendeNoEnderecoDeProducao: !this.entregaNaMesmaRegiaoDeProducao,
+          cadastroEntidade: true,
+          certificacaoAgroecologico: true,
+          telefones: [this.produtor.telefone, this.produtor.telefone2].filter(t => t.length),
+          enderecos: [this.enderecoProducao, this.enderecoEntrega].filter(e => e),
+          entidadesAtendidas: [],
+          formasPagamento: [],
+          geolocalizacao: 'teste',
+          organico: "teste",
+          paginasExternas: [],
+          regiaoDeProducao: "teste",
+          registroOuCertificacao: true,
+          registrosOuCertificacoes: [],
+          tipoProdutor: "INDIVIDUAL",
+          tiposProducao: []
         }
       }
     },
     mounted() {
+      console.log(this);
     },
     methods: {
-      onSubmit(event) {
-        event.preventDefault()
-        console.log(this.form);
-        axios.post(this.apiUrl, this.model)
-          .then((response) => {
-            console.log(response);
-            switch (response.status == 201) {
-              case 201:
-                alert(`Consumidor ${this.form.nome} cadastrado com sucesso!`);
-                break;
-              case 400:
-                alert(`Erro ao cadastrar, por favor contate o suporte.`);
-                break;
-              case 409:
-                alert(`Consumidor já cadastrado...`);
-                break;
-              default:
-                alert('Erro...');
-                break;
-            }
-          }, (error) => {
-            console.log(error);
-            switch (error.status == 201) {
-              case 201:
-                alert(`Consumidor ${this.form.nome} cadastrado com sucesso!`);
-                break;
-              case 400:
-                alert(`Erro ao cadastrar, por favor contate o suporte.`);
-                break;
-              case 409:
-                alert(`Consumidor já cadastrado...`);
-                break;
-              default:
-                alert('Erro...');
-                break;
-            }
-          });
-
+      exibirRespostaDaSubmissao(response) {
+        console.log(response);
       },
-    },
-    watch: {
-      'form.CEP': function (newCEP, oldCEP) {
-        console.log(newCEP, oldCEP)
-        let cep = newCEP.replace('-', '');
-        if (cep.length == 8)
-          this.getCep()
+      preencherEnderecoProducao(payload) {
+        this.enderecoProducao = payload;
+        //  produtor: "string",
+        this.enderecoProducao.tipoEndereco = "PRODUCAO";
+      },
+      preencherEnderecoEntrega(payload) {
+        this.enderecoEntrega = payload;
+        this.enderecoEntrega.tipoEndereco = "COMERCIALIZACAO";
       }
-    }
+    },
+    
   }
 </script>
