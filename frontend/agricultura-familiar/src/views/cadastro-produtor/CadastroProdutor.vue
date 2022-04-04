@@ -232,7 +232,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   export default {
     data() {
       return {
@@ -256,26 +255,60 @@
       apiCepUrl: () => 'https://viacep.com.br/ws/{CEP}/json/',
       model() {
         return {
-          nome: this.form.nome,
-          email: this.form.email,
-          telefone: this.form.telefone,
-          CPF: this.form.CPF,
-          endereco: [
+          "agroecologico": true,
+          "atendeNoEnderecoDeProducao": true,
+          "cadastroEntidade": true,
+          "certificacaoAgroecologico": true,
+          "cpfOuCnpj": "string",
+          "email": "string",
+          "enderecos": [
             {
-              flag_endereco_principal: "S",
-              CEP: this.form.CEP,
-              numero: this.form.numero,
-              complemento: this.form.complemento,
-              rua: this.form.rua,
-              bairro: this.form.bairro,
-              municipio: this.form.municipio
+              "bairro": "string",
+              "cep": "string",
+              "id": 0,
+              "municipio": "string",
+              "numero": "string",
+              "produtor": "string",
+              "rua": "string",
+              "tipoEndereco": "PRODUCAO"
+            }
+          ],
+          "entidadesAtendidas": [
+            "string"
+          ],
+          "formasPagamento": [
+            "string"
+          ],
+          "geolocalizacao": "string",
+          "id": 0,
+          "nome": "string",
+          "nomeFantasia": "string",
+          "organico": "string",
+          "paginasExternas": [
+            "string"
+          ],
+          "regiaoDeProducao": "string",
+          "registroOuCertificacao": true,
+          "registrosOuCertificacoes": [
+            "string"
+          ],
+          "telefones": [
+            "string"
+          ],
+          "tipoProdutor": "INDIVIDUAL",
+          "tiposProducao": [
+            {
+              "id": 0,
+              "nome": "string",
+              "produtores": [
+                "string"
+              ]
             }
           ]
         }
       }
     },
     mounted() {
-      console.log(process.env)
     },
     methods: {
       onSubmit(event) {
@@ -317,17 +350,6 @@
           });
 
       },
-      getCep() {
-        axios.get(this.apiCepUrl.replace('{CEP}', this.form.CEP))
-          .then((response) => {
-            this.form.complemento = response.data.complemento;
-            this.form.rua = response.data.logradouro;
-            this.form.bairro = response.data.bairro;
-            this.form.municipio = response.data.localidade;
-          })
-          .error((error) => {
-          })
-      }
     },
     watch: {
       'form.CEP': function (newCEP, oldCEP) {
