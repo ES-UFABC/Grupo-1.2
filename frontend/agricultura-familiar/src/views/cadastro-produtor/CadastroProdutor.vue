@@ -163,7 +163,7 @@
     data() {
       return {
         show: true,
-        endpoint: 'produtor/',
+        endpoint: 'cadastro/produtor/',
         produtor: {
           nome: '',
           apelido: '',
