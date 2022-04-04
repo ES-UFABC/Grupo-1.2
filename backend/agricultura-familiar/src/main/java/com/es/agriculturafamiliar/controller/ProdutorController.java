@@ -31,6 +31,12 @@ public class ProdutorController {
         return ResponseEntity.ok(produtores);
     }
 
+    @GetMapping("/geolocalizacao")
+    public ResponseEntity<List<Produtor>> findByCidade(@RequestParam String estado, @RequestParam String municipio){
+        var produtor = produtorService.findByLocalizacao(estado, municipio);
+        return ResponseEntity.ok(produtor);
+    }
+
     @PostMapping
     public ResponseEntity<Produtor> saveProdutor(@Valid @RequestBody Produtor produtor){
         produtor = produtorService.saveProdutor(produtor);

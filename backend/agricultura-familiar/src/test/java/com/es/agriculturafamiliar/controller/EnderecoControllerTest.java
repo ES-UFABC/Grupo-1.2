@@ -55,7 +55,7 @@ public class EnderecoControllerTest {
 
     @Test
     void findById_shouldReturnStatusOk_whenEnderecoExists() throws Exception {
-        Endereco endereco = new Endereco(null, "rua","10","bairro","cep","municipio", TipoEndereco.PRODUCAO, null);
+        Endereco endereco = new Endereco(null, "rua","10","bairro","cep","municipio",  "estado", TipoEndereco.PRODUCAO, null);
         when(enderecoService.findById(any(Long.class))).thenReturn(endereco);
 
         mockMvc.perform(get(BASE_ENDPOINT + "/{id}", "1"))
@@ -67,12 +67,12 @@ public class EnderecoControllerTest {
 
     @Test
     void saveEndereco_shouldReturnStatusCreated_whenValidRequestBodyIsReceived() throws Exception {
-        Endereco endereco = new Endereco(1L, "rua","10","bairro","cep","municipio", TipoEndereco.PRODUCAO, null);
+        Endereco endereco = new Endereco(null, "rua","10","bairro","cep","municipio",  "estado", TipoEndereco.PRODUCAO, null);
 
         when(enderecoService.saveEndereco(any(Endereco.class)))
                 .thenReturn(endereco);
 
-        Endereco savedEndereco = new Endereco(null, "rua","10","bairro","cep","municipio", TipoEndereco.PRODUCAO, null);
+        Endereco savedEndereco = new Endereco(null, "rua","10","bairro","cep","municipio", "estado", TipoEndereco.PRODUCAO, null);
         mockMvc.perform(post(BASE_ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(savedEndereco)))
@@ -82,7 +82,7 @@ public class EnderecoControllerTest {
 
     @Test
     void saveEndereco_shouldReturnBadRequest_whenMandatoryFieldIsMissing() throws JsonProcessingException, Exception {
-        Endereco endereco = new Endereco(null, null,null,null,null,null, TipoEndereco.PRODUCAO, null);
+        Endereco endereco = new Endereco(null, null,null,null,null,null,null, TipoEndereco.PRODUCAO, null);
 
         mockMvc.perform(post(BASE_ENDPOINT)
                         .content(objectMapper.writeValueAsString(endereco))
@@ -92,12 +92,12 @@ public class EnderecoControllerTest {
 
     @Test
     void deleteEnderecoById_shouldReturnNoContent_whenEnderecoExists() throws Exception {
-        Endereco endereco = new Endereco(1L, "rua","10","bairro","cep","municipio", TipoEndereco.PRODUCAO, null);
+        Endereco endereco = new Endereco(null, "rua","10","bairro","cep","municipio",  "estado", TipoEndereco.PRODUCAO, null);
 
         when(enderecoService.saveEndereco(any(Endereco.class)))
                 .thenReturn(endereco);
 
-        Endereco savedEndereco = new Endereco(null, "rua","10","bairro","cep","municipio", TipoEndereco.PRODUCAO, null);
+        Endereco savedEndereco = new Endereco(null, "rua","10","bairro","cep","municipio", "estado",TipoEndereco.PRODUCAO, null);
 
         mockMvc.perform(post(BASE_ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
