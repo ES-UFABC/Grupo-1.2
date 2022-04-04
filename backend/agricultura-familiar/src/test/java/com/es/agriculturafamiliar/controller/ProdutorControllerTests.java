@@ -42,7 +42,7 @@ public class ProdutorControllerTests {
     private Produtor produtor;
     private static ObjectMapper objectMapper;
 
-    public static final String BASE_ENDPOINT = "/api/v1/produtor";
+    public static final String BASE_ENDPOINT = "/cadastro/produtor";
 
     @BeforeEach
     public void setup(){

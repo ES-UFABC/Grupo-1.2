@@ -43,8 +43,8 @@ public class NotificacaoControllerTests {
     @MockBean
     private ModelMapper modelMapper;
 
-	public static final String BASE_ENDPOINT = "/api/v1/notifications";
-	public static final String ADMIN_ENDPOINT = "/api/v1/notifications/admin";
+	public static final String BASE_ENDPOINT = "/notificacao";
+	public static final String ADMIN_ENDPOINT = "/notificacao/admin";
 
 	@MockBean
 	private NotificacaoService notificationService;
@@ -76,7 +76,7 @@ public class NotificacaoControllerTests {
 	void findById_shouldReturnStatusBadRequest_whenNotificationDoesNotExists() throws Exception {
 		when(notificationService.findNotificacaoById(any(Long.class))).thenThrow(ResourceNotFoundException.class);
 
-		mockMvc.perform(get(BASE_ENDPOINT + "/{id}", "1"))
+		mockMvc.perform(get(BASE_ENDPOINT + "/1"))
 			.andExpect(status().isNotFound());
 	}
 
@@ -129,7 +129,7 @@ public class NotificacaoControllerTests {
 		when(notificationService.deleteById(any(Long.class)))
 			.thenThrow(ResourceNotFoundException.class);
 
-		mockMvc.perform(delete(ADMIN_ENDPOINT + "/{id}", "123"))
+		mockMvc.perform(delete(ADMIN_ENDPOINT + "/123"))
 			.andExpect(status().isNotFound());
 	}
 
@@ -143,7 +143,7 @@ public class NotificacaoControllerTests {
 		when(notificationService.update(any(), any(Long.class)))
 			.thenReturn(notificacaoAtualizada);
 
-		mockMvc.perform(put(ADMIN_ENDPOINT + "/{id}", "123")
+		mockMvc.perform(put(ADMIN_ENDPOINT + "/123")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(novaNotificacao)))
 			.andExpect(status().isOk());

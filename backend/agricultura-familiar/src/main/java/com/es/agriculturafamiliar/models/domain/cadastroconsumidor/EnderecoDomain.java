@@ -11,7 +11,7 @@ import lombok.Data;
 @NoArgsConstructor
 @Builder
 public class EnderecoDomain {
-    private Integer id_endereco;
+    private Integer idEndereco;
     private String flagEnderecoPrincipal;
     private String cep;
     private String numero;

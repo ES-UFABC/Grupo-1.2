@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
-@RequestMapping("/api/v1/notifications")
+@RequestMapping("/notificacao")
 public class NotificacaoController {
     
     @Autowired
