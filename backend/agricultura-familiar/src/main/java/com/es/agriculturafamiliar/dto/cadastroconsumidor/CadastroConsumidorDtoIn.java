@@ -3,12 +3,16 @@ package com.es.agriculturafamiliar.dto.cadastroconsumidor;
 import com.es.agriculturafamiliar.dto.endereco.EnderecoDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,22 +21,18 @@ import java.util.List;
 @Data
 public class CadastroConsumidorDtoIn {
 
-    @NonNull
+    @NotBlank(message = "Nome deve ser preenchido")
     private String nome;
 
-    @NonNull
+    @NotBlank(message = "Email deve ser preenchido")
     private String email;
 
-    @NonNull
-    @Positive(message = "telefone não deve conter números negativos")
-    @Pattern(regexp = "^[0-9]+", message = "telefone deve ser numérico")
+    @NotBlank(message = "Telefone deve ser preenchido")
     private String telefone;
 
-    @NonNull
-    @Positive(message = "cpf não deve conter números negativos")
-    @Pattern(regexp = "^[0-9]+", message = "cpf deve ser numérico")
+    @NotBlank(message = "CPF deve ser preenchido")
     private String cpf;
 
-    @NonNull
-    private List<EnderecoDto> endereco;
+    @NotNull(message ="Uma lista de endereços deve ser fornecido")
+    private List<@Valid EnderecoDto> endereco;
 }

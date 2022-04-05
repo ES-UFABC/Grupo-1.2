@@ -1,12 +1,17 @@
 package com.es.agriculturafamiliar.controller;
 
-import com.es.agriculturafamiliar.controller.ProdutorController;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
 import com.es.agriculturafamiliar.service.ProdutorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.Matchers;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,12 +23,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ProdutorController.class)
