@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -27,7 +29,8 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails {
 
     @Id
-    private Integer id;    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;    
     private String email;
     private String password;
     private boolean enabled;
