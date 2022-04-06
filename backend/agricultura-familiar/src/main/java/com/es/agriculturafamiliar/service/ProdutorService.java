@@ -23,7 +23,7 @@ public class ProdutorService {
     public Produtor saveProdutor(Produtor produtor){
         produtor = produtorRepository.save(produtor);
         applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getEmail()));
-        return this.produtorRepository.save(produtor);
+        return produtor;
     }
 
     public List<Produtor> findAll(){
