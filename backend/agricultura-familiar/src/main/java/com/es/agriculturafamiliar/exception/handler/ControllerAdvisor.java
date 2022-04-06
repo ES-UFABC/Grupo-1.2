@@ -2,6 +2,7 @@ package com.es.agriculturafamiliar.exception.handler;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.es.agriculturafamiliar.dto.ExceptionPayloadDTO;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
@@ -35,12 +36,13 @@ public class ControllerAdvisor {
     public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
-        String errorMessage = fieldErrors.get(0).getDefaultMessage();
+        List<String> errorMessages =  fieldErrors.stream().map(x -> x.getField() + ": " + x.getDefaultMessage()).collect(Collectors.toList());
+
         ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
                 .timestamp(LocalDateTime.now())
                 .title("Validation Error")
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .description(errorMessage)
+                .description(String.join( ";",errorMessages))
                 .build();
 
         return ResponseEntity.badRequest().body(exceptionPayload);
