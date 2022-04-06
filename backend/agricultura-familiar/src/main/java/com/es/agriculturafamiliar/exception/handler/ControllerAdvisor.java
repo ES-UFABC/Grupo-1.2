@@ -25,7 +25,7 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Resource not found")
 				.statusCode(HttpStatus.NOT_FOUND.value())
-				.description(exception.getMessage()) 
+				.description(new String[]{exception.getMessage()})
 				.build();
 		
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.NOT_FOUND);
@@ -42,7 +42,7 @@ public class ControllerAdvisor {
                 .timestamp(LocalDateTime.now())
                 .title("Validation Error")
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .description(String.join( ";",errorMessages))
+                .description(errorMessages.toArray(new String[errorMessages.size()]))
                 .build();
 
         return ResponseEntity.badRequest().body(exceptionPayload);
