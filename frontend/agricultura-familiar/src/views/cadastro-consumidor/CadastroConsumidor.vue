@@ -131,7 +131,7 @@
           nome: this.consumidor.nome,
           email: this.consumidor.email,
           telefone: this.consumidor.telefone,
-          CPF: this.consumidor.CPF,
+          cpf: this.consumidor.CPF,
           endereco: [this.endereco]
         }
       }
@@ -154,7 +154,7 @@
         this.endereco = {
           ...payload,
           ...{
-            flagEndereçoPrincipal: 'S'
+            flagEnderecoPrincipal: 'S'
           }
         };
       }
