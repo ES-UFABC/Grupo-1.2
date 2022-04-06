@@ -5,7 +5,6 @@ import com.es.agriculturafamiliar.entity.User;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -19,14 +18,13 @@ public class TokenAuthenticationService {
     private final ITokenService tokenService;
     private final PasswordEncoder passwordEncoder;
 
-
     /**
-     * Authenticates and returns token, otherwise throws exception if user's account is not enabled or credentials aren't valid
+     * Authenticates and returns a token, otherwise it throws an exception if the user's account is not enabled or credentials aren't valid
      * @param user UserDetails, containing it's credentials
      * @return JWT token
      */
     public String authenticate(User user) {
-        User userDetails = userDetailsManager.loadUserByUsername(user.getEmail());
+        UserDetails userDetails = userDetailsManager.loadUserByUsername(user.getEmail());
         boolean isCredentialValid = validateCredentials(user, userDetails);
 
         if (!isCredentialValid) {
@@ -34,7 +32,7 @@ public class TokenAuthenticationService {
             throw new BadCredentialsException("Credenciais inválidas");
         }
 
-        log.info("Credenciais autênticadas com sucesso, retornando token");
+        log.info("Credenciais autenticadas com sucesso, retornando token");
         
         return tokenService.generateToken(userDetails);
     }

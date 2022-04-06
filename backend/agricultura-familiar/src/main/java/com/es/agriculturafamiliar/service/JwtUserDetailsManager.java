@@ -27,7 +27,7 @@ public class JwtUserDetailsManager implements UserDetailsManager {
     private static final String NOT_FOUND_USER_MESSAGE = "Usuário com o email fornecido não encontrado";
 
     @Override
-    public User loadUserByUsername(String email) throws UsernameNotFoundException {      
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {      
         User user = userRepository.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException(NOT_FOUND_USER_MESSAGE));
         log.info("Usuário com email {} e id: {} encontrado", user.getEmail(), user.getId());
         return user;
