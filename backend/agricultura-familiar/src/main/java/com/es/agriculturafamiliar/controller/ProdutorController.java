@@ -1,12 +1,17 @@
 package com.es.agriculturafamiliar.controller;
 
+import com.es.agriculturafamiliar.dto.ProdutorRequestDTO;
+import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.service.ProdutorService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import lombok.AllArgsConstructor;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -14,10 +19,11 @@ import java.util.List;
 
 @RestController()
 @RequestMapping("/cadastro/produtor")
+@AllArgsConstructor
 public class ProdutorController {
-
-    @Autowired
-    private ProdutorService produtorService;
+    
+    private final ProdutorService produtorService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/{id}")
     public ResponseEntity<Produtor> findById(@PathVariable Long id){
@@ -33,8 +39,10 @@ public class ProdutorController {
 
     @PostMapping
     public ResponseEntity<Produtor> saveProdutor(@Valid @RequestBody Produtor produtor){
-        produtor = produtorService.saveProdutor(produtor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtor);
+       // Produtor mappedPordutor = modelMapper.map(produtor, Produtor.class);
+        //User mappedUser = modelMapper.map(produtor.getUserCredentials(), User.class);
+        Produtor savedProdutor = produtorService.saveProdutor(produtor, produtor.getUser());
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProdutor);
     }
 
     @PutMapping("/{id}")
