@@ -120,7 +120,7 @@
           nome: '',
           email: '',
           telefone: '',
-          CPF: '',
+          cpf: '',
         },
         endereco: null,
       }
@@ -151,8 +151,12 @@
         }
       },
       preencherEndereco(payload) {
-        this.endereco = payload;
-        this.endereco.flag_endereco_principal = 'S';
+        this.endereco = {
+          ...payload,
+          ...{
+            flagEndereçoPrincipal: 'S'
+          }
+        };
       }
     },
 
