@@ -28,8 +28,6 @@ public class Role implements GrantedAuthority {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
-    
-
     @Override
     public String getAuthority() {
         return role.getLabel();

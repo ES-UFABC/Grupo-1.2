@@ -48,7 +48,7 @@ public class JwtTokenService implements ITokenService {
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         boolean isValidUsername = username.equals(userDetails.getUsername());
-        return isValidUsername && isTokenExpired(token);
+        return isValidUsername && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {

@@ -1,14 +1,19 @@
 package com.es.agriculturafamiliar.constants;
 
+import java.util.Arrays;
+
 public enum RoleType {
-    ADMIN("admin"),
-    PRODUTOR("produtor"),
-    CONSUMIDOR("consumidor");
+    ADMIN("ROLE_ADMIN"),
+    PRODUTOR("ROLE_PRODUTOR"),
+    CONSUMIDOR("ROLE_CONSUMIDOR");
 
     private String roleName;
 
     public static RoleType valueOfIgnoreCase(String value) {
-        return valueOf(value.toUpperCase());
+        return Arrays.stream(RoleType.values())
+            .filter(v -> v.roleName.equals(value))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Role não encontrada"));
    }
 
     private RoleType(String roleName) {
