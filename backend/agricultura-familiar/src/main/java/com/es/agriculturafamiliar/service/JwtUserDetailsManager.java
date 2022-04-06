@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class JwtUserDetailsManager implements UserDetailsManager {
+public class JwtUserDetailsManager implements ICustomUserDetailsService<User> {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -34,9 +34,9 @@ public class JwtUserDetailsManager implements UserDetailsManager {
     }
 
     @Override
-    public void createUser(UserDetails user) {
+    public User createUser(UserDetails user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
-        
+
         Set<Role> roles = user.getAuthorities()
             .stream()
             .map(grantedAuthority -> Role.builder().role(RoleType.valueOfIgnoreCase(grantedAuthority.getAuthority())).build())
@@ -51,6 +51,7 @@ public class JwtUserDetailsManager implements UserDetailsManager {
 
         User persistedUser = userRepository.save(userToBePersisted);
         log.info("Usuário de id {} e email {} persistido com sucesso", persistedUser.getId(), persistedUser.getEmail());
+        return persistedUser;
     }
 
     @Override

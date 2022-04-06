@@ -17,3 +17,19 @@ CREATE TABLE IF NOT EXISTS user_role (
 	FOREIGN KEY (user_id) REFERENCES `user`(id),
 	FOREIGN KEY (role_id) REFERENCES `role`(id)
 );
+
+ALTER TABLE produtor
+    ADD user_id INTEGER NOT NULL;
+
+ALTER TABLE produtor
+	ADD CONSTRAINT fk_user_produtor
+	FOREIGN KEY (user_id)
+	REFERENCES `user`(id);
+
+ALTER TABLE consumidor
+    ADD user_id INTEGER NOT NULL;
+
+ALTER TABLE consumidor
+	ADD CONSTRAINT fk_user_consumidor
+	FOREIGN KEY (user_id)
+	REFERENCES `user`(id);
