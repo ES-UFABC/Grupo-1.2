@@ -120,7 +120,7 @@
           nome: '',
           email: '',
           telefone: '',
-          CPF: '',
+          cpf: '',
         },
         endereco: null,
       }
@@ -131,7 +131,7 @@
           nome: this.consumidor.nome,
           email: this.consumidor.email,
           telefone: this.consumidor.telefone,
-          CPF: this.consumidor.CPF,
+          cpf: this.consumidor.CPF,
           endereco: [this.endereco]
         }
       }
@@ -151,8 +151,12 @@
         }
       },
       preencherEndereco(payload) {
-        this.endereco = payload;
-        this.endereco.flag_endereco_principal = 'S';
+        this.endereco = {
+          ...payload,
+          ...{
+            flagEnderecoPrincipal: 'S'
+          }
+        };
       }
     },
 

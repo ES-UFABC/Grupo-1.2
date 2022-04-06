@@ -93,7 +93,7 @@
                             label-for="txt-cpf-cnpj">
                 <b-form-input id="txt-cpf"
                               v-model="produtor.CPFCNPJ"
-                              v-mask="'###.###.###-##'"
+                              v-mask="cpfCnpjMask"
                               type="text"
                               placeholder=""
                               required></b-form-input>
@@ -133,12 +133,12 @@
             <b-col>
               <b-form-group id="input-group-txt-cpf-cnpj"
                             label="Biografia"
-                            label-for="txt-cpf-cnpj">
+                            label-for="txt-biografia">
                 <b-form-textarea id="txt-biografia"
                                  v-model="produtor.biografia"
                                  type="text"
                                  placeholder=""
-                                 required></b-form-textarea>
+                                 ></b-form-textarea>
 
                 <b-form-text id="input-live-help">Escreva um pouco sobre o que você produz e pode oferecer</b-form-text>
               </b-form-group>
@@ -175,7 +175,7 @@
         },
         enderecoProducao: null,
         enderecoEntrega: null,
-        tipoEnderecoPrincipal: 'PRODUCAO'
+        tipoEnderecoPrincipal: 'PRODUCAO',
       }
     },
     computed: {
@@ -206,6 +206,9 @@
           tipoProdutor: "INDIVIDUAL",
           tiposProducao: []
         }
+      },
+      cpfCnpjMask() {
+        return (this.produtor.CPFCNPJ && this.produtor.CPFCNPJ.length > 14) ? '##.###.###/####-##' : '###.###.###-##X'
       }
     },
     mounted() {
@@ -224,14 +227,21 @@
         }
       },
       preencherEnderecoProducao(payload) {
-        this.enderecoProducao = payload;
-        //  produtor: "string",
-        this.enderecoProducao.tipoEndereco = "PRODUCAO";
+        this.enderecoProducao = {
+          ...payload,
+          ...{
+            tipoEndereco: 'PRODUCAO'
+          }
+        };
       },
       preencherEnderecoEntrega(payload) {
-        this.enderecoEntrega = payload;
-        this.enderecoEntrega.tipoEndereco = "COMERCIALIZACAO";
-      }
+        this.enderecoEntrega = {
+          ...payload,
+          ...{
+            tipoEndereco: 'COMERCIALIZACAO'
+          }
+        };
+      },
     },
     
   }
