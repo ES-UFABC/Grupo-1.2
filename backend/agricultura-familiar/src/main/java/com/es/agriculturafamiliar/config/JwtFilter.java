@@ -7,8 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.service.ICustomUserDetailsService;
 import com.es.agriculturafamiliar.service.ITokenService;
-import com.es.agriculturafamiliar.service.JwtUserDetailsManager;
+
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,12 +22,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import lombok.AllArgsConstructor;
 
-
 @Component
 @AllArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-    private final JwtUserDetailsManager jwtUserDetailsManager;
+    private final ICustomUserDetailsService<User> jwtUserDetailsManager;
     private final ITokenService tokenService;
     private final static String AUTHORIZATION_HEADER = "Authorization";
     private final static String JWT_HEADER_PREFIX = "Bearer";
