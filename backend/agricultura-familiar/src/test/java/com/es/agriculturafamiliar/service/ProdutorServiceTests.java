@@ -1,10 +1,10 @@
 package com.es.agriculturafamiliar.service;
 
+import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
-import com.es.agriculturafamiliar.service.ProdutorService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,21 +26,21 @@ import static org.mockito.Mockito.when;
 public class ProdutorServiceTests {
 
     @InjectMocks
-    private static ProdutorService produtorService;
+    private ProdutorService produtorService;
 
     @Mock
-    private static ProdutorRepository produtorRepository;
+    private ProdutorRepository produtorRepository;
 
     @Mock
-    private static ApplicationEventPublisher applicationEventPublisher;
+    private JwtUserDetailsManager customUserDetailsService; 
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-    }
+    @Mock
+    private ApplicationEventPublisher applicationEventPublisher;
+    
     
     @Test
     public void saveProdutor_shouldReturnSavedProdutor_whenSuccessful(){
+        User user = new User();
         Produtor produtor = new Produtor();
         produtor.setCpfOuCnpj("43292043742");
         produtor.setNome("Prod Teste");
@@ -72,11 +72,12 @@ public class ProdutorServiceTests {
         returnedSavedProdutor.setOrganico("SIM");
         returnedSavedProdutor.setGeolocalizacao("");
         returnedSavedProdutor.getTelefones().addAll(Arrays.asList("1234512", "1574869"));
+        returnedSavedProdutor.setUser(user);
 
-        when(produtorRepository.save(any(Produtor.class)))
-                .thenReturn(returnedSavedProdutor);
+        when(customUserDetailsService.createUser(any())).thenReturn(user);
+        when(produtorRepository.save(any(Produtor.class))).thenReturn(returnedSavedProdutor);
 
-        var savedProdutor = produtorService.saveProdutor(produtor);
+        var savedProdutor = produtorService.saveProdutor(produtor, user);
 
         assertEquals(produtor, savedProdutor);
     }
