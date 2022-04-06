@@ -6,6 +6,8 @@ import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoOu
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroConsumidorUseCase;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.net.URI;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/cadastro/consumidor")
@@ -35,7 +38,10 @@ public class CadastroConsumidorController {
 
         final CadastroConsumidorDtoOut resultado = mapper.toDto(usecaseDomainOut.get());
 
-        return ResponseEntity.created(URI.create("/" + usecaseDomainOut.get().getCpf())).build();
+        log.info(resultado.toString());
+        
+
+        return ResponseEntity.created(URI.create("/" + resultado.getCpf())).body(resultado);
     }
 
     @PutMapping("/{IdCPF}")

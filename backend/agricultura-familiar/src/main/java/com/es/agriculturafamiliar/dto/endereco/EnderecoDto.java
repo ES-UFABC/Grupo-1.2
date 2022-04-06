@@ -1,11 +1,12 @@
 package com.es.agriculturafamiliar.dto.endereco;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
+
 
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,18 +15,14 @@ import javax.validation.constraints.Positive;
 @Data
 public class EnderecoDto {
 
-    @NonNull
+    @NotBlank(message = "Deve-se informar se o endereço é o principal")
     @Pattern(regexp = "(S|N)", message = "o endereço principal só pode receber os valores S ou N")
     private String flagEnderecoPrincipal;
 
-    @NonNull
-    @Positive(message = "CEP não deve conter números negativos")
-    @Pattern(regexp = "^[0-9]+", message = "CEP deve ser numérico")
+    @NotBlank(message = "CEP deve ser preenchido")
     private String cep;
 
-    @NonNull
-    @Positive(message = "Número da residência não deve conter números negativos")
-    @Pattern(regexp = "^[0-9]+", message = "Número da residência deve ser numérico")
+    @NotBlank(message = "Número deve ser preenchido")
     private String numero;
 
     private String complemento;
