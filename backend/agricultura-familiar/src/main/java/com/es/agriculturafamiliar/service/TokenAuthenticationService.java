@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @AllArgsConstructor
 public class TokenAuthenticationService {
-    private final JwtUserDetailsManager userDetailsManager;
+    private final ICustomUserDetailsService<User> userDetailsManager;
     private final ITokenService tokenService;
     private final PasswordEncoder passwordEncoder;
 
