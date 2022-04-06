@@ -3,6 +3,8 @@ package com.es.agriculturafamiliar.entity;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.es.agriculturafamiliar.constants.RoleType;
@@ -21,7 +23,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Role implements GrantedAuthority {
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Enumerated(EnumType.STRING)
     private RoleType role;
 

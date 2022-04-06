@@ -27,7 +27,7 @@ public class JwtUserDetailsManager implements UserDetailsManager {
     private static final String NOT_FOUND_USER_MESSAGE = "Usuário com o email fornecido não encontrado";
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {        
+    public User loadUserByUsername(String email) throws UsernameNotFoundException {      
         User user = userRepository.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException(NOT_FOUND_USER_MESSAGE));
         log.info("Usuário com email {} e id: {} encontrado", user.getEmail(), user.getId());
         return user;
@@ -39,7 +39,7 @@ public class JwtUserDetailsManager implements UserDetailsManager {
         
         Set<Role> roles = user.getAuthorities()
             .stream()
-            .map(b -> Role.builder().role(RoleType.valueOfIgnoreCase(b.getAuthority())).build())
+            .map(grantedAuthority -> Role.builder().role(RoleType.valueOfIgnoreCase(grantedAuthority.getAuthority())).build())
             .collect(Collectors.toSet());
 
         User userToBePersisted = User.builder()
