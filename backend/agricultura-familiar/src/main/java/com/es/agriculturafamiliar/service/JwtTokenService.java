@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.function.Function;
 
 import com.es.agriculturafamiliar.entity.JwtToken;
+import com.es.agriculturafamiliar.exception.AuthException;
+import com.es.agriculturafamiliar.exception.ExpiredTokenException;
+import com.es.agriculturafamiliar.exception.InvalidTokenException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -60,10 +63,19 @@ public class JwtTokenService implements ITokenService {
     }
 
     @Override
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(String token, UserDetails userDetails) throws AuthException {
         final String username = getUsernameFromToken(token);
         boolean isValidUsername = username.equals(userDetails.getUsername());
-        return isValidUsername && !isTokenExpired(token);
+
+        if (!isValidUsername) {
+            throw new InvalidTokenException();
+        }
+
+        if (isTokenExpired(token)) {
+            throw new ExpiredTokenException();
+        }
+
+        return true;
     }
 
     private boolean isTokenExpired(String token) {
