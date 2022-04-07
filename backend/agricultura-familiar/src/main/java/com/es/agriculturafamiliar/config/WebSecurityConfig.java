@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -17,23 +18,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     private JwtFilter jwtFilter;
-
+    @Autowired
+    private FIlterChainExceptionHandler filterChainExceptionHandler;
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {        
         httpSecurity
+                .addFilterBefore(filterChainExceptionHandler, LogoutFilter.class)
                 .cors().disable()
                 .csrf().disable()            
                 .authorizeHttpRequests()
+                
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .regexMatchers(".*/admin.*").hasRole(RoleType.ADMIN.name())
                 .antMatchers("/consumidor/*").hasRole(RoleType.CONSUMIDOR.name())
                 .antMatchers("/produtor/*").hasRole(RoleType.PRODUTOR.name())            
                 .antMatchers("/cadastro/*", "/login/*").permitAll()
-                .anyRequest().permitAll()                        
-            .and()
+                .anyRequest().permitAll()                
+            .and()            
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);     
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
     
 }

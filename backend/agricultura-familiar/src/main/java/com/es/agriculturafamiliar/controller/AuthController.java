@@ -12,6 +12,7 @@ import com.es.agriculturafamiliar.service.TokenAuthenticationService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,5 +41,35 @@ public class AuthController {
         
         return ResponseEntity.created(URI.create("/id")).build();
     }
+
+    @GetMapping(value="/admin")
+    public String hel() {        
+        
+        return "ADMIRO";
+    }
+
+    @GetMapping(value="/myendpoint/admin")
+    public String helllll() {        
+        
+        return "ADMIRO";
+    }
+
+    @GetMapping(value="/myendpoint/produtor")
+    public String hellll() {                
+        return "ADMIRO";
+    }
+
+    @GetMapping(value="/produtor/myendpoint")
+    public String hell() {        
+        return "PRODUTOR";
+    }
+
+    @GetMapping(value="/consumidor/myendpoint")
+    public String helll() {        
+        
+        return "CONSUMIDOR AUTH";
+    }
+
+
     
 }
