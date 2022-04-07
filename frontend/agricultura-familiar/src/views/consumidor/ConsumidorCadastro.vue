@@ -2,7 +2,6 @@
   <b-row>
     <b-col sm="10" md="10" lg="8" offset-sm="1" offset-md="1" offset-lg="2" class="content animated fadeInUp">
       <b-form @submit="enviar" v-if="show">
-        <b-card>
           <h3>Seus dados</h3>
           <hr />
           <!-- Nome -->
@@ -53,24 +52,24 @@
               </b-form-group>
             </b-col>
             <!--<b-col>
-      <b-form-group id="input-group-txt-celular2"
-                    label="Celular para contato 2"
-                    label-for="txt-celular2">
-        <b-input-group>
-          <b-input-group-prepend>
-            <b-input-group-text>
-              <b-icon icon="x" />
-            </b-input-group-text>
-          </b-input-group-prepend>
-          <b-form-input id="txt-celular2"
-                        v-model="form.telefone"
-                        v-mask="'(##) #####-####'"
-                        type="tel"
-                        placeholder=""></b-form-input>
-        </b-input-group>
+          <b-form-group id="input-group-txt-celular2"
+                        label="Celular para contato 2"
+                        label-for="txt-celular2">
+            <b-input-group>
+              <b-input-group-prepend>
+                <b-input-group-text>
+                  <b-icon icon="x" />
+                </b-input-group-text>
+              </b-input-group-prepend>
+              <b-form-input id="txt-celular2"
+                            v-model="form.telefone"
+                            v-mask="'(##) #####-####'"
+                            type="tel"
+                            placeholder=""></b-form-input>
+            </b-input-group>
 
-      </b-form-group>
-    </b-col>-->
+          </b-form-group>
+        </b-col>-->
           </b-form-row>
 
           <!-- CPF -->
@@ -95,7 +94,6 @@
             <Endereco titulo="Endereço de Entrega"
                       @salvar-endereco="preencherEndereco"></Endereco>
           </div>
-        </b-card>
         <b-card-footer>
           <b-button type="submit" variant="primary">Salvar Cadastro</b-button>
         </b-card-footer>
@@ -108,10 +106,11 @@
 <script>
   import Cadastro from '../../components/cadastro/Cadastro';
   import Endereco from '../../components/endereco/Endereco';
+  import Voltar from '../../components/voltar/Voltar'
   export default {
     name: 'CadastroConsumidor',
     extends: Cadastro,
-    components: { Endereco },
+    components: { Endereco, Voltar },
     data() {
       return {
         show: true,
@@ -120,7 +119,7 @@
           nome: '',
           email: '',
           telefone: '',
-          CPF: '',
+          cpf: '',
         },
         endereco: null,
       }
@@ -131,8 +130,12 @@
           nome: this.consumidor.nome,
           email: this.consumidor.email,
           telefone: this.consumidor.telefone,
-          CPF: this.consumidor.CPF,
-          endereco: [this.endereco]
+          cpf: this.consumidor.CPF,
+          endereco: [this.endereco],
+          user: {
+            email: this.consumidor.email,
+            password: '12345'
+          }
         }
       }
     },
@@ -151,8 +154,12 @@
         }
       },
       preencherEndereco(payload) {
-        this.endereco = payload;
-        this.endereco.flag_endereco_principal = 'S';
+        this.endereco = {
+          ...payload,
+          ...{
+            flagEnderecoPrincipal: 'S'
+          }
+        };
       }
     },
 

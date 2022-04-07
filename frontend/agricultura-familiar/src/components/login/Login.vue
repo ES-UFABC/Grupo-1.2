@@ -1,6 +1,6 @@
 <template>
   <b-form @submit.prevent="enviar">
-    <b-card bg-variant="light" header="Informe seu e-mail" class="text-center">
+    <b-card-text>Informe seu e-mail</b-card-text>
       <b-form-row>
         <b-col>
           <b-form-group id="input-group-txt-email">
@@ -38,7 +38,6 @@
         </b-col>
       </b-form-row>
       <b-button type="submit" variant="primary">Entrar</b-button>
-    </b-card>
   </b-form>
 </template>
 
