@@ -65,24 +65,24 @@
               </b-form-group>
             </b-col>
             <b-col>
-      <b-form-group id="input-group-txt-celular2"
-                    label="Celular para contato 2"
-                    label-for="txt-celular2">
-        <b-input-group>
-          <b-input-group-prepend>
-            <b-input-group-text>
-              <b-icon icon="x" />
-            </b-input-group-text>
-          </b-input-group-prepend>
-          <b-form-input id="txt-celular2"
-                        v-model="produtor.telefone2"
-                        v-mask="'(##) #####-####'"
-                        type="tel"
-                        placeholder=""></b-form-input>
-        </b-input-group>
+              <b-form-group id="input-group-txt-celular2"
+                            label="Celular para contato 2"
+                            label-for="txt-celular2">
+                <b-input-group>
+                  <b-input-group-prepend>
+                    <b-input-group-text>
+                      <b-icon icon="x" />
+                    </b-input-group-text>
+                  </b-input-group-prepend>
+                  <b-form-input id="txt-celular2"
+                                v-model="produtor.telefone2"
+                                v-mask="'(##) #####-####'"
+                                type="tel"
+                                placeholder=""></b-form-input>
+                </b-input-group>
 
-      </b-form-group>
-    </b-col>
+              </b-form-group>
+            </b-col>
           </b-form-row>
 
           <!-- CPF -->
@@ -93,7 +93,7 @@
                             label-for="txt-cpf-cnpj">
                 <b-form-input id="txt-cpf"
                               v-model="produtor.CPFCNPJ"
-                              v-mask="'###.###.###-##'"
+                              v-mask="cpfCnpjMask"
                               type="text"
                               placeholder=""
                               required></b-form-input>
@@ -133,12 +133,11 @@
             <b-col>
               <b-form-group id="input-group-txt-cpf-cnpj"
                             label="Biografia"
-                            label-for="txt-cpf-cnpj">
+                            label-for="txt-biografia">
                 <b-form-textarea id="txt-biografia"
                                  v-model="produtor.biografia"
                                  type="text"
-                                 placeholder=""
-                                 required></b-form-textarea>
+                                 placeholder=""></b-form-textarea>
 
                 <b-form-text id="input-live-help">Escreva um pouco sobre o que você produz e pode oferecer</b-form-text>
               </b-form-group>
@@ -154,8 +153,8 @@
 </template>
 
 <script>
-  import Cadastro from '../../components/cadastro/Cadastro';
-  import Endereco from '../../components/endereco/Endereco';
+  import Cadastro from '../../../components/cadastro/Cadastro';
+  import Endereco from '../../../components/endereco/Endereco';
   export default {
     name: 'CadastroProdutor',
     extends: Cadastro,
@@ -175,7 +174,7 @@
         },
         enderecoProducao: null,
         enderecoEntrega: null,
-        tipoEnderecoPrincipal: 'PRODUCAO'
+        tipoEnderecoPrincipal: 'PRODUCAO',
       }
     },
     computed: {
@@ -184,6 +183,7 @@
       },
       model() {
         return {
+          id: 0,
           nome: this.produtor.nome,
           cpfOuCnpj: this.produtor.CPFCNPJ,
           email: this.produtor.email,
@@ -203,12 +203,11 @@
           registroOuCertificacao: true,
           registrosOuCertificacoes: [],
           tipoProdutor: "INDIVIDUAL",
-          tiposProducao: [],
-          user: {
-            email: this.produtor.email,
-            password: '12345'
-          }
+          tiposProducao: []
         }
+      },
+      cpfCnpjMask() {
+        return (this.produtor.CPFCNPJ && this.produtor.CPFCNPJ.length > 14) ? '##.###.###/####-##' : '###.###.###-##X'
       }
     },
     mounted() {
@@ -227,15 +226,22 @@
         }
       },
       preencherEnderecoProducao(payload) {
-        this.enderecoProducao = payload;
-        //  produtor: "string",
-        this.enderecoProducao.tipoEndereco = "PRODUCAO";
+        this.enderecoProducao = {
+          ...payload,
+          ...{
+            tipoEndereco: 'PRODUCAO'
+          }
+        };
       },
       preencherEnderecoEntrega(payload) {
-        this.enderecoEntrega = payload;
-        this.enderecoEntrega.tipoEndereco = "COMERCIALIZACAO";
-      }
+        this.enderecoEntrega = {
+          ...payload,
+          ...{
+            tipoEndereco: 'COMERCIALIZACAO'
+          }
+        };
+      },
     },
-    
+
   }
 </script>
