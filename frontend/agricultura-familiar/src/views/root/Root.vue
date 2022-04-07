@@ -13,6 +13,5 @@
 
 <script>
   export default {
-
   }
 </script>

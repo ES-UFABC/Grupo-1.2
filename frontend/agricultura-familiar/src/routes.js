@@ -3,18 +3,19 @@ import VueRouter from 'vue-router';
 
 import Root from './views/root/Root.vue'
 
-import HomeConsumidor from './views/consumidor/home/HomeConsumidor.vue';
-import LoginConsumidor from './views/consumidor/login/LoginConsumidor.vue';
-import CadastroConsumidor from './views/consumidor/cadastro/CadastroConsumidor.vue';
+import Consumidor from './views/consumidor/Consumidor.vue';
+import ConsumidorHome from './views/consumidor/ConsumidorHome.vue';
+import ConsumidorLogin from './views/consumidor/ConsumidorLogin.vue';
+import ConsumidorCadastro from './views/consumidor/ConsumidorCadastro.vue';
 
-import HomeProdutor from './views/produtor/home/HomeProdutor.vue';
-import LoginProdutor from './views/produtor/login/LoginProdutor.vue';
-import CadastroProdutor from './views/produtor/cadastro/CadastroProdutor.vue';
+import Produtor from './views/produtor/Produtor.vue';
+import ProdutorHome from './views/produtor/ProdutorHome.vue';
+import ProdutorLogin from './views/produtor/ProdutorLogin.vue';
+import ProdutorCadastro from './views/produtor/ProdutorCadastro.vue';
 
 Vue.use(VueRouter);
 
-
-export default new VueRouter ({
+const router =  new VueRouter ({
   mode: 'hash',
   routes: [
     {
@@ -27,19 +28,25 @@ export default new VueRouter ({
       path: '/consumidor',
       name: 'consumidor_home',
       title: 'Consumidor',
-      component: HomeConsumidor,
+      component: Consumidor,
       children: [
+        {
+          path: '/',
+          name: 'home_consumidor',
+          title: 'Home',
+          component: ConsumidorHome,
+        },
         {
           path: 'login',
           name: 'login_consumidor',
           title: 'Login',
-          component: LoginConsumidor,
+          component: ConsumidorLogin,
         },
         {
           path: 'cadastro',
           name: 'cadastro_consumidor',
           title: 'Cadastro Consumidor',
-          component: CadastroConsumidor,
+          component: ConsumidorCadastro,
         }
       ]
     },
@@ -47,21 +54,45 @@ export default new VueRouter ({
       path: '/produtor',
       name: 'produtor_home',
       title: 'Produtor',
-      component: HomeProdutor,
+      component: Produtor,
       children: [
+        {
+          path: '/',
+          name: 'home_produtor',
+          title: 'Home',
+          component: ProdutorHome,
+        },
         {
           path: 'login',
           name: 'login_produtor',
           title: 'Login',
-          component: LoginProdutor,
+          component: ProdutorLogin,
         },
         {
           path: 'cadastro',
           name: 'cadastro_produtor',
           title: 'Cadastro Produtor',
-          component: CadastroProdutor,
+          component: ProdutorCadastro,
         },
       ]
     },
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
+                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro'];
+
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
+
+  if (authRequired && !loggedIn) // trying to access a restricted page + not logged in
+    next('/'); // redirect to root page
+  else if (!authRequired && loggedIn) // trying to access a public page + logged in
+    next('/profile'); // redirect to profile
+  else //authRequired + logged in
+    next(); //do nothing
+
+});
+
+export default router;
