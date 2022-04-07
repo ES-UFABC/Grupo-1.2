@@ -1,5 +1,6 @@
 package com.es.agriculturafamiliar.service;
 
+import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.User;
 
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,7 +24,7 @@ public class TokenAuthenticationService {
      * @param user UserDetails, containing it's credentials
      * @return JWT token
      */
-    public String authenticate(User user) {
+    public JwtToken authenticate(User user) {
         UserDetails userDetails = userDetailsManager.loadUserByUsername(user.getEmail());
         boolean isCredentialValid = validateCredentials(user, userDetails);
 

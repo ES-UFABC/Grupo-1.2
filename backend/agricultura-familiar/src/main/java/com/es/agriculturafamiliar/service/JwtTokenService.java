@@ -1,5 +1,6 @@
 package com.es.agriculturafamiliar.service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -7,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.es.agriculturafamiliar.entity.JwtToken;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,26 +21,33 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtTokenService implements ITokenService {
 
-    /**
-     * Pending, extract to app-props
-     */
-    private static final String SECRET_KEY = "abacate";
-    private static final int TOKEN_VALIDITY = 60 * 60 * 3;
+    @Value("${security.jwt.signing-key}")
+    private String SECRET_KEY;
+
+    @Value("${security.jwt.token-duration-in-hours}")
+    private Long TOKEN_VALIDITY;
+
 
     @Override
-    public String generateToken(UserDetails userDetails) {      
+    public JwtToken generateToken(UserDetails userDetails) {      
         Date issuedAt = Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC));
-        Date expirationTime = Date.from(LocalDateTime.now().plusHours(TOKEN_VALIDITY).toInstant(ZoneOffset.UTC));
+        Instant expirationDateTime = LocalDateTime.now().plusHours(TOKEN_VALIDITY).toInstant(ZoneOffset.UTC);
+        Date expirationTime = Date.from(expirationDateTime);
 
         Map<String, Object> claims = new HashMap<>();
 
-        return Jwts.builder()
+        String token = Jwts.builder()
             .setClaims(claims)
             .setSubject(userDetails.getUsername())
             .setIssuedAt(issuedAt)
             .setExpiration(expirationTime)
             .signWith(SignatureAlgorithm.HS512, SECRET_KEY)          
             .compact();
+
+        return JwtToken.builder()
+            .token(token)
+            .expirationDate(expirationDateTime.toString())
+            .build();
     }
 
     @Override
