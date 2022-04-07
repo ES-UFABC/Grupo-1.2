@@ -17,8 +17,12 @@ import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class JwtTokenService implements ITokenService {
 
     @Value("${security.jwt.signing-key}")
