@@ -25,7 +25,7 @@ public class CadastroConsumidorUseCase {
     public Optional<CadastroConsumidorDomain> cadastraConsumidor(CadastroConsumidorDomain domainIn) {
         log.info("cadastraConsumidor CPF: {}", domainIn.getCpf());
 
-        var verificaExistenciaConsumidor = consultaConsumidor(domainIn.getCpf());
+        var verificaExistenciaConsumidor = repository.consultaPorChave(domainIn.getCpf());
 
         if (verificaExistenciaConsumidor.isPresent()) {
             throw new IllegalArgumentException("O CPF informado já se encontra cadastrado");

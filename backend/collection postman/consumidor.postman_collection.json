@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "4de434c6-53d7-4ad4-a247-f23ac09e165f",
+		"name": "consumidor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8091/agricultura-familiar/api/cadastro/consumidor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"joao\",\r\n  \"email\": \"joao@gmail.com\",\r\n  \"telefone\": \"11975295602\",\r\n  \"CPF\": \"572.355.330-56\",\r\n  \"endereco\": [\r\n    {\r\n      \"flag_endereco_principal\": \"S\",\r\n      \"cep\": \"06233-030\",\r\n      \"numero\": \"72\",\r\n      \"complemento\": \"apto 2\",\r\n      \"rua\": \"santa carolina\",\r\n      \"bairro\": \"vila campestre\",\r\n      \"municipio\": \"santo andré\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8091/agricultura-familiar/api/cadastro/consumidor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"agricultura-familiar",
+						"api",
+						"cadastro",
+						"consumidor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8091/agricultura-familiar/api/cadastro/consumidor Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"joao\",\r\n  \"email\": \"joao@gmail.com\",\r\n  \"telefone\": \"11975295602\",\r\n  \"CPF\": \"572.355.330-56\",\r\n  \"endereco\": [\r\n    {\r\n      \"flag_endereco_principal\": \"S\",\r\n      \"cep\": \"06233-030\",\r\n      \"numero\": \"72\",\r\n      \"complemento\": \"apto 2\",\r\n      \"rua\": \"santa carolina\",\r\n      \"bairro\": \"vila campestre\",\r\n      \"municipio\": \"santo andré\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8091/agricultura-familiar/api/cadastro/consumidor/572.355.330-56",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"agricultura-familiar",
+						"api",
+						"cadastro",
+						"consumidor",
+						"572.355.330-56"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8091/agricultura-familiar/api/cadastro/consumidor Copy 2",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"joao\",\r\n  \"email\": \"joao@gmail.com\",\r\n  \"telefone\": \"11975295603\",\r\n  \"CPF\": \"572.355.330-56\",\r\n  \"endereco\": [\r\n    {\r\n      \"flag_endereco_principal\": \"S\",\r\n      \"cep\": \"06233-030\",\r\n      \"numero\": \"72\",\r\n      \"complemento\": \"apto 2\",\r\n      \"rua\": \"santa carolina\",\r\n      \"bairro\": \"vila campestre\",\r\n      \"municipio\": \"santo andré\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8091/agricultura-familiar/api/cadastro/consumidor/572.355.330-56",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"agricultura-familiar",
+						"api",
+						"cadastro",
+						"consumidor",
+						"572.355.330-56"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8091/agricultura-familiar/api/cadastro/consumidor Copy 3",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"joao\",\r\n  \"email\": \"joao@gmail.com\",\r\n  \"telefone\": \"11975295603\",\r\n  \"CPF\": \"572.355.330-56\",\r\n  \"endereco\": [\r\n    {\r\n      \"flag_endereco_principal\": \"S\",\r\n      \"cep\": \"06233-030\",\r\n      \"numero\": \"72\",\r\n      \"complemento\": \"apto 2\",\r\n      \"rua\": \"santa carolina\",\r\n      \"bairro\": \"vila campestre\",\r\n      \"municipio\": \"santo andré\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8091/agricultura-familiar/api/cadastro/consumidor/572.355.330-56",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"agricultura-familiar",
+						"api",
+						"cadastro",
+						"consumidor",
+						"572.355.330-56"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

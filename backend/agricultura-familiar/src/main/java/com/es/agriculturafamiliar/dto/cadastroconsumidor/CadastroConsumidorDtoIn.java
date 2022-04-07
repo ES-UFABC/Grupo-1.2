@@ -3,6 +3,7 @@ package com.es.agriculturafamiliar.dto.cadastroconsumidor;
 import com.es.agriculturafamiliar.dto.endereco.EnderecoDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,17 +23,23 @@ import javax.validation.constraints.NotNull;
 public class CadastroConsumidorDtoIn {
 
     @NotBlank(message = "Nome deve ser preenchido")
+    @JsonProperty(value = "nome")
     private String nome;
 
     @NotBlank(message = "Email deve ser preenchido")
+    @JsonProperty(value = "email")
     private String email;
 
     @NotBlank(message = "Telefone deve ser preenchido")
+    @JsonProperty(value = "telefone")
     private String telefone;
 
     @NotBlank(message = "CPF deve ser preenchido")
+    @JsonProperty(value = "CPF")
     private String cpf;
 
     @NotNull(message ="Uma lista de endereços deve ser fornecido")
+    @JsonProperty(value = "endereco")
     private List<@Valid EnderecoDto> endereco;
+
 }

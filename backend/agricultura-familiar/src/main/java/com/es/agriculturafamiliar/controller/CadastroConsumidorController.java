@@ -7,13 +7,11 @@ import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsu
 import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroConsumidorUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.net.URI;
 import java.util.NoSuchElementException;
 import java.util.Optional;
