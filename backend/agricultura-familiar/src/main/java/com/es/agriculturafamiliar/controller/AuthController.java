@@ -1,14 +1,13 @@
 package com.es.agriculturafamiliar.controller;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Set;
 
 import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.dto.UserCredentialsDTO;
+import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
-import com.es.agriculturafamiliar.service.JwtTokenService;
 import com.es.agriculturafamiliar.service.TokenAuthenticationService;
 
 import org.modelmapper.ModelMapper;
@@ -28,9 +27,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserCredentialsDTO userCredentialsDTO) {
-        User user = modelMapper.map(userCredentialsDTO, User.class);
-        
-        String jwtToken = tokenAuthenticationService.authenticate(user);
+        User user = modelMapper.map(userCredentialsDTO, User.class);        
+        JwtToken jwtToken = tokenAuthenticationService.authenticate(user);
         return ResponseEntity.ok(jwtToken);        
     }
 

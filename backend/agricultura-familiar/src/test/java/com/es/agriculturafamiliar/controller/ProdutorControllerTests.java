@@ -59,7 +59,7 @@ public class ProdutorControllerTests {
     @Test
     void findById_shouldReturnStatusOk_whenProdutorExists() throws Exception {
 
-        when(produtorService.saveProdutor(any(Produtor.class))).thenReturn(produtor);
+        when(produtorService.saveProdutor(any(Produtor.class), any())).thenReturn(produtor);
         produtorController.saveProdutor(produtor);
         System.out.println(produtor.getId());
         mockMvc.perform(get(BASE_ENDPOINT +"/{id}", produtor.getId()))
