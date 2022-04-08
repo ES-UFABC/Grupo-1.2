@@ -7,8 +7,10 @@ import com.es.agriculturafamiliar.dto.ExceptionPayloadDTO;
 import com.es.agriculturafamiliar.exception.AuthException;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -96,5 +98,40 @@ public class ControllerAdvisor {
 				.build();
 		
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
+	}
+
+	@ExceptionHandler(value = {RuntimeException.class})
+	protected ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
+		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+			.timestamp(LocalDateTime.now())
+			.title("Ocorreu um erro durante o processamento da requisição")
+			.statusCode(HttpStatus.UNPROCESSABLE_ENTITY.value())
+			.description(exception.getMessage())
+			.build();
+		
+		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNPROCESSABLE_ENTITY);
+	}
+
+	@ExceptionHandler(value= {JpaSystemException.class})
+	protected ResponseEntity<Object> handleIllegalArgumentException(JpaSystemException ex) {
+		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+				.timestamp(LocalDateTime.now())
+				.title("Campo inválido")
+				.statusCode(HttpStatus.CONFLICT.value())
+				.description(ex.getMostSpecificCause().getMessage()) 
+				.build();
+		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);
+	}
+	
+	@ExceptionHandler(value= {DataIntegrityViolationException.class})
+	protected ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+		
+		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+				.timestamp(LocalDateTime.now())
+				.title("Campo inválido")
+				.statusCode(HttpStatus.CONFLICT.value())
+				.description(ex.getMostSpecificCause().getMessage()) 
+				.build();
+		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);		
 	}
 }
