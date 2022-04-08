@@ -1,147 +1,175 @@
 <template>
   <b-row>
     <b-col sm="10" md="10" lg="8" offset-sm="1" offset-md="1" offset-lg="2" class="content animated fadeInUp">
-      <b-form @submit="enviar" v-if="show">
-          <h3>Seus dados</h3>
-          <hr />
-          <!-- Nome -->
-          <b-form-row>
-            <b-col>
-              <b-form-group id="input-group-txt-nome-completo" label="Nome Completo" label-for="txt-nome-completo">
-                <b-form-input id="txt-nome-completo"
-                              v-model="produtor.nome"
-                              placeholder=""
-                              required></b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-form-row>
-          <!-- Apelido -->
-          <b-form-row>
-            <b-col>
-              <b-form-group id="input-group-txt-apelido" label="Apelido" label-for="txt-apelido">
-                <b-form-input id="txt-apelido"
-                              v-model="produtor.apelido"
-                              placeholder=""
-                              required></b-form-input>
-                <b-form-text id="input-live-help">Nome que aparecerá para seus clientes.</b-form-text>
-              </b-form-group>
-            </b-col>
-          </b-form-row>
-          <!-- Email -->
-          <b-form-row>
-            <b-col>
-              <b-form-group id="input-group-txt-email"
-                            label="Email"
-                            label-for="txt-email">
-                <b-form-input id="txt-email"
-                              v-model="produtor.email"
-                              type="email"
-                              placeholder=""
-                              required></b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-form-row>
+      <b-form @submit.prevent ="enviar" v-if="show">
+        <h3>Seus dados</h3>
+        <hr />
+        <!-- Nome -->
+        <b-form-row>
+          <b-col>
+            <b-form-group id="input-group-txt-nome-completo" label="Nome Completo" label-for="txt-nome-completo">
+              <b-form-input id="txt-nome-completo"
+                            v-model="produtor.nome"
+                            placeholder=""
+                            required></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+        <!-- Apelido -->
+        <b-form-row>
+          <b-col>
+            <b-form-group id="input-group-txt-apelido" label="Apelido" label-for="txt-apelido">
+              <b-form-input id="txt-apelido"
+                            v-model="produtor.apelido"
+                            placeholder=""
+                            required></b-form-input>
+              <b-form-text id="input-live-help">Nome que aparecerá para seus clientes.</b-form-text>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+        <!-- Email -->
+        <b-form-row>
+          <b-col>
+            <b-form-group id="input-group-txt-email"
+                          label="Email"
+                          label-for="txt-email">
+              <b-form-input id="txt-email"
+                            v-model="produtor.email"
+                            type="email"
+                            placeholder=""
+                            required></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
 
-          <!-- Celulares -->
-          <b-form-row>
-            <b-col>
-              <b-form-group id="input-group-txt-celular1"
-                            label="Celular"
-                            label-for="txt-celular1">
-                <b-input-group>
-                  <b-input-group-prepend>
-                    <b-input-group-text>
-                      <b-icon icon="x" />
-                    </b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-form-input id="txt-celular1"
-                                v-model="produtor.telefone"
-                                v-mask="'(##) #####-####'"
-                                type="tel"
-                                placeholder=""></b-form-input>
-                </b-input-group>
+        <!-- Senha e Confirmação -->
+        <b-form-row>
+          <b-col>
+            <b-form-group id="input-group-txt-senha"
+                          label="Senha"
+                          label-for="txt-senha">
+              <b-form-input id="txt-senha"
+                            v-model="produtor.senha"
+                            type="password"
+                            :state="this.senhaValida"
+                            required></b-form-input>
 
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-form-group id="input-group-txt-celular2"
-                            label="Celular para contato 2"
-                            label-for="txt-celular2">
-                <b-input-group>
-                  <b-input-group-prepend>
-                    <b-input-group-text>
-                      <b-icon icon="x" />
-                    </b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-form-input id="txt-celular2"
-                                v-model="produtor.telefone2"
-                                v-mask="'(##) #####-####'"
-                                type="tel"
-                                placeholder=""></b-form-input>
-                </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="input-group-txt-confirmacaoDeSenha"
+                          label="Confirmação de Senha"
+                          label-for="txt-confirmacaoDeSenha">
+              <b-form-input id="txt-confirmacaoDeSenha"
+                            v-model="produtor.confirmacaoDeSenha"
+                            type="password"
+                            :state="this.senhaValida"
+                            required></b-form-input>
 
-              </b-form-group>
-            </b-col>
-          </b-form-row>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
 
-          <!-- CPF -->
-          <b-form-row>
-            <b-col>
-              <b-form-group id="input-group-txt-cpf-cnpj"
-                            label="CPF ou CNPJ"
-                            label-for="txt-cpf-cnpj">
-                <b-form-input id="txt-cpf"
-                              v-model="produtor.CPFCNPJ"
-                              v-mask="cpfCnpjMask"
-                              type="text"
-                              placeholder=""
-                              required></b-form-input>
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-form-group id="input-group-txt-site-externo"
-                            label="Site externo"
-                            label-for="txt-site-externo">
-                <b-form-input id="txt-site-externo"
-                              v-model="produtor.site"
-                              type="text"
+        <!-- Celulares -->
+        <b-form-row>
+          <b-col>
+            <b-form-group id="input-group-txt-celular1"
+                          label="Celular"
+                          label-for="txt-celular1">
+              <b-input-group>
+                <b-input-group-prepend>
+                  <b-input-group-text>
+                    <b-icon icon="x" />
+                  </b-input-group-text>
+                </b-input-group-prepend>
+                <b-form-input id="txt-celular1"
+                              v-model="produtor.telefone"
+                              v-mask="'(##) #####-####'"
+                              type="tel"
                               placeholder=""></b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-form-row>
+              </b-input-group>
 
-          <div :class="{'bg-secondary': false, 'text-light': false, 'my-lg-4': true}">
-            <Endereco titulo="Endereço de Produção"
-                      @salvar-endereco="preencherEnderecoProducao"></Endereco>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="input-group-txt-celular2"
+                          label="Celular para contato 2"
+                          label-for="txt-celular2">
+              <b-input-group>
+                <b-input-group-prepend>
+                  <b-input-group-text>
+                    <b-icon icon="x" />
+                  </b-input-group-text>
+                </b-input-group-prepend>
+                <b-form-input id="txt-celular2"
+                              v-model="produtor.telefone2"
+                              v-mask="'(##) #####-####'"
+                              type="tel"
+                              placeholder=""></b-form-input>
+              </b-input-group>
 
-            <b-form-checkbox id="bool-tipo-endereco-principal"
-                             v-model="tipoEnderecoPrincipal"
-                             name="tipoEnderecoPrincipal"
-                             value="COMERCIALIZACAO"
-                             unchecked-value="PRODUCAO">
-              Não entrego na mesma região que produzo
-            </b-form-checkbox>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
 
-            <Endereco v-if="!this.entregaNaMesmaRegiaoDeProducao"
-                      titulo="Endereço de Entrega"
-                      @salvar-endereco="preencherEnderecoEntrega"></Endereco>
-          </div>
+        <!-- CPF -->
+        <b-form-row>
+          <b-col>
+            <b-form-group id="input-group-txt-cpf-cnpj"
+                          label="CPF ou CNPJ"
+                          label-for="txt-cpf-cnpj">
+              <b-form-input id="txt-cpf"
+                            v-model="produtor.CPFCNPJ"
+                            v-mask="cpfCnpjMask"
+                            type="text"
+                            placeholder=""
+                            required></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="input-group-txt-site-externo"
+                          label="Site externo"
+                          label-for="txt-site-externo">
+              <b-form-input id="txt-site-externo"
+                            v-model="produtor.site"
+                            type="text"
+                            placeholder=""></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
 
-          <!-- Biografia -->
-          <b-form-row>
-            <b-col>
-              <b-form-group id="input-group-txt-cpf-cnpj"
-                            label="Biografia"
-                            label-for="txt-biografia">
-                <b-form-textarea id="txt-biografia"
-                                 v-model="produtor.biografia"
-                                 type="text"
-                                 placeholder=""></b-form-textarea>
+        <div :class="{'bg-secondary': false, 'text-light': false, 'my-lg-4': true}">
+          <Endereco titulo="Endereço de Produção"
+                    @salvar-endereco="preencherEnderecoProducao"></Endereco>
 
-                <b-form-text id="input-live-help">Escreva um pouco sobre o que você produz e pode oferecer</b-form-text>
-              </b-form-group>
-            </b-col>
-          </b-form-row>
+          <b-form-checkbox id="bool-tipo-endereco-principal"
+                           v-model="tipoEnderecoPrincipal"
+                           name="tipoEnderecoPrincipal"
+                           value="COMERCIALIZACAO"
+                           unchecked-value="PRODUCAO">
+            Não entrego na mesma região que produzo
+          </b-form-checkbox>
+
+          <Endereco v-if="!this.entregaNaMesmaRegiaoDeProducao"
+                    titulo="Endereço de Entrega"
+                    @salvar-endereco="preencherEnderecoEntrega"></Endereco>
+        </div>
+
+        <!-- Biografia -->
+        <b-form-row>
+          <b-col>
+            <b-form-group id="input-group-txt-cpf-cnpj"
+                          label="Biografia"
+                          label-for="txt-biografia">
+              <b-form-textarea id="txt-biografia"
+                               v-model="produtor.biografia"
+                               type="text"
+                               placeholder=""></b-form-textarea>
+
+              <b-form-text id="input-live-help">Escreva um pouco sobre o que você produz e pode oferecer</b-form-text>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
         <b-card-footer>
           <b-button type="submit" variant="primary">Salvar Cadastro</b-button>
         </b-card-footer>
@@ -168,7 +196,9 @@
           telefone: '',
           telefone2: '',
           CPFCNPJ: '',
-          entregaNaMesmaRegiaoDeProducao: true
+          entregaNaMesmaRegiaoDeProducao: true,
+          senha: '',
+          confirmacaoDeSenha: ''
         },
         enderecoProducao: null,
         enderecoEntrega: null,
@@ -179,9 +209,11 @@
       entregaNaMesmaRegiaoDeProducao() {
         return this.tipoEnderecoPrincipal === 'PRODUCAO'
       },
+      senhaValida() {
+        return this.produtor.senha === this.produtor.confirmacaoDeSenha && this.produtor.senha.length > 5;
+      },
       model() {
         return {
-          id: 0,
           nome: this.produtor.nome,
           cpfOuCnpj: this.produtor.CPFCNPJ,
           email: this.produtor.email,
@@ -201,7 +233,11 @@
           registroOuCertificacao: true,
           registrosOuCertificacoes: [],
           tipoProdutor: "INDIVIDUAL",
-          tiposProducao: []
+          tiposProducao: [],
+          user: {
+            email: this.produtor.email,
+            password: this.produtor.senha
+          }
         }
       },
       cpfCnpjMask() {
@@ -212,6 +248,16 @@
       console.log(this);
     },
     methods: {
+      enviar() {
+        this.$store.dispatch('auth/registerProdutor', this.model)
+          .then(response => {
+            this.exibirResposta(response);
+          },
+            error => {
+              this.exibirResposta(error.response);
+            }
+          )
+      },
       tratarResponse(response) {
         switch (response.status) {
           case 201:

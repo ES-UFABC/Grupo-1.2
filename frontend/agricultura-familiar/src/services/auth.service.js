@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 class AuthService {
   login(user) {
     return axios
@@ -21,12 +20,11 @@ class AuthService {
   logout() {
     localStorage.removeItem(process.env.LOCAL_STORAGE_AUTH_KEY);
   }
-  register(user) {
-    return axios.post(`${process.env.SERVER_URI}/cadastro`, {
-      username: user.username,
-      email: user.email,
-      password: user.password
-    });
+  registerProdutor(produtor) {
+    return axios.post(`${process.env.SERVER_URI}/cadastro/produtor`, produtor);
+  }
+  registerConsumidor(consumidor) {
+    return axios.post(`${process.env.SERVER_URI}/cadastro/consumidor`, consumidor);
   }
 }
 export default new AuthService();

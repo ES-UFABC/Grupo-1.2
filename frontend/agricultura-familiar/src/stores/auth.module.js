@@ -27,11 +27,23 @@ export const auth = {
       AuthService.logout();
       commit('logout');
     },
-    register({ commit }, user) {
-      return AuthService.register(user).then(
+    registerProdutor({ commit }, produtor) {
+      return AuthService.registerProdutor(produtor).then(
         response => {
           commit('registerSuccess');
-          return Promise.resolve(response.data);
+          return Promise.resolve(response);
+        },
+        error => {
+          commit('registerFailure');
+          return Promise.reject(error);
+        }
+      );
+    },
+    registerConsumidor({ commit }, consumidor) {
+      return AuthService.registerConsumidor(consumidor).then(
+        response => {
+          commit('registerSuccess');
+          return Promise.resolve(response);
         },
         error => {
           commit('registerFailure');

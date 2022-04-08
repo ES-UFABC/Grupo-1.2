@@ -114,7 +114,6 @@
     data() {
       return {
         endereco: {
-          id: 0,
           cep: '',
           numero: '',
           complemento: '',

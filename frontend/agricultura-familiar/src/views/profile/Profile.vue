@@ -10,7 +10,7 @@
     name: 'Profile',
     data() {
       return {
-        nome: 'aa'
+        nome: 'usuario'
       }
     },
     methods: {

@@ -46,8 +46,8 @@
     name: 'Login',
     data() {
       return {
-        email: 'matheus1999201000@gmail.com',
-        password: '123455'
+        email: '',
+        password: ''
       }
     },
     methods: {

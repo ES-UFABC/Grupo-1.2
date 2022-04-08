@@ -8,18 +8,6 @@
     },
 
     methods: {
-      enviar(event) {
-        event.preventDefault()
-        let uri = `${process.env.SERVER_URI}/${this.endpoint}`
-
-        this.$http.post(uri, this.model)
-          .then((response) => {
-            this.exibirResposta(response);
-          })
-          .catch((error) => {
-            this.exibirResposta(error.response);
-          });
-      },
       exibirResposta(response) {
         var opts = this.tratarResponse(response);
         if (opts.type == 'error')
