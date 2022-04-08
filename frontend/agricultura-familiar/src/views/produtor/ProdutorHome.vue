@@ -6,7 +6,6 @@
     <b-card-text>
       Escolha uma para continuar
     </b-card-text>
-    <Voltar />
     <b-button-group vertical>
       <b-button>Continuar com Google</b-button>
       <b-button>Continuar com Facebook</b-button>
@@ -19,10 +18,8 @@
 </template>
 
 <script>
-  import Voltar from '../../components/voltar/Voltar'
   export default {
     name: 'ProdutorHome',
-    components: { Voltar },
     methods: {
       loginEmail() {
         this.$router.push('/produtor/login')
