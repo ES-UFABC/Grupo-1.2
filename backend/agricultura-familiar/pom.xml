@@ -160,6 +160,9 @@
 								<exclude>com/es/agriculturafamiliar/constants/**/*</exclude>
 								<exclude>com/es/agriculturafamiliar/listener/**/*</exclude>
 								<exclude>com/es/agriculturafamiliar/repository/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/enums/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/entity/**/*</exclude>
+								<exclude>com/es/agriculturafamiliar/exception/handler/**/*</exclude>
 								<exclude>com/es/agriculturafamiliar/controller/DummyController.class</exclude>
 								<exclude>com/es/agriculturafamiliar/AgriculturaFamiliarApplication.class</exclude>
 							</excludes>
