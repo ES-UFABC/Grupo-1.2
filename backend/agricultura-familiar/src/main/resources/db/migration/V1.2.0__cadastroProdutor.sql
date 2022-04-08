@@ -33,7 +33,6 @@
         cadastro_entidade bit,
         certificacao_agroecologico bit,
         cpf_ou_cnpj varchar(255),
-        email varchar(255),
         geolocalizacao varchar(255),
         nome varchar(255),
         nome_fantasia varchar(255),

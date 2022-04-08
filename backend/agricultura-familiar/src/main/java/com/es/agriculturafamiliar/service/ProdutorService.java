@@ -34,7 +34,7 @@ public class ProdutorService {
         User createUser = userDetailsService.createUser(user);
         produtor.setUser(createUser);
         produtor = produtorRepository.save(produtor);
-        applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getEmail()));
+        applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getUser().getEmail()));
         return produtor;
     }
 
