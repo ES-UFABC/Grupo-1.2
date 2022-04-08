@@ -1,36 +1,41 @@
 package com.es.agriculturafamiliar.controller;
 
-import com.es.agriculturafamiliar.controller.EnderecoController;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.es.agriculturafamiliar.entity.Endereco;
+import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.enums.TipoEndereco;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
 import com.es.agriculturafamiliar.service.EnderecoService;
+import com.es.agriculturafamiliar.service.ICustomUserDetailsService;
+import com.es.agriculturafamiliar.service.ITokenService;
 import com.es.agriculturafamiliar.service.ProdutorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
 import springfox.documentation.swagger2.mappers.ModelMapper;
-
-
-import java.time.LocalDateTime;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(EnderecoController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class EnderecoControllerTest {
 
     @Autowired
@@ -38,12 +43,21 @@ public class EnderecoControllerTest {
 
     @MockBean
     private ModelMapper modelMapper;
+
     @MockBean
     private EnderecoService enderecoService;
+
     @MockBean
     private EnderecoRepository enderecoRepository;
+
     @MockBean
     private ProdutorService produtorService;
+
+    @MockBean
+    private ICustomUserDetailsService<User> customUserDetailsService;
+
+    @MockBean
+    private ITokenService tokenService;
 
     public static final String BASE_ENDPOINT = "/endereco";
     private static ObjectMapper objectMapper;

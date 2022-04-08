@@ -1,4 +1,4 @@
-export default {
+export const layout = {
   namespaced: true,
   state: {
     sidebarClose: true,

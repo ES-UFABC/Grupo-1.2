@@ -10,6 +10,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class EmailMessageService implements AsyncMessageService<Email> {
 
@@ -29,8 +32,7 @@ public class EmailMessageService implements AsyncMessageService<Email> {
             MimeMessage constructedMessage = asyncMessageSenderFactory.createAsyncMessageSender(data, mailSender);
             mailSender.send(constructedMessage);
         } catch (Exception e){
-            System.out.println("ERRO AO ENVIAR COMUNICAÇÃO DE CADASTRO:");
-            System.out.println(e.getMessage());
+            log.debug("ERRO AO ENVIAR COMUNICAÇÃO DE CADASTRO: {}", e.getMessage());
         }
 
     }

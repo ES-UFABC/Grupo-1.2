@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import com.es.agriculturafamiliar.entity.User;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +20,5 @@ public class CadastroConsumidorDomain {
     private String email;
     private String telefone;
     private List<EnderecoDomain> endereco;
+    private User user;
 }

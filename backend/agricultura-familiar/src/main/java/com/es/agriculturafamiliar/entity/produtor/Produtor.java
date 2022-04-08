@@ -1,6 +1,7 @@
 package com.es.agriculturafamiliar.entity.produtor;
 
 import com.es.agriculturafamiliar.entity.Endereco;
+import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.Produto;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
 
@@ -80,6 +81,10 @@ public class Produtor {
     @ElementCollection
     @CollectionTable(name = "PAGINAS_EXTERNAS")
     private Set<String> paginasExternas = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     public Produtor(String cpfOuCnpj, String nome, String nomeFantasia,
                     String email, String regiaoDeProducao,

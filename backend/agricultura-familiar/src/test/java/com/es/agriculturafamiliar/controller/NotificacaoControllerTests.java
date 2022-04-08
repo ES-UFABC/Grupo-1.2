@@ -2,39 +2,41 @@ package com.es.agriculturafamiliar.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import com.es.agriculturafamiliar.dto.NotificacaoDTO;
 import com.es.agriculturafamiliar.entity.Notificacao;
+import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
+import com.es.agriculturafamiliar.service.ICustomUserDetailsService;
+import com.es.agriculturafamiliar.service.ITokenService;
 import com.es.agriculturafamiliar.service.NotificacaoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import org.hamcrest.Matchers;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.MediaType;
-
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(NotificacaoController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class NotificacaoControllerTests {
 
 	@Autowired
@@ -43,13 +45,18 @@ public class NotificacaoControllerTests {
     @MockBean
     private ModelMapper modelMapper;
 
-	public static final String BASE_ENDPOINT = "/notificacao";
-	public static final String ADMIN_ENDPOINT = "/notificacao/admin";
-
 	@MockBean
 	private NotificacaoService notificationService;
+	
+	@MockBean
+    private ICustomUserDetailsService<User> customUserDetailsService;
+
+    @MockBean
+    private ITokenService tokenService;
 
 	private static ObjectMapper objectMapper;
+	public static final String BASE_ENDPOINT = "/notificacao";
+	public static final String ADMIN_ENDPOINT = "/notificacao/admin";
 
 	@BeforeAll
 	private static void setup() {
