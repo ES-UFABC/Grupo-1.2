@@ -14,6 +14,7 @@ import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.exception.InvalidCredentialsException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,7 +63,7 @@ public class TokenAuthenticationServiceTests {
     public void autheticate_shouldThowBadCredentialsException_whenCredetialsDoNotMatch() {
         when(userDetailsManager.loadUserByUsername(any(String.class))).thenReturn(user);
         when(passwordEncoder.matches(any(), any())).thenReturn(false);
-        assertThrows(BadCredentialsException.class, () -> tokenAuthenticationService.authenticate(user));
+        assertThrows(InvalidCredentialsException.class, () -> tokenAuthenticationService.authenticate(user));
     }
 
     @Test
