@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import com.es.agriculturafamiliar.entity.User;
+
 import java.util.List;
 
 @Data
@@ -24,6 +27,10 @@ public class CadastroConsumidorEntity {
     private String telefone;
     @OneToMany(mappedBy= "consumidor", cascade = CascadeType.ALL)
     private List<EnderecoEntity> endereco;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @PrePersist
 	private void prePersist() {        

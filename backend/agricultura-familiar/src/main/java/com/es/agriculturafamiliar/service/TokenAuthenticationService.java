@@ -1,0 +1,55 @@
+package com.es.agriculturafamiliar.service;
+
+import com.es.agriculturafamiliar.entity.JwtToken;
+import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.exception.InvalidCredentialsException;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@AllArgsConstructor
+public class TokenAuthenticationService {
+    private final ICustomUserDetailsService<User> userDetailsManager;
+    private final ITokenService tokenService;
+    private final PasswordEncoder passwordEncoder;
+
+    /**
+     * Authenticates and returns a token, otherwise it throws an exception if the user's account is not enabled or credentials aren't valid
+     * @param user UserDetails, containing it's credentials
+     * @return JWT token
+     */
+    public JwtToken authenticate(User user) throws UsernameNotFoundException, InvalidCredentialsException {
+        UserDetails userDetails = userDetailsManager.loadUserByUsername(user.getEmail());
+        boolean isCredentialValid = validateCredentials(user, userDetails);
+
+        if (!isCredentialValid) {
+            log.info("Credenciais fornecidas para o usuário são inválidas");
+            throw new InvalidCredentialsException();
+        }
+
+        log.info("Credenciais autenticadas com sucesso, retornando token");
+        
+        return tokenService.generateToken(userDetails);
+    }
+
+    public void signUp(User user) {
+        userDetailsManager.createUser(user);
+    }
+
+
+    private boolean validateCredentials(User user, UserDetails userDetails) {
+        if (user == null || userDetails == null) {
+            return false;
+        }
+        return passwordEncoder.matches(user.getPassword(), userDetails.getPassword());
+
+    }
+    
+}

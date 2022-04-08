@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS `user`(
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	email VARCHAR(100) NOT NULL UNIQUE,
+	`password` TEXT NOT NULL,
+	enabled BOOL NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `role` (
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`role` VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_role (
+	user_id INTEGER NOT NULL,
+	role_id INTEGER NOT NULL,
+	PRIMARY KEY(user_id, role_id),
+	FOREIGN KEY (user_id) REFERENCES `user`(id),
+	FOREIGN KEY (role_id) REFERENCES `role`(id)
+);
+
+ALTER TABLE produtor
+    ADD user_id INTEGER NOT NULL;
+
+ALTER TABLE produtor
+	ADD CONSTRAINT fk_user_produtor
+	FOREIGN KEY (user_id)
+	REFERENCES `user`(id);
+
+ALTER TABLE consumidor
+    ADD user_id INTEGER NOT NULL;
+
+ALTER TABLE consumidor
+	ADD CONSTRAINT fk_user_consumidor
+	FOREIGN KEY (user_id)
+	REFERENCES `user`(id);

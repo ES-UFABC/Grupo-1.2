@@ -1,42 +1,105 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Home from './components/home/Home'
-import Login from './views/login/Login';
-import CadastroConsumidor from './views/cadastro-consumidor/CadastroConsumidor';
-import CadastroProdutor from './views/cadastro-produtor/CadastroProdutor';
+import Root from './views/root/Root.vue'
+
+import Consumidor from './views/consumidor/Consumidor.vue';
+import ConsumidorHome from './views/consumidor/ConsumidorHome.vue';
+import ConsumidorLogin from './views/consumidor/ConsumidorLogin.vue';
+import ConsumidorCadastro from './views/consumidor/ConsumidorCadastro.vue';
+
+import Produtor from './views/produtor/Produtor.vue';
+import ProdutorHome from './views/produtor/ProdutorHome.vue';
+import ProdutorLogin from './views/produtor/ProdutorLogin.vue';
+import ProdutorCadastro from './views/produtor/ProdutorCadastro.vue';
+import Profile from './views/profile/Profile.vue'
 
 Vue.use(VueRouter);
 
-
-export default new VueRouter ({
+const router =  new VueRouter ({
   mode: 'hash',
   routes: [
     {
       path: '/',
-      name: 'home',
-      title: 'Home',
-      component: Home,
+      name: 'root',
+      title: 'Junte-se',
+      component: Root
+    },
+    {
+      path: '/consumidor',
+      name: 'consumidor_home',
+      title: 'Consumidor',
+      component: Consumidor,
       children: [
         {
-          path: 'login',
-          name: 'login',
-          title: 'Login',
-          component: Login,
+          path: '/',
+          name: 'home_consumidor',
+          title: 'Home',
+          component: ConsumidorHome,
         },
         {
-          path: 'cadastro/consumidor',
+          path: 'login',
+          name: 'login_consumidor',
+          title: 'Login',
+          component: ConsumidorLogin,
+        },
+        {
+          path: 'cadastro',
           name: 'cadastro_consumidor',
           title: 'Cadastro Consumidor',
-          component: CadastroConsumidor,
-        },
-        {
-          path: 'cadastro/produtor',
-          name: 'cadastro_produtor',
-          title: 'Cadastro Produtor',
-          component: CadastroProdutor,
+          component: ConsumidorCadastro,
         }
       ]
     },
+    {
+      path: '/produtor',
+      name: 'produtor_home',
+      title: 'Produtor',
+      component: Produtor,
+      children: [
+        {
+          path: '/',
+          name: 'home_produtor',
+          title: 'Home',
+          component: ProdutorHome,
+        },
+        {
+          path: 'login',
+          name: 'login_produtor',
+          title: 'Login',
+          component: ProdutorLogin,
+        },
+        {
+          path: 'cadastro',
+          name: 'cadastro_produtor',
+          title: 'Cadastro Produtor',
+          component: ProdutorCadastro,
+        },
+      ]
+    },
+    {
+      path: '/profile',
+      name: 'perfil',
+      title: 'Perfil',
+      component: Profile
+    },
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
+                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro'];
+
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
+
+  if (authRequired && !loggedIn) // trying to access a restricted page + not logged in
+    next('/'); // redirect to root page
+  else if (!authRequired && loggedIn) // trying to access a public page + logged in
+    next('/profile'); // redirect to profile
+  else //authRequired + logged in
+    next(); //do nothing
+
+});
+
+export default router;
