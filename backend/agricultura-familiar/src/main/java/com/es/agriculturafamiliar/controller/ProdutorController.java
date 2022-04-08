@@ -1,6 +1,7 @@
 package com.es.agriculturafamiliar.controller;
 
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
+import com.es.agriculturafamiliar.service.ProdutoService;
 import com.es.agriculturafamiliar.service.ProdutorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,14 @@ import java.util.List;
 
 
 @RestController()
-@RequestMapping("/cadastro/produtor")
+@RequestMapping("/produtor")
 public class ProdutorController {
 
     @Autowired
     private ProdutorService produtorService;
+
+    @Autowired
+    private ProdutoService produtoService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Produtor> findById(@PathVariable Long id){

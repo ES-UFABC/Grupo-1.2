@@ -3,6 +3,7 @@ package com.es.agriculturafamiliar.controller;
 import com.es.agriculturafamiliar.entity.Produto;
 import com.es.agriculturafamiliar.enums.Tipologia;
 import com.es.agriculturafamiliar.service.ProdutoService;
+import com.es.agriculturafamiliar.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

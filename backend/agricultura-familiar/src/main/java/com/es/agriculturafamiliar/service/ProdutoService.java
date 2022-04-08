@@ -17,6 +17,9 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private ProdutorService produtorService;
+
     public Produto findProdutoById(Long id){
         var produto = produtoRepository.findById(id);
         return produto.orElseThrow(()-> new ResourceNotFoundException("Produto não encontrado"));
@@ -33,6 +36,9 @@ public class ProdutoService {
     }
 
     public Produto saveProduto(Produto produto){
+        if (produto.getProdutor() == null)
+            throw new ResourceNotFoundException("Produtor inválido ou não encontrado");
+
         produto = produtoRepository.save(produto);
         return produto;
     }
@@ -44,7 +50,7 @@ public class ProdutoService {
 
     public Produto updateProduto(Produto produto, Long id){
         var oldProduto = findProdutoById(id);
-        produto.setId(id);
+        produto.setProdutor(produtorService.findProdutorById(id));
         return produtoRepository.save(produto);
     }
 
