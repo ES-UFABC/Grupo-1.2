@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="bg consumidor">
     <!-- Just an image -->
     <b-navbar variant="faded" type="light">
       <b-navbar-brand href="#">
@@ -24,3 +24,20 @@
     components: { Voltar }
   }
 </script>
+
+
+<style>
+  .bg {
+    background-size: cover;
+  }
+
+    .bg.consumidor {
+      /*background-image: require('@/assets/bg-vector-green.svg');*/
+      background: url(../../assets/bg-vector-green.svg) no-repeat;
+    }
+
+    .bg.produtor {
+      /*background-image: require('@/assets/bg-vector-green.svg');*/
+      background: url(../../assets/bg-vector-purple.svg) no-repeat;
+    }
+</style>

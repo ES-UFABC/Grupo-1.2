@@ -46,14 +46,29 @@
     name: 'Login',
     data() {
       return {
-        email: '',
-        password: ''
+        email: 'matheus1999201000@gmail.com',
+        password: '123455'
       }
     },
     methods: {
       enviar() {
+
         const { email, password } = this;
-        console.log(email, password);
+
+        if (email && password) {
+          this.$store.dispatch('auth/login', { email, password })
+            .then(() => {
+                this.$router.push('/profile');
+            },
+            error => {
+                console.log(error);
+                //(error.response && error.response.data) ||
+                //error.message ||
+                //error.toString();
+            }
+          );
+        }
+
       }
     }
   }

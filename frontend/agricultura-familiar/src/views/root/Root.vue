@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img src="../../../public/muda_green_small.png" alt="Muda"> Muda
     <b-card title="Muda" sub-title="___">
       <b-card-text>
         Como você vai fazer parte da nossa comunidade?

@@ -4,14 +4,18 @@ class AuthService {
   login(user) {
     return axios
       .post(`${process.env.SERVER_URI}/login`, {
-        username: user.username,
+        email: user.email,
         password: user.password
       })
       .then(response => {
-        if (response.data.accessToken) {
+        if (response.data.token) {
           localStorage.setItem(process.env.LOCAL_STORAGE_AUTH_KEY, JSON.stringify(response.data));
         }
         return response.data;
+      })
+      .catch(error => {
+        console.log(error);
+        return null;
       });
   }
   logout() {

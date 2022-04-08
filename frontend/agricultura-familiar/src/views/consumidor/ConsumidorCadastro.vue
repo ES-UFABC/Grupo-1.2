@@ -11,6 +11,7 @@
                 <b-form-input id="txt-nome-completo"
                               v-model="consumidor.nome"
                               placeholder=""
+                              @change="changeNome"
                               required></b-form-input>
               </b-form-group>
             </b-col>
@@ -160,6 +161,9 @@
             flagEnderecoPrincipal: 'S'
           }
         };
+      },
+      changeNome() {
+        console.log(this.consumidor.nome)
       }
     },
 

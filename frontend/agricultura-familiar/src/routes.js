@@ -12,6 +12,7 @@ import Produtor from './views/produtor/Produtor.vue';
 import ProdutorHome from './views/produtor/ProdutorHome.vue';
 import ProdutorLogin from './views/produtor/ProdutorLogin.vue';
 import ProdutorCadastro from './views/produtor/ProdutorCadastro.vue';
+import Profile from './views/profile/Profile.vue'
 
 Vue.use(VueRouter);
 
@@ -75,6 +76,12 @@ const router =  new VueRouter ({
           component: ProdutorCadastro,
         },
       ]
+    },
+    {
+      path: '/profile',
+      name: 'perfil',
+      title: 'Perfil',
+      component: Profile
     },
   ]
 });
