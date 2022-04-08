@@ -13,6 +13,9 @@ services:
       - MYSQL-USER=
       - MUDA_EMAIL_PASSWORD=
       - MUDA_EMAIL_USERNAME=
+      - SECURITY_ENABLED=true
+      - SECURITY_SIGNING_KEY=abacate
+      - SECURITY_TOKEN_VALIDITY_IN_MINUTES=60
 
     volumes:
       - ./:/agricultura_familiar_backend

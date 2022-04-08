@@ -32,7 +32,7 @@ public class JwtTokenService implements ITokenService {
     @Value("${security.jwt.signing-key}")
     private String SECRET_KEY;
 
-    @Value("${security.jwt.token-duration-in-hours}")
+    @Value("${security.jwt.token-duration-in-minutes}")
     private Long TOKEN_VALIDITY;
 
 
