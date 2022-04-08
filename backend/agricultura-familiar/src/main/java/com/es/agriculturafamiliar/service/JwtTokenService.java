@@ -3,6 +3,7 @@ package com.es.agriculturafamiliar.service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,23 +38,22 @@ public class JwtTokenService implements ITokenService {
 
     @Override
     public JwtToken generateToken(UserDetails userDetails) {      
-        Date issuedAt = Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC));
-        Instant expirationDateTime = LocalDateTime.now().plusHours(TOKEN_VALIDITY).toInstant(ZoneOffset.UTC);
-        Date expirationTime = Date.from(expirationDateTime);
+        Instant issuetAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+        Instant expiration = issuetAt.plus(TOKEN_VALIDITY, ChronoUnit.MINUTES);
 
         Map<String, Object> claims = new HashMap<>();
 
         String token = Jwts.builder()
             .setClaims(claims)
             .setSubject(userDetails.getUsername())
-            .setIssuedAt(issuedAt)
-            .setExpiration(expirationTime)
-            .signWith(SignatureAlgorithm.HS512, SECRET_KEY)          
+            .setIssuedAt(Date.from(issuetAt))
+            .setExpiration(Date.from(expiration))
+            .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
             .compact();
 
         return JwtToken.builder()
             .token(token)
-            .expirationDate(expirationDateTime.toString())
+            .expirationDate(expiration.toString())
             .build();
     }
 

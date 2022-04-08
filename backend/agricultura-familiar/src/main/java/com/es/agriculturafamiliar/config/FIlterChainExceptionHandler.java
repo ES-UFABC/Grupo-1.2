@@ -29,7 +29,7 @@ public class FIlterChainExceptionHandler extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-            log.error("Erro durante a execução do filtro de segurança: {}", e);
+            log.error("Erro durante a execução do filtro de segurança: {}", e.getMessage());
             resolver.resolveException(request, response, null, e);
         }
         

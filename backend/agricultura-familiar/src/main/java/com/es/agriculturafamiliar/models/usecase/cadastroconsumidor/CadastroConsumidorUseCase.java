@@ -28,7 +28,7 @@ public class CadastroConsumidorUseCase {
     private final CadastroConsumidorRepository repository;
     private final ApplicationEventPublisher applicationEventPublisher;
     private final ICustomUserDetailsService<User> customUserDetailsService;
-    private static final Set<Role> CONSUMIDOR_ROLES =  Set.of(Role.builder().role(RoleType.PRODUTOR).build());
+    private static final Set<Role> CONSUMIDOR_ROLES =  Set.of(Role.builder().role(RoleType.CONSUMIDOR).build());
 
     @Transactional
     public Optional<CadastroConsumidorDomain> cadastraConsumidor(CadastroConsumidorDomain domainIn) {

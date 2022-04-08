@@ -2,8 +2,8 @@ package com.es.agriculturafamiliar.service;
 
 import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.exception.InvalidCredentialsException;
 
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,13 +25,13 @@ public class TokenAuthenticationService {
      * @param user UserDetails, containing it's credentials
      * @return JWT token
      */
-    public JwtToken authenticate(User user) throws UsernameNotFoundException{
+    public JwtToken authenticate(User user) throws UsernameNotFoundException, InvalidCredentialsException {
         UserDetails userDetails = userDetailsManager.loadUserByUsername(user.getEmail());
         boolean isCredentialValid = validateCredentials(user, userDetails);
 
         if (!isCredentialValid) {
             log.info("Credenciais fornecidas para o usuário são inválidas");
-            throw new BadCredentialsException("Credenciais inválidas");
+            throw new InvalidCredentialsException();
         }
 
         log.info("Credenciais autenticadas com sucesso, retornando token");

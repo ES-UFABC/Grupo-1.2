@@ -11,6 +11,8 @@ import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.exception.AuthException;
 import com.es.agriculturafamiliar.service.ICustomUserDetailsService;
 import com.es.agriculturafamiliar.service.ITokenService;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +25,10 @@ import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
+@ConditionalOnProperty(name = "security.basic.enabled",
+    havingValue = "true"
+    
+)
 public class JwtFilter extends OncePerRequestFilter {
 
     private final ICustomUserDetailsService<User> jwtUserDetailsManager;

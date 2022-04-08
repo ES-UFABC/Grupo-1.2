@@ -3,6 +3,7 @@ package com.es.agriculturafamiliar.config;
 import com.es.agriculturafamiliar.constants.RoleType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,12 +15,18 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
+@ConditionalOnProperty(name = "security.basic.enabled",
+    havingValue = "true"
+    
+)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     private JwtFilter jwtFilter;
+
     @Autowired
     private FIlterChainExceptionHandler filterChainExceptionHandler;
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {        
         httpSecurity

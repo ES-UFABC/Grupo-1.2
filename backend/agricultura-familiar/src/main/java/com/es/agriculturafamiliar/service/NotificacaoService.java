@@ -1,7 +1,5 @@
 package com.es.agriculturafamiliar.service;
 
-import java.util.Optional;
-
 import com.es.agriculturafamiliar.entity.Notificacao;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.NotificacaoRepository;

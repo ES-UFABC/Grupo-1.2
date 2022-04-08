@@ -16,6 +16,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+
 
 @RestControllerAdvice
 public class ControllerAdvisor {
@@ -69,5 +72,29 @@ public class ControllerAdvisor {
 				.build();
 		
 		return new ResponseEntity<>(exceptionPayload, exception.getHttpStatus());
+	}
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    protected ResponseEntity<?> handleExpiredJwtException(ExpiredJwtException exception) {
+		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+				.timestamp(LocalDateTime.now())
+				.title("Token expirado")
+				.statusCode(HttpStatus.UNAUTHORIZED.value())
+				.description("Token fornecido é inválido") 
+				.build();
+		
+		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
+	}
+
+    @ExceptionHandler(MalformedJwtException.class)
+    protected ResponseEntity<?> handleMalformedJwtException(MalformedJwtException exception) {
+		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+				.timestamp(LocalDateTime.now())
+				.title("Formação de token inválida")
+				.statusCode(HttpStatus.BAD_REQUEST.value())
+				.description("Token fornecido não pôde ser lido") 
+				.build();
+		
+		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
 	}
 }
