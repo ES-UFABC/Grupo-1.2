@@ -1,5 +1,7 @@
 package com.es.agriculturafamiliar.dto.cadastroconsumidor;
 
+import java.util.List;
+
 import com.es.agriculturafamiliar.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,6 +22,7 @@ public class CadastroConsumidorDtoOut {
     private String telefone;
     private String cpf;
     private UserDTO user;
+    private List<EnderecoConsumidorDtoOut> endereco;
 
 
 }

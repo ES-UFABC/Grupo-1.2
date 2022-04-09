@@ -85,4 +85,10 @@ public class CadastroConsumidorUseCase {
 
         repository.delete(idCPF);
     }
+
+    public Optional<CadastroConsumidorDomain> findByUserId(Long id) {
+        log.info("Procurando pelo id de usuário: {}", id);
+        return repository.consultaPorUserId(id);
+
+    }
 }
