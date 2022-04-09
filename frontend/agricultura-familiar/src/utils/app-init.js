@@ -18,3 +18,12 @@ Vue.use(VueSweetalert2);
 //axios
 import axios from 'axios'
 Vue.prototype.$http = axios;
+
+//google maps vue
+import * as VueGoogleMaps from 'vue2-google-maps'
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: process.env.MAPS_API_KEY,
+    libraries: 'places',
+  }
+});
