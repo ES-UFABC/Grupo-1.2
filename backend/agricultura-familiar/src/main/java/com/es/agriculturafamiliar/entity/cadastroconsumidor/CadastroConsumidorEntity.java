@@ -3,7 +3,7 @@ package com.es.agriculturafamiliar.entity.cadastroconsumidor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import lombok.ToString;
 import javax.persistence.*;
 
 import com.es.agriculturafamiliar.entity.User;
@@ -25,7 +25,8 @@ public class CadastroConsumidorEntity {
     private String email;
     @Column(name = "telefone")
     private String telefone;
-    @OneToMany(mappedBy= "consumidor", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cpf")
     private List<EnderecoEntity> endereco;
 
     @OneToOne

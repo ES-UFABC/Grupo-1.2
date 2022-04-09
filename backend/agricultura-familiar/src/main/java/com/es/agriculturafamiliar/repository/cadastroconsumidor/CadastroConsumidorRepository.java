@@ -38,4 +38,14 @@ public class CadastroConsumidorRepository {
         cadastroConsumidorRepositoryCrud.deleteById(idCPF);
         log.info("Consumidor CPF {} deletado com sucesso", idCPF);
     }
+
+    public Optional<CadastroConsumidorDomain> consultaPorUserId(Long id) {
+        var consultaCadastroConsumidor = cadastroConsumidorRepositoryCrud.findCadastroConsumidorEntityByUserId(id);
+
+        if (consultaCadastroConsumidor.isEmpty()) {
+            return Optional.empty();
+        }
+        
+        return Optional.of(mapper.toModel(consultaCadastroConsumidor.get()));
+    }
 }
