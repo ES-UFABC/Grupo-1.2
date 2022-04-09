@@ -33,11 +33,11 @@ public class ControllerAdvisor {
 				.statusCode(HttpStatus.NOT_FOUND.value())
 				.description(new String[]{exception.getMessage()})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.NOT_FOUND);
 	}
-    
-	
+
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
@@ -60,9 +60,9 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Usuário não encontrado")
 				.statusCode(HttpStatus.UNAUTHORIZED.value())
-				.description(exception.getMessage()) 
+				.description(new String[]{exception.getMessage()})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 
@@ -72,9 +72,9 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title(exception.getTitle())
 				.statusCode(exception.getHttpStatus().value())
-				.description(exception.getMessage()) 
+				.description(new String[]{exception.getMessage()})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, exception.getHttpStatus());
 	}
 
@@ -84,9 +84,9 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Token expirado")
 				.statusCode(HttpStatus.UNAUTHORIZED.value())
-				.description("Token fornecido é inválido") 
+				.description(new String[]{"Token fornecido é inválido"})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
 	}
 
@@ -96,9 +96,9 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Formação de token inválida")
 				.statusCode(HttpStatus.BAD_REQUEST.value())
-				.description("Token fornecido não pôde ser lido") 
+				.description(new String[]{"Token fornecido não pôde ser lido"})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
 	}
 
@@ -108,9 +108,9 @@ public class ControllerAdvisor {
 			.timestamp(LocalDateTime.now())
 			.title("Ocorreu um erro durante o processamento da requisição")
 			.statusCode(HttpStatus.UNPROCESSABLE_ENTITY.value())
-			.description(exception.getMessage())
+			.description(new String[]{exception.getMessage()})
 			.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 
@@ -120,20 +120,20 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Campo inválido")
 				.statusCode(HttpStatus.CONFLICT.value())
-				.description(ex.getMostSpecificCause().getMessage()) 
+				.description(new String[]{ex.getMostSpecificCause().getMessage()})
 				.build();
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);
 	}
-	
+
 	@ExceptionHandler(value= {DataIntegrityViolationException.class})
 	protected ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-		
+
 		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Campo inválido")
 				.statusCode(HttpStatus.CONFLICT.value())
-				.description(ex.getMostSpecificCause().getMessage()) 
+				.description(new String[]{ex.getMostSpecificCause().getMessage()})
 				.build();
-		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);		
+		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);
 	}
 }

@@ -36,8 +36,6 @@ public class Produtor {
     private String nome;
     private String nomeFantasia;
 
-    @NotBlank
-    private String email;
 
     @OneToMany(mappedBy = "produtor", cascade = CascadeType.ALL)
     private List<Endereco> enderecos;
@@ -87,7 +85,7 @@ public class Produtor {
     private User user;
 
     public Produtor(String cpfOuCnpj, String nome, String nomeFantasia,
-                    String email, String regiaoDeProducao,
+                    String regiaoDeProducao,
                     Boolean atendeNoEnderecoDeProducao,
                     Boolean cadastroEntidade, TipoProdutor tipoProdutor, Boolean registroOuCertificacao,
                     Boolean agroecologico, Boolean certificacaoAgroecologico,
@@ -95,7 +93,6 @@ public class Produtor {
         this.cpfOuCnpj = cpfOuCnpj;
         this.nome = nome;
         this.nomeFantasia = nomeFantasia;
-        this.email = email;
         this.regiaoDeProducao = regiaoDeProducao;
         this.atendeNoEnderecoDeProducao = atendeNoEnderecoDeProducao;
         this.cadastroEntidade = cadastroEntidade;
