@@ -7,6 +7,7 @@ import Consumidor from './views/consumidor/Consumidor.vue';
 import ConsumidorHome from './views/consumidor/ConsumidorHome.vue';
 import ConsumidorLogin from './views/consumidor/ConsumidorLogin.vue';
 import ConsumidorCadastro from './views/consumidor/ConsumidorCadastro.vue';
+import ConsumidorPanel from './views/consumidor/ConsumidorPanel.vue';
 
 import Produtor from './views/produtor/Produtor.vue';
 import ProdutorHome from './views/produtor/ProdutorHome.vue';
@@ -83,12 +84,18 @@ const router =  new VueRouter ({
       title: 'Perfil',
       component: Profile
     },
+    {
+      path: '/consumidor-panel',
+      name: 'panel_consumidor',
+      title: 'Panel Consumidor',
+      component: ConsumidorPanel
+    }
   ]
 });
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro'];
+                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/consumidor-panel'];
 
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
