@@ -6,9 +6,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
 import com.es.agriculturafamiliar.repository.EnderecoRepository;
+import com.es.agriculturafamiliar.service.ICustomUserDetailsService;
+import com.es.agriculturafamiliar.service.ITokenService;
 import com.es.agriculturafamiliar.service.ProdutorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,6 +20,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -26,6 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ProdutorController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class ProdutorControllerTests {
 
     @Autowired
@@ -35,6 +42,12 @@ public class ProdutorControllerTests {
     ProdutorService produtorService;
     @MockBean
     EnderecoRepository enderecoRepository;
+
+    @MockBean
+    ICustomUserDetailsService<User> customUserDetailsService;
+
+    @MockBean
+    ITokenService tokenService;
 
     @Autowired
     private ProdutorController produtorController;
@@ -59,7 +72,7 @@ public class ProdutorControllerTests {
     @Test
     void findById_shouldReturnStatusOk_whenProdutorExists() throws Exception {
 
-        when(produtorService.saveProdutor(any(Produtor.class))).thenReturn(produtor);
+        when(produtorService.saveProdutor(any(Produtor.class), any())).thenReturn(produtor);
         produtorController.saveProdutor(produtor);
         System.out.println(produtor.getId());
         mockMvc.perform(get(BASE_ENDPOINT +"/{id}", produtor.getId()))

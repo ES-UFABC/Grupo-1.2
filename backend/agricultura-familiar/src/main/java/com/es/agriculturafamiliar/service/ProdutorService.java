@@ -1,26 +1,39 @@
 package com.es.agriculturafamiliar.service;
 
+import java.util.List;
+import java.util.Set;
+import java.util.Optional;
+
+import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.entity.Role;
+import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.event.EmailCadastroEvent;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.context.ApplicationEventPublisher;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class ProdutorService {
 
-    @Autowired
-    private ProdutorRepository produtorRepository;
+    private final ProdutorRepository produtorRepository;
+    private final ICustomUserDetailsService<User> userDetailsService;
 
     private final ApplicationEventPublisher applicationEventPublisher;
+    private static final Set<Role> PRODUTOR_ROLES =  Set.of(Role.builder().role(RoleType.PRODUTOR).build());
 
-    public Produtor saveProdutor(Produtor produtor){
+    @Transactional
+    public Produtor saveProdutor(Produtor produtor, User user){                
+        user.setRoles(PRODUTOR_ROLES);
+        User createUser = userDetailsService.createUser(user);
+        produtor.setUser(createUser);
         produtor = produtorRepository.save(produtor);
         applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getEmail()));
         return this.produtorRepository.save(produtor);
@@ -45,5 +58,9 @@ public class ProdutorService {
     public void deleteProdutorById(Long id){
         var produtor = findProdutorById(id);
         produtorRepository.delete(produtor);
+    }
+
+    public Optional<Produtor> consultaPorUserId(Long id) {
+        return produtorRepository.findProdutorByUserId(id);
     }
 }

@@ -7,6 +7,7 @@ import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsu
 import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroConsumidorUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class CadastroConsumidorController {
     
     private final CadastroConsumidorMapper mapper;
     private final CadastroConsumidorUseCase useCase;
+    private final ModelMapper modelMapper;
 
     @PostMapping
     public ResponseEntity<CadastroConsumidorDtoOut> cadastraConsumidor(@Valid @RequestBody CadastroConsumidorDtoIn requestDTO) {
@@ -67,7 +69,8 @@ public class CadastroConsumidorController {
             throw new NoSuchElementException();
         }
 
-        final CadastroConsumidorDtoOut resultado = mapper.toDto(usecaseDomainOut.get());
+        log.info("usecaseDomainOut antes do mapper: {} - ", usecaseDomainOut);
+        final CadastroConsumidorDtoOut resultado = modelMapper.map(usecaseDomainOut.get(), CadastroConsumidorDtoOut.class);
 
         return ResponseEntity.ok(resultado);
     }

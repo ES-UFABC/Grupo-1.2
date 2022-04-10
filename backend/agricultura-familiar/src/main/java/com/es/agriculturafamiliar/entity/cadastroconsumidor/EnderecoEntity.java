@@ -3,6 +3,7 @@ package com.es.agriculturafamiliar.entity.cadastroconsumidor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -36,6 +37,7 @@ public class EnderecoEntity {
     @Column(name = "municipio")
     private String municipio;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name="cpf")
     private CadastroConsumidorEntity consumidor;
