@@ -2,6 +2,7 @@ package com.es.agriculturafamiliar.service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.Optional;
 
 import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.Role;
@@ -57,5 +58,9 @@ public class ProdutorService {
     public void deleteProdutorById(Long id){
         var produtor = findProdutorById(id);
         produtorRepository.delete(produtor);
+    }
+
+    public Optional<Produtor> consultaPorUserId(Long id) {
+        return produtorRepository.findProdutorByUserId(id);
     }
 }
