@@ -7,6 +7,5 @@ export default class Endereco {
     this.bairro = bairro;
     this.municipio = municipio;
     this.estado = estado;
-    this.estados = []
   }
 }

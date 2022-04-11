@@ -6,25 +6,26 @@
       <button @click='addMarker'> Add </button>
     </div>
     <br>-->
-    <GmapMap :center='center'
+    <GmapMap :v-if="this.coordenadasCentro"
+             :center='coordenadasCentro || {}'
              :zoom='12'
              style='width:100%;  height: 100vh;'>
       <GmapMarker :key="index"
                   v-for="(m, index) in markers"
                   :position="m.position"
-                  @click="center=m.position" />
+                  :title="m.title"
+                  :clickable="true"
+                  @click="coordenadasCentro=m.position" />
     </GmapMap>
   </div>
 </template>
 
 <script>
+  import GeolocalizacaoService from '../../services/geolocation-service';
 export default {
     name: 'Geolocalizacao',
     props: {
-      defaultCenter: {
-        type: Object,
-        required: true
-      },
+      enderecoCentral: Object,
       enderecos: {
         type: Array,
         required: true
@@ -32,18 +33,20 @@ export default {
     },
     data() {
       return {
-        currentPlace: null,
         markers: [],
         places: [],
-        center: {}
+        coordenadasCentro: null
       }
     },
     mounted() {
       this.geolocate();
+      console.log(this.enderecos);
     },
     methods: {
-      setPlace(place) {
-        this.currentPlace = place;
+      carregarEnderecoCentro() {
+        GeolocalizacaoService.carregarCoordenadasPorEndereco(this.enderecoCentral).then(coords => {
+          this.coordenadasCentro = coords;
+        });
       },
       addMarker() {
         if (this.currentPlace) {
@@ -52,21 +55,34 @@ export default {
             lng: this.currentPlace.geometry.location.lng(),
           };
           this.markers.push({ position: marker });
-          this.places.push(this.currentPlace);
-          this.center = marker;
-          this.currentPlace = null;
         }
       },
       geolocate: function () {
-        //this.center = this.defaultCenter;
+        //carrego pelo o endereço cadastrado
+        this.carregarEnderecoCentro();
+        //se tiver permissão na localização, uso ela
         navigator.geolocation.getCurrentPosition(position => {
-          console.log(position)
-          this.center = {
+          this.coordenadasCentro = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
         });
       },
+    },
+    watch: {
+      enderecos: {
+        handler(newValue, oldValue) {
+          this.markers = [this.coordenadasCentro];
+          console.log(oldValue, newValue);
+          if(newValue.length)
+            newValue.forEach(e => {
+              GeolocalizacaoService.carregarCoordenadasPorEndereco(e).then(coords => {
+                this.markers.push({ position: coords })
+              });
+            })
+        },
+        deep: true
+      }
     }
 }
 </script>

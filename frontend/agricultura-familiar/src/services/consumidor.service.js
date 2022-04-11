@@ -1,11 +1,18 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 import Endereco from '../models/endereco';
-const API_URL = 'http://localhost:8080/api/test/';
 
 class ConsumidorService {
+  obterConsumidorAutenticado() {
+    let user = JSON.parse(localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY)).user;
+    let uri = `${process.env.SERVER_URI}/cadastro/consumidor/${user ? user.id : 0}`;
+    return axios.get(uri, { headers: authHeader() });
+  }
   obterEnderecoDoConsumidor() {
-    return Promise.resolve(new Endereco("Rua Joaquim Manoel de Macedo", "817", "Serpa", "Caieiras", "SP", "07714-600", ""));
+    return this.obterConsumidorAutenticado().then(address => {
+      const { rua, numero, bairro, municipio, estado, cep, complemento } = address.data.endereco[0];
+      return Promise.resolve(new Endereco(rua, numero, bairro, municipio, estado, cep, complemento ));
+    });
   }
   //getUserBoard() {
   //  return axios.get(API_URL + 'user', { headers: authHeader() });

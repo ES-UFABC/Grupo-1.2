@@ -1,7 +1,6 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 import Endereco from '../models/endereco';
-const API_URL = 'http://localhost:8080/api/test/';
 
 class ProdutorService {
   carregarProdutoresPorLocalizacao(estado, municipio) {

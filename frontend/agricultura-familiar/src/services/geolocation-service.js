@@ -1,30 +1,30 @@
 import axios from 'axios';
+import Endereco from '../models/endereco';
+
 class GeolocationService {
-  login(user) {
-    return axios
-      .post(`${process.env.SERVER_URI}/login`, {
-        email: user.email,
-        password: user.password
-      })
-      .then(response => {
-        if (response.data.token) {
-          localStorage.setItem(process.env.LOCAL_STORAGE_AUTH_KEY, JSON.stringify(response.data));
-        }
-        return response.data;
-      })
-      .catch(error => {
-        console.log(error);
-        return null;
-      });
-  }
-  logout() {
-    localStorage.removeItem(process.env.LOCAL_STORAGE_AUTH_KEY);
-  }
-  registerProdutor(produtor) {
-    return axios.post(`${process.env.SERVER_URI}/cadastro/produtor`, produtor);
-  }
-  registerConsumidor(consumidor) {
-    return axios.post(`${process.env.SERVER_URI}/cadastro/consumidor`, consumidor);
+  carregarCoordenadasPorEndereco(endereco) {
+    if (!endereco)
+      return Promise.reject('eee');
+
+    let uri = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json`;
+    return axios.get(uri, {
+      params: {
+        input: `${endereco.rua}, n${endereco.numero}, ${endereco.bairro} ${endereco.municipio}, ${endereco.cep}`,
+        inputtype: 'textquery',
+        fields: 'formatted_address,name,rating,opening_hours,geometry',
+        key: process.env.MAPS_API_KEY,
+        //locationbias: 'circle:radius@-22.8305,-43.2192 '
+      }
+    }).then(response => {
+      if (!response.data.candidates)
+        return { lat: 0, lng: 0 }
+
+      return response.data.candidates[0].geometry.location;
+    })
+    .catch(error => {
+      console.log(error);
+      return { lat: 0, lng: 0 }
+    });
   }
 }
-export default new AuthService();
+export default new GeolocationService();

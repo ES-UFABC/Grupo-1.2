@@ -15,17 +15,15 @@
       <span class="mr-auto">Super Kitty</span>
       <b-badge>9</b-badge>
     </b-list-group-item>-->
-    <b-list-group-item
-                       :key="index"
+    <b-list-group-item :key="index"
                        v-for="(produtor, index) in produtores"
-                       class="d-flex align-items-center" >
+                       class="d-flex align-items-center">
 
-      <b-avatar
-          variant="success"
-          icon="people-fill"
-          class="mr-3"></b-avatar>
+      <b-avatar variant="success"
+                icon="people-fill"
+                class="mr-3"></b-avatar>
 
-      <span class="mr-auto">ACME group</span>
+      <span class="mr-auto">{{ produtor.nomeFantasia }}</span>
       <b-badge>7</b-badge>
 
     </b-list-group-item>
@@ -40,6 +38,9 @@
         type: Array,
         required: true
       }
+    },
+    mounted() {
+      console.log(this.produtores)
     }
   }
 </script>

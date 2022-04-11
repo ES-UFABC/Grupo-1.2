@@ -1,7 +1,7 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col lg="2">
+      <b-col lg="3">
         <div>
           Olá {{ nome }}, você está logado.
           <a @click.prevent="logoff" href="#">Logoff</a>
@@ -10,8 +10,10 @@
         <Busca @atualizar="obterEnderecoBusca" :estado-default="estado" :municipio-default="municipio" />
         <ListaProdutores :produtores="produtores" />
       </b-col>
-      <b-col lg="10">
-        <Geolocalizacao :defaultCenter="{ lat: -22.8305, lng: -43.2192 }" :enderecos="this.enderecosProdutores" />
+      <b-col lg="9">
+        <Geolocalizacao v-if="this.enderecoConsumidor"
+                        :enderecoCentral="this.enderecoConsumidor"
+                        :enderecos="this.enderecosProdutores" />
       </b-col>
     </b-row>
   </b-container>
@@ -19,6 +21,7 @@
 
 <script>
   import ProdutorService from '../../services/produtor.service';
+  import ConsumidorService from '../../services/consumidor.service';
 
   import Geolocalizacao from '../../components/geolocalizacao/Geolocalizacao';
   import ListaProdutores from '../../components/lista-produtores/ListaProdutores';
@@ -32,15 +35,19 @@
         municipio: 'Caieiras',
         estado: 'SP',
         produtores: [],
+        enderecoConsumidor: null
       }
     },
     computed: {
       enderecosProdutores() {
-        return this.produtores.map(p => (p.endereco && p.endereco.length) ? p.endereco[0] : p.endereco);
+        return this.produtores.map(p => p.enderecos[0]);
       }
     },
     mounted() {
-      this.pesquisar();
+      ConsumidorService.obterEnderecoDoConsumidor().then(address => {
+        this.enderecoConsumidor = address;
+        this.pesquisar();
+      });
     },
     methods: {
       pesquisar() {
