@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div>
+    <!--<div>
       <h2>Buscar</h2>
       <GmapAutocomplete @place_changed='setPlace' />
       <button @click='addMarker'> Add </button>
     </div>
-    <br>
+    <br>-->
     <GmapMap :center='center'
              :zoom='12'
-             style='width:100%;  height: 400px;'>
+             style='width:100%;  height: 100vh;'>
       <GmapMarker :key="index"
                   v-for="(m, index) in markers"
                   :position="m.position"
@@ -19,13 +19,23 @@
 
 <script>
 export default {
-    name: 'GoogleMap',
+    name: 'Geolocalizacao',
+    props: {
+      defaultCenter: {
+        type: Object,
+        required: true
+      },
+      enderecos: {
+        type: Array,
+        required: true
+      }
+    },
     data() {
       return {
-        center: { lat: -22.8305, lng: -43.2192 },
         currentPlace: null,
         markers: [],
         places: [],
+        center: {}
       }
     },
     mounted() {
@@ -48,6 +58,7 @@ export default {
         }
       },
       geolocate: function () {
+        //this.center = this.defaultCenter;
         navigator.geolocation.getCurrentPosition(position => {
           console.log(position)
           this.center = {

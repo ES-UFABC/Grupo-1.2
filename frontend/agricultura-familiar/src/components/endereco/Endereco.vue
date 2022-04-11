@@ -135,7 +135,6 @@
     mounted() {
       var self = this;
       let apiUri = process.env.IBGE_API_URI
-      console.log(apiUri);
       this.$http.get(apiUri)
         .then(response => {
           let opts = response.data.map(uf => ({ value: uf.sigla, text: uf.nome }));
