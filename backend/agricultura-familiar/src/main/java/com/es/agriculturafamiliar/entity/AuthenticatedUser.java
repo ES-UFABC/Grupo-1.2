@@ -1,5 +1,6 @@
 package com.es.agriculturafamiliar.entity;
 
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtToken {
-    private String token;
-    private String expirationDate;
-    private AuthenticatedUser user;
+public class AuthenticatedUser {
+    private String id;
+    private Set<Role> roles;
+    
 }
