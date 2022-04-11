@@ -35,12 +35,16 @@ public class ProdutorService {
         User createUser = userDetailsService.createUser(user);
         produtor.setUser(createUser);
         produtor = produtorRepository.save(produtor);
-        applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getEmail()));
-        return this.produtorRepository.save(produtor);
+        applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getUser().getEmail()));
+        return produtor;
     }
 
     public List<Produtor> findAll(){
         return produtorRepository.findAll();
+    }
+
+    public List<Produtor> findByLocalizacao(String estado, String cidade){
+        return produtorRepository.findByEnderecosEstadoAndEnderecosMunicipio(estado, cidade);
     }
 
     public Produtor findProdutorById(Long id){

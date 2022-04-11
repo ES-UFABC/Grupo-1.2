@@ -30,6 +30,8 @@ public class Endereco {
     private String cep;
     @NotBlank
     private String municipio;
+    @NotBlank
+    private String estado;
     @NotNull
     private Integer tipoEndereco;
 
@@ -38,13 +40,14 @@ public class Endereco {
     @JoinColumn(name="produtor_id")
     private Produtor produtor;
 
-    public Endereco(Long id, String rua, String numero, String bairro, String cep, String municipio, TipoEndereco tipoEndereco, Produtor produtor) {
+    public Endereco(Long id, String rua, String numero, String bairro, String cep, String municipio, String estado, TipoEndereco tipoEndereco, Produtor produtor) {
         this.id = id;
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
         this.cep = cep;
         this.municipio = municipio;
+        this.estado = estado;
         this.tipoEndereco = tipoEndereco.getCod();
         this.produtor = produtor;
     }

@@ -29,9 +29,9 @@ class EnderecoServiceTest {
 
     @Test
     void saveEndereco_shouldReturnSavedEndereco_whenSuccessful() {
-        Endereco endereco = new Endereco(null, "rua","10","bairro","cep","municipio", TipoEndereco.PRODUCAO, null);
+        Endereco endereco = new Endereco(null, "rua","10","bairro","cep","municipio", "estado", TipoEndereco.PRODUCAO, null);
 
-        Endereco returnedSavedEndereco = new Endereco(1L, "rua","10","bairro","cep","municipio", TipoEndereco.PRODUCAO, null);
+        Endereco returnedSavedEndereco = new Endereco(1L, "rua","10","bairro","cep","municipio", "estado", TipoEndereco.PRODUCAO, null);
 
         when(enderecoRepository.save(any(Endereco.class)))
                 .thenReturn(returnedSavedEndereco);
@@ -62,7 +62,7 @@ class EnderecoServiceTest {
 
     @Test
     void findById_shouldReturnSavedEndereco_whenSuccessful() {
-        Endereco endereco = new Endereco(1L, "rua","10","bairro","cep","municipio", TipoEndereco.PRODUCAO, null);
+        Endereco endereco = new Endereco(1L, "rua","10","bairro","cep","municipio", "estado", TipoEndereco.PRODUCAO, null);
 
         when(enderecoRepository.findById(any(Long.class)))
                 .thenReturn(Optional.of(endereco));
