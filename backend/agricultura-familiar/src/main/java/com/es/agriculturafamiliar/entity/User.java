@@ -13,8 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
+import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.es.agriculturafamiliar.entity.produtor.Produtor;
+import com.es.agriculturafamiliar.entity.cadastroconsumidor.CadastroConsumidorEntity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +36,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User implements UserDetails {
 
-    @Id
+    private static final long serialVersionUID = 4879205780597433293L;
+    
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank

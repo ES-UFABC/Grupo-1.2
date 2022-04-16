@@ -8,7 +8,8 @@ import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
-import com.es.agriculturafamiliar.event.EmailCadastroEvent;
+import com.es.agriculturafamiliar.event.EmailCadastroConfirmacaoPendenteEvent;
+
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
 
@@ -35,8 +36,15 @@ public class ProdutorService {
         User createUser = userDetailsService.createUser(user);
         produtor.setUser(createUser);
         produtor = produtorRepository.save(produtor);
-        applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getUser().getEmail()));
-        return produtor;
+        
+        var emailCadastroConfirmacaoPendenteEvent = EmailCadastroConfirmacaoPendenteEvent.builder()
+        	.codigoConfirmacao("123456")
+        	.name(produtor.getNome())
+        	.toEmail(user.getEmail())
+        	.build();
+        
+        applicationEventPublisher.publishEvent(emailCadastroConfirmacaoPendenteEvent);
+        return this.produtorRepository.save(produtor);
     }
 
     public List<Produtor> findAll(){

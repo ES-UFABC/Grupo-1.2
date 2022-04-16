@@ -1,7 +1,8 @@
 package com.es.agriculturafamiliar.constants;
 
 public enum TemplateType {
-    REGISTRATION_PRODUTOR("registro-produtor");
+    EMAIL_SIGNUP_DEFAULT("default-email-signup"),
+	EMAIL_SIGNUP_PENDING_CONFIRMATION("pending-confirmation-signup");
 
     private TemplateType(String label) {
         this.label = label;
