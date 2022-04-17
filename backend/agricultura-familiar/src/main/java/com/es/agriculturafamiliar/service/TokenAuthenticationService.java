@@ -38,7 +38,7 @@ public class TokenAuthenticationService {
     public JwtToken authenticate(User user) throws UsernameNotFoundException, AuthException {
         User userDetails = (User) userDetailsManager.loadUserByUsername(user.getEmail());
         
-        authenticationValidators.stream().forEach(validator -> validator.validate(user, userDetails));
+        authenticationValidators.forEach(validator -> validator.validate(user, userDetails));
         
         JwtToken generatedToken = tokenService.generateToken(userDetails);
 

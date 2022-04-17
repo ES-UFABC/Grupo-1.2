@@ -36,6 +36,9 @@ public class ProdutorServiceTests {
     @Mock
     private ApplicationEventPublisher applicationEventPublisher;
     
+    @Mock
+    private ConfirmacaoCadastroService confirmacaoCadastroService;
+    
     
     @Test
     public void saveProdutor_shouldReturnSavedProdutor_whenSuccessful(){
