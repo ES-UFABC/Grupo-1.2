@@ -58,6 +58,10 @@ public class User implements UserDetails {
         }
     )
     private Set<Role> roles;
+    
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private ConfirmacaoCadastro confirmacaoCadastro;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {        

@@ -41,35 +41,5 @@ public class AuthController {
         
         return ResponseEntity.created(URI.create("/id")).build();
     }
-
-    @GetMapping(value="/admin")
-    public String hel() {        
-        
-        return "ADMIRO";
-    }
-
-    @GetMapping(value="/myendpoint/admin")
-    public String helllll() {        
-        
-        return "ADMIRO";
-    }
-
-    @GetMapping(value="/myendpoint/produtor")
-    public String hellll() {                
-        return "ADMIRO";
-    }
-
-    @GetMapping(value="/produtor/myendpoint")
-    public String hell() {        
-        return "PRODUTOR";
-    }
-
-    @GetMapping(value="/consumidor/myendpoint")
-    public String helll() {        
-        
-        return "CONSUMIDOR AUTH";
-    }
-
-
     
 }
