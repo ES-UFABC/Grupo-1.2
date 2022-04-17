@@ -51,6 +51,12 @@ public class JwtUserDetailsManager implements ICustomUserDetailsService<User> {
         log.info("Usuário de id {} e email {} persistido com sucesso", persistedUser.getId(), persistedUser.getEmail());
         return persistedUser;
     }
+
+	@Override
+	public void enableUser(User user) {
+		user.setEnabled(true);
+		userRepository.save(user);		
+	}    
     
     private boolean isAccountEnabled(User user) {
     	return user.getConfirmacaoCadastro() == null;
@@ -60,6 +66,6 @@ public class JwtUserDetailsManager implements ICustomUserDetailsService<User> {
 		return user.getAuthorities().stream()
             .map(grantedAuthority -> Role.builder().role(RoleType.valueOfIgnoreCase(grantedAuthority.getAuthority())).build())
             .collect(Collectors.toSet());
-	}    
+	}
         
 }

@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Set;
 
 import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.dto.SignUpConfirmationDTO;
 import com.es.agriculturafamiliar.dto.UserCredentialsDTO;
 import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.Role;
@@ -25,7 +26,6 @@ public class AuthController {
     private final ModelMapper modelMapper;
     private final TokenAuthenticationService tokenAuthenticationService;
     
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserCredentialsDTO userCredentialsDTO) {
         User user = modelMapper.map(userCredentialsDTO, User.class);        
@@ -34,12 +34,17 @@ public class AuthController {
     }
 
     @PostMapping(value="/sign-up")
-    public ResponseEntity<?> postMethodName(@RequestBody UserCredentialsDTO userCredentialsDTO) {        
+    public ResponseEntity<?> signUp(@RequestBody UserCredentialsDTO userCredentialsDTO) {        
         User user = modelMapper.map(userCredentialsDTO, User.class);
         user.setRoles(Set.of(Role.builder().role(RoleType.ADMIN).build()));
         tokenAuthenticationService.signUp(user);
         
         return ResponseEntity.created(URI.create("/id")).build();
+    }
+    
+    @PostMapping("/enable-account")
+    public ResponseEntity<?> confirmSignUp(@RequestBody SignUpConfirmationDTO signUpConfirmation) {
+    	return ResponseEntity.noContent().build();
     }
     
 }
