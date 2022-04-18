@@ -1,13 +1,10 @@
 package com.es.agriculturafamiliar.service.validator.authentication;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.exception.AccountNotEnabledException;
 import com.es.agriculturafamiliar.exception.AuthException;
-import com.es.agriculturafamiliar.service.ConfirmacaoCadastroService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

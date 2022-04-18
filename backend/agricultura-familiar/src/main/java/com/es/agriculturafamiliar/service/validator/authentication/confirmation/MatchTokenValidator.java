@@ -6,6 +6,7 @@ import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.User;
 
 import com.es.agriculturafamiliar.exception.AuthException;
+import com.es.agriculturafamiliar.exception.CodigoConfirmacaoInvalidoException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,11 +21,11 @@ public class MatchTokenValidator implements IAccountConfirmationValidator {
 		String codigo = confirmacaoCadastro.getCodigo();
 		
 		if (!codigo.equals(token)) {
-			log.info("Código de confirmação fornecido é diferente do esperado");			
+			log.info("Código de confirmação fornecido é diferente do esperado");
+			throw new CodigoConfirmacaoInvalidoException();
 		}
 		
-		log.info("Código de confirmação é igual ao esperado");		
-
+		log.info("Código de confirmação é igual ao esperado");
 	}
 
 }

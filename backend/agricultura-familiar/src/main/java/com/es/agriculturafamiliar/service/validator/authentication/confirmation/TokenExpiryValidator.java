@@ -27,10 +27,12 @@ public class TokenExpiryValidator implements IAccountConfirmationValidator {
 
 	@Override
 	public void validate(User user, String token) throws AuthException {
+		
 		ConfirmacaoCadastro confirmacaoCadastro = user.getConfirmacaoCadastro();
-		LocalDateTime dataCriacao = confirmacaoCadastro.getDataCriacao();
+		
 		Instant now = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-		Instant issuedAt = dataCriacao.toInstant(ZoneOffset.UTC);
+		Instant issuedAt = confirmacaoCadastro.getDataCriacao()
+				.toInstant(ZoneOffset.UTC);
 		Instant expiresAt = issuedAt.plus(conformationCodeValidityInMinutes, ChronoUnit.MINUTES);
 
 		if (now.isAfter(expiresAt)) {
