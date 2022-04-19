@@ -34,15 +34,13 @@ public class JwtUserDetailsManager implements ICustomUserDetailsService<User> {
 
     @Override
     public User createUser(UserDetails user) {
+    	User userToBePersisted = (User) user;
         String encodedPassword = passwordEncoder.encode(user.getPassword());
+        
 
         Set<Role> roles = getRoles(user);
-
-        User userToBePersisted = User.builder()
-            .email(user.getUsername())
-            .password(encodedPassword)
-            .roles(roles)
-            .build();
+        userToBePersisted.setPassword(encodedPassword);
+        userToBePersisted.setRoles(roles);
         
         boolean isAccountEnabled = isAccountEnabled(userToBePersisted);
         userToBePersisted.setEnabled(isAccountEnabled);

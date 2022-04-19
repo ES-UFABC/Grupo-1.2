@@ -14,8 +14,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.JoinColumn;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
@@ -59,8 +61,8 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
     
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private ConfirmacaoCadastro confirmacaoCadastro;
 
     @Override
@@ -86,5 +88,12 @@ public class User implements UserDetails {
     public boolean isCredentialsNonExpired() {        
         return true;
     }
+    
+    @PrePersist
+	private void prePersist() {        
+	    if(confirmacaoCadastro != null) {
+	    	confirmacaoCadastro.setUser(this);
+	    };
+	}
     
 }

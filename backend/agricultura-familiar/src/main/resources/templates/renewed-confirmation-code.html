@@ -11,16 +11,16 @@
 <body
 	style="margin: 0; padding: 0; font-family: sans-serif; color: #262626;">
 	<h3>
-		Olá <span th:text="${name}" />, tudo bem?
+		Olá, tudo bem?
 	</h3>
 	<br>
-		<p>Recebemos seu pedido de cadastro, para confirmá-lo, insira o
-			seguinte código na página de confirmação:</p> <br>
+		<p>Seu código de confirmação foi renovado!</p> <br>
 			<p>
-				Código: <span th:text="${confirmationCode}" />
+				Código: <span th:text="${codigo-confirmacao}" />
 			</p> <br>
 				<p>
-					Insira o seu código <a th:href="@{|${confirmacaoCadastroFrontEnd}|}">aqui</a>
+					Insira o seu código <a
+						th:href="${confirmacao-cadastro-front-end}">aqui</a>
 				</p> <br>
 					<h4>Abraços,</h4>
 					<h4>Equipe Muda</h4>

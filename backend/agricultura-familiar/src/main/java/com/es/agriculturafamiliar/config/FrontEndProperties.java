@@ -9,7 +9,11 @@ import lombok.Getter;
 @Configuration
 public class FrontEndProperties {
 	
-	@Value("${front-end.endpoints.email-confirmation}")
+	@Value("${front-end.endpoint.email-confirmation}")
 	private String emailConfirmationEndpoint;
+	
+	@Value("${front-end.base-url}")
+	private String baseUrl;
+
 
 }

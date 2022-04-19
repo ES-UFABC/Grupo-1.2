@@ -46,7 +46,6 @@ public class TokenExpiryValidatorTests {
 		String token = "123456";
 					
 		assertThrows(CodigoConfirmacaoExpiradoException.class, () -> tokenExpiryValidator.validate(user, token));
-		
 	}
 	
 	@Test
@@ -61,7 +60,6 @@ public class TokenExpiryValidatorTests {
 		String token = "123456";
 		
 		assertDoesNotThrow(() -> tokenExpiryValidator.validate(user, token));
-		
 	}
 
 }

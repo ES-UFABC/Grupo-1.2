@@ -14,15 +14,18 @@ public class ConfirmacaoCadastroService {
 	private final ConfirmacaoCadastroRepository confirmacaoCadastroRepository;
 	private final ITokenGeneratorStrategy<String> tokenGeneratorStrategy;
 	
-	public void validateToken(Long userId, String token) {
-		
-		
-	}
-	
 	public ConfirmacaoCadastro createConfirmacaoCadastro() {		
-		String token = tokenGeneratorStrategy.generateToken();
+		String token = generateCodigoConfirmacacao();
 		return ConfirmacaoCadastro.builder()
 				.codigo(token)
 				.build();
+	}
+	
+	public String generateCodigoConfirmacacao() {
+		return tokenGeneratorStrategy.generateToken();
+	}
+	
+	public ConfirmacaoCadastro save(ConfirmacaoCadastro confirmacaoCadastro) {
+		return confirmacaoCadastroRepository.save(confirmacaoCadastro);
 	}
 }

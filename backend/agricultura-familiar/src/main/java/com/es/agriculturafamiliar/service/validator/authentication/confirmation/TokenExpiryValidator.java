@@ -1,7 +1,6 @@
 package com.es.agriculturafamiliar.service.validator.authentication.confirmation;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 
@@ -31,7 +30,7 @@ public class TokenExpiryValidator implements IAccountConfirmationValidator {
 		ConfirmacaoCadastro confirmacaoCadastro = user.getConfirmacaoCadastro();
 		
 		Instant now = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-		Instant issuedAt = confirmacaoCadastro.getDataCriacao()
+		Instant issuedAt = confirmacaoCadastro.getDataAtualizacao()
 				.toInstant(ZoneOffset.UTC);
 		Instant expiresAt = issuedAt.plus(conformationCodeValidityInMinutes, ChronoUnit.MINUTES);
 

@@ -10,41 +10,38 @@ import com.es.agriculturafamiliar.config.EmailProperties;
 import com.es.agriculturafamiliar.config.FrontEndProperties;
 import com.es.agriculturafamiliar.constants.TemplateType;
 import com.es.agriculturafamiliar.entity.Email;
-import com.es.agriculturafamiliar.event.EmailCadastroConfirmacaoPendenteEvent;
+import com.es.agriculturafamiliar.event.RenovacaoCodigoConfirmacaoEvent;
 import com.es.agriculturafamiliar.service.AsyncMessageService;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @AllArgsConstructor
 @Component
-public class EmailCadastroConfirmacaoPendenteListener {
+public class RenovacaoCodigoConfirmacaoListener {
     private final AsyncMessageService<Email> asyncMessageService;
     private final EmailProperties emailProperties;
     private final FrontEndProperties frontEndProperties;
 
     @EventListener
     @Async
-    public void onEmailCadastroConfirmacaoPendenteEvent(EmailCadastroConfirmacaoPendenteEvent emailCadastroConfirmacaoPendenteEvent) {
-        String nome = emailCadastroConfirmacaoPendenteEvent.getName();
-        String to = emailCadastroConfirmacaoPendenteEvent.getToEmail();
-        String codigoConfirmacao = emailCadastroConfirmacaoPendenteEvent.getCodigoConfirmacao();
+    public void onEmailCadastroEvent(RenovacaoCodigoConfirmacaoEvent renovacaoCodigoConfirmacaoEvent) {
+
+        String to = renovacaoCodigoConfirmacaoEvent.getToEmail();
+        String codigoConfirmacao = renovacaoCodigoConfirmacaoEvent.getCodigoConfirmacao();
         String emailConfirmationEndpoint = frontEndProperties.getEmailConfirmationEndpoint();
         String baseFrontEndUrl = frontEndProperties.getBaseUrl();
         String emailConfirmationUrl = baseFrontEndUrl + emailConfirmationEndpoint;
 
         Map<String, Object> context = Map.of(
-        		"name", nome, 
         		"confirmationCode", codigoConfirmacao,
-        		"confirmacaoCadastroFrontEnd", emailConfirmationUrl);
+        		"confirmacaoCadastroFrontEnd", emailConfirmationUrl);;
         
         Email email = Email.builder()
-            .subject("Seu cadastro foi realizado, mas está com confirmação pendente!")
+            .subject("Seu código de confirmação foi recriado!")
             .variables(context)
             .to(to)
             .from(emailProperties.getUsername())
-            .templateName(TemplateType.EMAIL_SIGNUP_PENDING_CONFIRMATION)
+            .templateName(TemplateType.EMAIL_SIGNUP_CONFIRMATION_CODE_RENEWED)
             .build();
         
         asyncMessageService.sendMessage(email);

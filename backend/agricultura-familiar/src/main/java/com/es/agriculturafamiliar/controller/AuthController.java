@@ -3,20 +3,20 @@ package com.es.agriculturafamiliar.controller;
 import java.net.URI;
 import java.util.Set;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.dto.RegenerateConfirmationCodeDTO;
 import com.es.agriculturafamiliar.dto.SignUpConfirmationDTO;
 import com.es.agriculturafamiliar.dto.UserCredentialsDTO;
 import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.service.TokenAuthenticationService;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
@@ -44,7 +44,13 @@ public class AuthController {
     
     @PostMapping("/enable-account")
     public ResponseEntity<?> confirmSignUp(@RequestBody SignUpConfirmationDTO signUpConfirmation) {
+    	tokenAuthenticationService.enableAccount(signUpConfirmation.getEmail(), signUpConfirmation.getToken());
     	return ResponseEntity.noContent().build();
     }
     
+    @PostMapping("/regenerate-confirmation-code")
+    public ResponseEntity<?> regenerateConfirmationCode(@RequestBody RegenerateConfirmationCodeDTO regenerateConfirmationCode) {
+    	tokenAuthenticationService.regenerateConfirmationCode(regenerateConfirmationCode.getEmail());
+    	return ResponseEntity.noContent().build();
+    }
 }

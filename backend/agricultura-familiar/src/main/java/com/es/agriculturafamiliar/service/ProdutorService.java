@@ -35,10 +35,12 @@ public class ProdutorService {
     @Transactional
     public Produtor saveProdutor(Produtor produtor, User user){
     	ConfirmacaoCadastro confirmacaoCadastro = confirmacaoCadastroService.createConfirmacaoCadastro();
+    	
     	user.setConfirmacaoCadastro(confirmacaoCadastro);
         user.setRoles(PRODUTOR_ROLES);
-        User createUser = userDetailsService.createUser(user);
         
+        User createUser = userDetailsService.createUser(user);
+  
         produtor.setUser(createUser);
         produtor = produtorRepository.save(produtor);
         
