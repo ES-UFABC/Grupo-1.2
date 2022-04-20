@@ -3,6 +3,7 @@ package com.es.agriculturafamiliar.service.validator.authentication.confirmation
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -35,12 +36,12 @@ public class TokenExpiryValidatorTests {
 	}
 	
 	@Test
-	public void validate_shouldThrowCodigoConfirmacaoExpiradoException_whenTokenIsExpired() {
-		Instant creationInstant = Instant.now().truncatedTo(ChronoUnit.SECONDS).minus(30 ,ChronoUnit.MINUTES);
+	public void validate_shouldThrowCodigoConfirmacaoExpiradoException_whenTokenIsExpired() {		
+		Timestamp creationInstant = Timestamp.from(Instant.now().truncatedTo(ChronoUnit.SECONDS).minus(30 ,ChronoUnit.MINUTES));
 		User user = User
 			.builder()
 			.confirmacaoCadastro(ConfirmacaoCadastro.builder()
-					.dataCriacao(LocalDateTime.ofInstant(creationInstant, ZoneId.of("Z"))).build())
+					.dataAtualizacao(creationInstant).build())
 			.build();
 		
 		String token = "123456";
@@ -49,12 +50,12 @@ public class TokenExpiryValidatorTests {
 	}
 	
 	@Test
-	public void validate_shouldNotThrowException_whenTokenIsNotExpired() {
-		Instant creationInstant = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+	public void validate_shouldNotThrowException_whenTokenIsNotExpired() {		
+		Timestamp creationInstant = Timestamp.from(Instant.now().truncatedTo(ChronoUnit.SECONDS));
 		User user = User
 				.builder()
 				.confirmacaoCadastro(ConfirmacaoCadastro.builder()
-						.dataCriacao(LocalDateTime.ofInstant(creationInstant, ZoneId.of("Z"))).build())
+						.dataAtualizacao(creationInstant).build())
 				.build();
 		
 		String token = "123456";

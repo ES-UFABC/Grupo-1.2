@@ -1,7 +1,10 @@
 package com.es.agriculturafamiliar.service.validator.authentication.confirmation;
 
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -28,11 +31,11 @@ public class TokenExpiryValidator implements IAccountConfirmationValidator {
 	public void validate(User user, String token) throws AuthException {
 		
 		ConfirmacaoCadastro confirmacaoCadastro = user.getConfirmacaoCadastro();
-		
+		Instant issuedAt = confirmacaoCadastro.getDataAtualizacao().toInstant();
+
 		Instant now = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-		Instant issuedAt = confirmacaoCadastro.getDataAtualizacao()
-				.toInstant(ZoneOffset.UTC);
 		Instant expiresAt = issuedAt.plus(conformationCodeValidityInMinutes, ChronoUnit.MINUTES);
+
 
 		if (now.isAfter(expiresAt)) {
 			log.info("Código de confirmação expirado");

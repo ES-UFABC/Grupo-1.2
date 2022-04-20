@@ -1,5 +1,6 @@
 package com.es.agriculturafamiliar.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -35,10 +36,10 @@ public class ConfirmacaoCadastro {
 	private User user;
 	
 	@CreationTimestamp
-	private LocalDateTime dataCriacao;
+	private Timestamp dataCriacao;
 	
 	@UpdateTimestamp
-	private LocalDateTime dataAtualizacao;
+	private Timestamp dataAtualizacao;
 	
 	@Size(min = 6, max = 6)
 	private String codigo;
