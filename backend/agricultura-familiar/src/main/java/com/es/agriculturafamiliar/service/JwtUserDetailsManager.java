@@ -34,24 +34,36 @@ public class JwtUserDetailsManager implements ICustomUserDetailsService<User> {
 
     @Override
     public User createUser(UserDetails user) {
+    	User userToBePersisted = (User) user;
         String encodedPassword = passwordEncoder.encode(user.getPassword());
+        
 
-        Set<Role> roles = user.getAuthorities()
-            .stream()
-            .map(grantedAuthority -> Role.builder().role(RoleType.valueOfIgnoreCase(grantedAuthority.getAuthority())).build())
-            .collect(Collectors.toSet());
-
-        User userToBePersisted = User.builder()
-            .email(user.getUsername())
-            .password(encodedPassword)
-            .enabled(true)
-            .roles(roles)
-            .build();
+        Set<Role> roles = getRoles(user);
+        userToBePersisted.setPassword(encodedPassword);
+        userToBePersisted.setRoles(roles);
+        
+        boolean isAccountEnabled = isAccountEnabled(userToBePersisted);
+        userToBePersisted.setEnabled(isAccountEnabled);
 
         User persistedUser = userRepository.save(userToBePersisted);
         log.info("Usuário de id {} e email {} persistido com sucesso", persistedUser.getId(), persistedUser.getEmail());
         return persistedUser;
     }
 
+	@Override
+	public void enableUser(User user) {
+		user.setEnabled(true);
+		userRepository.save(user);		
+	}    
     
+    private boolean isAccountEnabled(User user) {
+    	return user.getConfirmacaoCadastro() == null;
+    }
+
+	private Set<Role> getRoles(UserDetails user) {
+		return user.getAuthorities().stream()
+            .map(grantedAuthority -> Role.builder().role(RoleType.valueOfIgnoreCase(grantedAuthority.getAuthority())).build())
+            .collect(Collectors.toSet());
+	}
+        
 }

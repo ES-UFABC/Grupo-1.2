@@ -16,6 +16,7 @@ services:
       - SECURITY_ENABLED=true
       - SECURITY_SIGNING_KEY=abacate
       - SECURITY_TOKEN_VALIDITY_IN_MINUTES=60
+      - SECURITY_CONFIRMATION_CODE_DURATION_IN_MINUTES=60
 
     volumes:
       - ./:/agricultura_familiar_backend

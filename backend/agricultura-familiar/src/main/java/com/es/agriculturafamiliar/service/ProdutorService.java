@@ -5,10 +5,12 @@ import java.util.Set;
 import java.util.Optional;
 
 import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
-import com.es.agriculturafamiliar.event.EmailCadastroEvent;
+import com.es.agriculturafamiliar.event.EmailCadastroConfirmacaoPendenteEvent;
+
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
 
@@ -25,18 +27,31 @@ public class ProdutorService {
 
     private final ProdutorRepository produtorRepository;
     private final ICustomUserDetailsService<User> userDetailsService;
+    private final ConfirmacaoCadastroService confirmacaoCadastroService;
 
     private final ApplicationEventPublisher applicationEventPublisher;
     private static final Set<Role> PRODUTOR_ROLES =  Set.of(Role.builder().role(RoleType.PRODUTOR).build());
 
     @Transactional
-    public Produtor saveProdutor(Produtor produtor, User user){                
+    public Produtor saveProdutor(Produtor produtor, User user){
+    	ConfirmacaoCadastro confirmacaoCadastro = confirmacaoCadastroService.createConfirmacaoCadastro();
+    	
+    	user.setConfirmacaoCadastro(confirmacaoCadastro);
         user.setRoles(PRODUTOR_ROLES);
+        
         User createUser = userDetailsService.createUser(user);
+  
         produtor.setUser(createUser);
         produtor = produtorRepository.save(produtor);
-        applicationEventPublisher.publishEvent(new EmailCadastroEvent(produtor.getNome(), produtor.getUser().getEmail()));
-        return produtor;
+        
+        var emailCadastroConfirmacaoPendenteEvent = EmailCadastroConfirmacaoPendenteEvent.builder()
+        	.codigoConfirmacao("123456")
+        	.name(produtor.getNome())
+        	.toEmail(user.getEmail())
+        	.build();
+        
+        applicationEventPublisher.publishEvent(emailCadastroConfirmacaoPendenteEvent);
+        return this.produtorRepository.save(produtor);
     }
 
     public List<Produtor> findAll(){
