@@ -1,9 +1,11 @@
 <template>
-  <p>Hello World</p>
+  <PainelNotificacoes/>
 </template>
 
 <script>
+  import PainelNotificacoes from '../../components/painel-notificacoes/PainelNotificacoes'
   export default {
-    name: 'PainelProdutor'
+    name: 'PainelProdutor',
+    components: { PainelNotificacoes }
   }
 </script>
