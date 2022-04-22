@@ -1,12 +1,8 @@
 <template>
   <b-container fluid>
+    <NavBar/>
     <b-row>
       <b-col lg="3">
-        <div>
-          Olá {{ nome }}, você está logado.
-          <a @click.prevent="logoff" href="#">Logoff</a>
-
-        </div>
         <Busca @atualizar="obterEnderecoBusca" :estado-default="estado" :municipio-default="municipio" />
         <ListaProdutores :produtores="produtores" />
       </b-col>
@@ -22,13 +18,14 @@
 <script>
   import ProdutorService from '../../services/produtor.service';
   import ConsumidorService from '../../services/consumidor.service';
+  import NavBar from '../../components/navbar/NavBar'
 
   import Geolocalizacao from '../../components/geolocalizacao/Geolocalizacao';
   import ListaProdutores from '../../components/lista-produtores/ListaProdutores';
   import Busca from '../../components/endereco/Busca';
   export default {
     name: 'Profile',
-    components: { Geolocalizacao, ListaProdutores, Busca },
+    components: { Geolocalizacao, ListaProdutores, Busca, NavBar },
     data() {
       return {
         nome: 'usuario',

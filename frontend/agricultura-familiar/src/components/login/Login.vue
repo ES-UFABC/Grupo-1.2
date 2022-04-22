@@ -7,7 +7,7 @@
             <b-input-group>
               <b-input-group-prepend>
                 <b-input-group-text>
-                  <b-icon icon="x" />
+                  <b-icon icon="envelope" />
                 </b-input-group-text>
               </b-input-group-prepend>
               <b-form-input id="txt-email"
@@ -25,13 +25,13 @@
             <b-input-group>
               <b-input-group-prepend>
                 <b-input-group-text>
-                  <b-icon icon="x" />
+                  <b-icon icon="key" />
                 </b-input-group-text>
               </b-input-group-prepend>
               <b-form-input id="txt-email"
                             type="password"
                             v-model="password"
-                            placeholder="Informe seu e-mail"></b-form-input>
+                            placeholder="Informe sua senha"></b-form-input>
             </b-input-group>
 
           </b-form-group>

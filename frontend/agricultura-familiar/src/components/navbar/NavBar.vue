@@ -70,14 +70,23 @@
             <b-dropdown-item href="#">Chat</b-dropdown-item>
             <b-dropdown-item href="#">Carteira</b-dropdown-item>
             <hr>
-            <b-dropdown-item href="#">Sair</b-dropdown-item>
+            <b-dropdown-item href="#" @click="logoff()">Sair</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
   </div>
 </template>
-
+<script>
+  export default {
+    methods: {
+      logoff() {
+        this.$store.dispatch('auth/logout');
+        this.$router.push('/');
+      }
+    }
+  }
+</script>
 <style scoped>
 .input-group-text {
   width: 50px;
