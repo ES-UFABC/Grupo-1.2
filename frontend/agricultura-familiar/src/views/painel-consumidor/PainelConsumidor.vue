@@ -1,25 +1,18 @@
 
 <template>
-  <div class="Panel">
-    <NavBar />
-
-    <b-container class="" style="margin-top:16px">
-      <b-row align-h="center" cols-md="2">
-        <ProductCard v-for="(image, index) in images" :key="index" :index="index" :image=image />
-        <!-- <ProductCard v-for:"i in range" :index="0" :image=images[0] /> -->
-      </b-row>
-    </b-container>
-  </div>
+  <b-container class="" style="margin-top:16px">
+    <b-row align-h="center" cols-md="2">
+      <ProductCard v-for="(image, index) in images" :key="index" :index="index" :image=image />
+      <!-- <ProductCard v-for:"i in range" :index="0" :image=images[0] /> -->
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-import NavBar from "../../components/navbar/NavBar.vue";
 import ProductCard from "../../components/productcard/ProductCard.vue";
-export default {
-  components: {
-    NavBar,
-    ProductCard,
-  },
+  export default {
+  name: 'PainelProdutor',
+  components: { ProductCard },
   data() {
     return {
       cards: Array.from(Array(3).keys()),
@@ -50,14 +43,9 @@ export default {
 </script>
 
 <style scoped>
-.products {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.Panel {
-  background-image: url("../../../public/background-tile.png");
-  background-repeat: repeat;
-  background-size: 200px;
-}
+  .products {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>

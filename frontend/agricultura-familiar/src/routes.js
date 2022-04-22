@@ -7,13 +7,17 @@ import Consumidor from './views/consumidor/Consumidor.vue';
 import ConsumidorHome from './views/consumidor/ConsumidorHome.vue';
 import ConsumidorLogin from './views/consumidor/ConsumidorLogin.vue';
 import ConsumidorCadastro from './views/consumidor/ConsumidorCadastro.vue';
-import ConsumidorPanel from './views/consumidor/ConsumidorPanel.vue';
 
 import Produtor from './views/produtor/Produtor.vue';
 import ProdutorHome from './views/produtor/ProdutorHome.vue';
 import ProdutorLogin from './views/produtor/ProdutorLogin.vue';
 import ProdutorCadastro from './views/produtor/ProdutorCadastro.vue';
-import Profile from './views/profile/Profile.vue'
+
+import Painel from './components/painel/Painel';
+import PainelConsumidor from './views/painel-consumidor/PainelConsumidor';
+import PainelProdutor from './views/painel-produtor/PainelProdutor';
+
+import BuscaProdutores from './views/busca-produtores/BuscaProdutores.vue'
 
 Vue.use(VueRouter);
 
@@ -79,23 +83,37 @@ const router =  new VueRouter ({
       ]
     },
     {
-      path: '/profile',
-      name: 'perfil',
-      title: 'Perfil',
-      component: Profile
+      path: '/painel',
+      name: 'painel',
+      title: 'Painel',
+      component: Painel,
+      children: [
+        {
+          path: 'consumidor',
+          name: 'painel_consumidor',
+          title: 'Muda',
+          component: PainelConsumidor,
+        },
+        {
+          path: 'produtor',
+          name: 'painel_produtor',
+          title: 'Muda',
+          component: PainelProdutor,
+        },
+        {
+          path: 'buscar-produtor',
+          name: 'buscar_produtor',
+          title: 'Buscar',
+          component: BuscaProdutores,
+        },
+      ]
     },
-    {
-      path: '/consumidor-panel',
-      name: 'panel_consumidor',
-      title: 'Panel Consumidor',
-      component: ConsumidorPanel
-    }
   ]
 });
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/consumidor-panel'];
+                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro'];
 
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
