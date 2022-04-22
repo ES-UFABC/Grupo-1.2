@@ -28,22 +28,6 @@ public class CadastroConsumidorController {
     private final CadastroConsumidorUseCase useCase;
     private final ModelMapper modelMapper;
 
-    @PostMapping
-    public ResponseEntity<CadastroConsumidorDtoOut> cadastraConsumidor(@Valid @RequestBody CadastroConsumidorDtoIn requestDTO) {
-
-        final Optional<CadastroConsumidorDomain> usecaseDomainOut = useCase.cadastraConsumidor(mapper.toModel(requestDTO));
-
-        if (usecaseDomainOut.isEmpty()) {
-            throw new NoSuchElementException();
-        }
-
-        final CadastroConsumidorDtoOut resultado = mapper.toDto(usecaseDomainOut.get());
-
-        log.info(resultado.toString());
-        
-
-        return ResponseEntity.created(URI.create("/" + resultado.getCpf())).body(resultado);
-    }
 
     @PutMapping("/{IdCPF}")
     public ResponseEntity<CadastroConsumidorDtoOut> atualizaConsumidor (

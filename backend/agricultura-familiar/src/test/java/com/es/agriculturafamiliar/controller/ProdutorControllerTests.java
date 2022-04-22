@@ -70,25 +70,6 @@ public class ProdutorControllerTests {
 
 
     @Test
-    void findById_shouldReturnStatusOk_whenProdutorExists() throws Exception {
-
-        when(produtorService.saveProdutor(any(Produtor.class), any())).thenReturn(produtor);
-        produtorController.saveProdutor(produtor);
-        System.out.println(produtor.getId());
-        mockMvc.perform(get(BASE_ENDPOINT +"/{id}", produtor.getId()))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void saveProdutor_shouldReturnStatusCreated_whenValidRequestBodyIsReceived() throws Exception {
-        Produtor produtorTeste = new Produtor();
-        produtorTeste.setCpfOuCnpj("123456789");
-        produtorTeste.setNome("teste");
-
-        Assertions.assertEquals(produtorController.saveProdutor(produtorTeste).getStatusCode(), HttpStatus.CREATED);
-    }
-
-    @Test
     void saveProdutor_shouldReturnBadRequest_WhenMandatoryFieldIsMissing() throws  Exception {
         Produtor produtorTeste = new Produtor();
         produtorTeste.setCpfOuCnpj("");

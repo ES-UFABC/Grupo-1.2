@@ -62,6 +62,10 @@ public class ProdutorService {
         return produtorRepository.findByEnderecosEstadoAndEnderecosMunicipio(estado, cidade);
     }
 
+    public List<Produtor> findByNomeFantasia(String nomeFantasia){
+        return produtorRepository.findByNomeFantasiaAproximado(nomeFantasia);
+    }
+
     public Produtor findProdutorById(Long id){
         return this.produtorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Produtor was not found"));
