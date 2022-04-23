@@ -21,6 +21,6 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
         env:
           HD_MUDA_EMAIL_USERNAME: ${{secrets.MUDAL_EMAIL_USERNAME}}
-          HD_MUDA_EMAIL_PASSWORD: ${{MUDA_EMAIL_PASSWORD}}
+          HD_MUDA_EMAIL_PASSWORD: ${{secrets.MUDA_EMAIL_PASSWORD}}
           HD_MUDA_JWT_SIGNING_KEY: ${{secrets.MUDA_JWT_SIGNING_KEY}}
 
