@@ -19,6 +19,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME_BACKEND}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: "backend/agricultura-familiar"
         env:
           HD_MUDA_EMAIL_USERNAME: ${{secrets.MUDAL_EMAIL_USERNAME}}
           HD_MUDA_EMAIL_PASSWORD: ${{secrets.MUDA_EMAIL_PASSWORD}}
