@@ -24,4 +24,9 @@ jobs:
           HD_MUDA_EMAIL_USERNAME: ${{secrets.MUDAL_EMAIL_USERNAME}}
           HD_MUDA_EMAIL_PASSWORD: ${{secrets.MUDA_EMAIL_PASSWORD}}
           HD_MUDA_JWT_SIGNING_KEY: ${{secrets.MUDA_JWT_SIGNING_KEY}}
+          HD_DATABASE_HOST: ${{secrets.DATABASE_HOST}}
+          HD_DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+          HD_DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+          HD_DATABASE_USER: ${{secrets.DATABASE_USER}}
+          HD_DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
 
