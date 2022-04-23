@@ -29,4 +29,5 @@ jobs:
           HD_DATABASE_NAME: ${{secrets.DATABASE_NAME}}
           HD_DATABASE_USER: ${{secrets.DATABASE_USER}}
           HD_DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+          HD_SPRING_ACTIVE_PROFILE: ${{secrets.SPRING_ACTIVE_PROFILE}}
 
