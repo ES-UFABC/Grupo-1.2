@@ -1,0 +1,26 @@
+name: Backend Deploy Heroku
+
+defaults:
+  run:
+    working-directory: ./backend/agricultura-familiar
+
+on:
+  push:
+    branches:
+      - issue34/feature
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME_BACKEND}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env:
+          HD_MUDA_EMAIL_USERNAME: ${{secrets.MUDAL_EMAIL_USERNAME}}
+          HD_MUDA_EMAIL_PASSWORD: ${{MUDA_EMAIL_PASSWORD}}
+          HD_MUDA_JWT_SIGNING_KEY: ${{secrets.MUDA_JWT_SIGNING_KEY}}
+
