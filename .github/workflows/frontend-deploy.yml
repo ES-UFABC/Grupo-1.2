@@ -8,8 +8,8 @@ on:
   push:
     branches:
       - issue34/feature
-    paths:
-      - "frontend/agricultura-familiar/**"
+    # paths:
+    #   - "frontend/agricultura-familiar/**"
   workflow_dispatch:
 
 jobs:
