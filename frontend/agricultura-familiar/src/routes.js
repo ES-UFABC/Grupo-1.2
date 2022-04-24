@@ -13,7 +13,10 @@ import Produtor from './views/produtor/Produtor.vue';
 import ProdutorHome from './views/produtor/ProdutorHome.vue';
 import ProdutorLogin from './views/produtor/ProdutorLogin.vue';
 import ProdutorCadastro from './views/produtor/ProdutorCadastro.vue';
+
 import Profile from './views/profile/Profile.vue'
+import EmailConfirmation from './views/email-confirmation/EmailConfirmation.vue';
+
 
 Vue.use(VueRouter);
 
@@ -89,13 +92,19 @@ const router =  new VueRouter ({
       name: 'panel_consumidor',
       title: 'Panel Consumidor',
       component: ConsumidorPanel
-    }
+    },
+    {
+      path: '/email-confirmation',
+      name: 'email_confirmation',
+      title: 'Email Confirmation',
+      component: EmailConfirmation
+    },
   ]
 });
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/consumidor-panel'];
+                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/consumidor-panel', '/email-confirmation'];
 
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
