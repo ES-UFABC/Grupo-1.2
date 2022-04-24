@@ -8,6 +8,8 @@ on:
   push:
     branches:
       - issue34/feature
+    paths:
+      - "backend/agricultura-familiar/**"
 
 jobs:
   build:
