@@ -26,5 +26,9 @@ class AuthService {
   registerConsumidor(consumidor) {
     return axios.post(`${process.env.SERVER_URI}/cadastro/consumidor`, consumidor);
   }
+
+  confirmationEmail(code) {
+    return axios.post(`${process.env.SERVER_URI}/enable-account`, code);
+  }
 }
 export default new AuthService();

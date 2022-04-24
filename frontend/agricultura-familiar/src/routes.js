@@ -16,11 +16,13 @@ import ProdutorCadastro from './views/produtor/ProdutorCadastro.vue';
 
 import Profile from './views/profile/Profile.vue'
 import EmailConfirmation from './views/email-confirmation/EmailConfirmation.vue';
+import CodeEnter from './views/email-confirmation/CodeEnter.vue';
+import ConfirmationDone from './views/email-confirmation/ConfirmationDone.vue';
 
 
 Vue.use(VueRouter);
 
-const router =  new VueRouter ({
+const router = new VueRouter({
   mode: 'hash',
   routes: [
     {
@@ -97,14 +99,29 @@ const router =  new VueRouter ({
       path: '/email-confirmation',
       name: 'email_confirmation',
       title: 'Email Confirmation',
-      component: EmailConfirmation
+      component: EmailConfirmation,
+      children: [
+        {
+          path: '/code-enter',
+          name: 'code_enter',
+          title: 'Code Enter',
+          component: CodeEnter
+        },
+        {
+          path: '/confirmation-done',
+          name: 'confirmation_done',
+          title: 'Confirmation Done',
+          component: ConfirmationDone
+        }
+      ]
     },
   ]
 });
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/consumidor-panel', '/email-confirmation'];
+    '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/consumidor-panel', '/email-confirmation',
+    '/email-confirmation/confirmation-done','/email-confirmation/code-enter'];
 
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
