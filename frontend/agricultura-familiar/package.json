@@ -5,6 +5,9 @@
   "author": "matheus.antonio@aluno.ufabc.edu.br",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --port 9000 --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
