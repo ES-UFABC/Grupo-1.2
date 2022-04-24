@@ -3,13 +3,14 @@ name: Frontend Deploy
 defaults:
   run:
     working-directory: ./frontend/agricultura-familiar
-
+  
 on:
   push:
     branches:
       - issue34/feature
     paths:
       - "frontend/agricultura-familiar/**"
+  workflow_dispatch:
 
 jobs:
   build:

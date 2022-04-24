@@ -10,6 +10,7 @@ on:
       - issue34/feature
     paths:
       - "backend/agricultura-familiar/**"
+  workflow_dispatch:
 
 jobs:
   build:
