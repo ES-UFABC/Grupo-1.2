@@ -2,6 +2,7 @@ package com.es.agriculturafamiliar.entity.produtor;
 
 import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.entity.Produto;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
 
 import lombok.AllArgsConstructor;
@@ -12,9 +13,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -28,14 +31,14 @@ public class Produtor {
     private Long id;
     
     @NotBlank
+    @Column(unique = true)
     private String cpfOuCnpj;
 
     @NotBlank
     private String nome;
+    @NotBlank
     private String nomeFantasia;
 
-    @NotBlank
-    private String email;
 
     @OneToMany(mappedBy = "produtor", cascade = CascadeType.ALL)
     private List<Endereco> enderecos;
@@ -50,6 +53,9 @@ public class Produtor {
     private Boolean certificacaoAgroecologico = false;
     private String organico = "SIM";
     private String geolocalizacao;
+
+    @OneToMany(mappedBy = "produtor")
+    private List<Produto> produtos = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name="PRODUTOR_TIPO_PRODUCAO",
@@ -82,7 +88,7 @@ public class Produtor {
     private User user;
 
     public Produtor(String cpfOuCnpj, String nome, String nomeFantasia,
-                    String email, String regiaoDeProducao,
+                    String regiaoDeProducao,
                     Boolean atendeNoEnderecoDeProducao,
                     Boolean cadastroEntidade, TipoProdutor tipoProdutor, Boolean registroOuCertificacao,
                     Boolean agroecologico, Boolean certificacaoAgroecologico,
@@ -90,7 +96,6 @@ public class Produtor {
         this.cpfOuCnpj = cpfOuCnpj;
         this.nome = nome;
         this.nomeFantasia = nomeFantasia;
-        this.email = email;
         this.regiaoDeProducao = regiaoDeProducao;
         this.atendeNoEnderecoDeProducao = atendeNoEnderecoDeProducao;
         this.cadastroEntidade = cadastroEntidade;

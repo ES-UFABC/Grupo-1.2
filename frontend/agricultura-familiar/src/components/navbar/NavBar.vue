@@ -59,23 +59,28 @@
           <b-dropdown-item href="#">Chat</b-dropdown-item>
           <b-dropdown-item href="#">Carteira</b-dropdown-item>
           <hr />
-          <b-dropdown-item href="#">Sair</b-dropdown-item>
+          <b-dropdown-item href="#" @click="logoff()">Sair</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
     </b-navbar>
   </div>
 </template>
-
 <script>
-import Search from "../search/Search.vue"
+import Search from "../search/Search.vue";
+
 export default {
   components: {
-    Search
-  }
-}
+    Search,
+  },
+  methods: {
+    logoff() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    },
+  },
+};
 </script>
-
 <style scoped>
 @media (max-width: 576px) {
   .search {
@@ -110,7 +115,6 @@ export default {
     display: none;
   }
 }
-
 
 .cart-container {
   display: flex;
@@ -152,7 +156,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #8AF0A7;
+  color: #8af0a7;
 }
 .navbar-brand h1 {
   font-size: 27px;

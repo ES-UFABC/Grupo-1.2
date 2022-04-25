@@ -36,6 +36,9 @@ public class ProdutorServiceTests {
     @Mock
     private ApplicationEventPublisher applicationEventPublisher;
     
+    @Mock
+    private ConfirmacaoCadastroService confirmacaoCadastroService;
+    
     
     @Test
     public void saveProdutor_shouldReturnSavedProdutor_whenSuccessful(){
@@ -44,7 +47,6 @@ public class ProdutorServiceTests {
         produtor.setCpfOuCnpj("43292043742");
         produtor.setNome("Prod Teste");
         produtor.setNomeFantasia("Prod Teste");
-        produtor.setEmail("prodteste@email.com");;
         produtor.setRegiaoDeProducao("região");
         produtor.setAtendeNoEnderecoDeProducao(true);
         produtor.setCadastroEntidade(true);
@@ -60,7 +62,6 @@ public class ProdutorServiceTests {
         returnedSavedProdutor.setCpfOuCnpj("43292043742");
         returnedSavedProdutor.setNome("Prod Teste");
         returnedSavedProdutor.setNomeFantasia("Prod Teste");
-        returnedSavedProdutor.setEmail("prodteste@email.com");;
         returnedSavedProdutor.setRegiaoDeProducao("região");
         returnedSavedProdutor.setAtendeNoEnderecoDeProducao(true);
         returnedSavedProdutor.setCadastroEntidade(true);
@@ -96,7 +97,6 @@ public class ProdutorServiceTests {
         produtor.setCpfOuCnpj("43292043742");
         produtor.setNome("Prod Teste");
         produtor.setNomeFantasia("Prod Teste");
-        produtor.setEmail("prodteste@email.com");;
         produtor.setRegiaoDeProducao("região");
         produtor.setAtendeNoEnderecoDeProducao(true);
         produtor.setCadastroEntidade(true);

@@ -32,10 +32,10 @@ public class EmailCadastroListener {
             .variables(context)
             .to(to)
             .from(emailProperties.getUsername())
-            .templateName(TemplateType.REGISTRATION_PRODUTOR)
-            .build(); 
-                     
-            asyncMessageService.sendMessage(email);
+            .templateName(TemplateType.EMAIL_SIGNUP_DEFAULT)
+            .build();
+        
+        asyncMessageService.sendMessage(email);
             
     }
     

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -73,7 +75,15 @@ public class JwtUserDetailsManagerTests {
         assertNotNull(createdUser);
         assertEquals(user.getEmail(), createdUser.getEmail());
         assertEquals(user.getId(), createdUser.getId());
-        assertEquals(user.getAuthorities(), createdUser.getAuthorities());
-                
+        assertEquals(user.getAuthorities(), createdUser.getAuthorities());       
+    }
+    
+    @Test
+    public void enableUser_shouldSetEnabledToTrueAndSave_whenReceivedUser() {
+    	User toBeEnabledUser = User.builder().enabled(false).build();
+    	
+    	jwtUserDetailsManager.enableUser(toBeEnabledUser);
+    	
+    	verify(userRepository, times(1)).save(toBeEnabledUser);
     }
 }

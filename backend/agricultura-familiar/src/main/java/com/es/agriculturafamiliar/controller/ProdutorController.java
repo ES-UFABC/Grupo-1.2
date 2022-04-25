@@ -5,27 +5,23 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
+import com.es.agriculturafamiliar.service.ProdutoService;
 import com.es.agriculturafamiliar.service.ProdutorService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.AllArgsConstructor;
 
 
 @RestController()
-@RequestMapping("/cadastro/produtor")
+@RequestMapping("/produtor")
 @AllArgsConstructor
 public class ProdutorController {
-    
+
+    @Autowired
     private final ProdutorService produtorService;
 
     @GetMapping("/{id}")
@@ -40,10 +36,16 @@ public class ProdutorController {
         return ResponseEntity.ok(produtores);
     }
 
-    @PostMapping
-    public ResponseEntity<Produtor> saveProdutor(@Valid @RequestBody Produtor produtor){
-        Produtor savedProdutor = produtorService.saveProdutor(produtor, produtor.getUser());
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedProdutor);
+    @GetMapping("/geolocalizacao")
+    public ResponseEntity<List<Produtor>> findByCidade(@RequestParam String estado, @RequestParam String municipio){
+        var produtor = produtorService.findByLocalizacao(estado, municipio);
+        return ResponseEntity.ok(produtor);
+    }
+
+    @GetMapping("/busca")
+    public ResponseEntity<List<Produtor>> findByNomeFantasia(@RequestParam String nomeFantasia){
+        var produtor = produtorService.findByNomeFantasia(nomeFantasia);
+        return ResponseEntity.ok(produtor);
     }
 
     @PutMapping("/{id}")

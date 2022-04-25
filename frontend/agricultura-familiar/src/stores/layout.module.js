@@ -18,7 +18,6 @@ export const layout = {
       state.sidebarActiveElement = index;
     },
     changeLoading(state, isLoading) {
-      console.log({ isLoading })
       if (isLoading) {
         state.refCount++;
         state.isLoading = true;

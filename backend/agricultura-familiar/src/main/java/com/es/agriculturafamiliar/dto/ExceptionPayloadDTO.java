@@ -21,7 +21,7 @@ public class ExceptionPayloadDTO {
 	private String title;	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime timestamp;
-	private String description;	
+	private String[] description;
     @JsonInclude(Include.NON_NULL)
 	Map<String, String> fieldToMessageMap;
     

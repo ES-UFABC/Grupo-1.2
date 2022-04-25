@@ -3,7 +3,7 @@
     <h3>{{ titulo }}</h3>
     <hr />
 
-    <!-- cep e Cidade -->
+    <!-- cep, Cidade e estado -->
     <b-form-row>
       <b-col>
         <b-form-group id="input-group-txt-cep"
@@ -29,6 +29,20 @@
                         @change="salvarEndereco"
                         placeholder=""
                         required></b-form-input>
+
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-group id="input-group-cmb-estado"
+                      label="Estado"
+                      label-for="cmb-estado">
+          <b-form-select id="cmb-estado"
+                        v-model="endereco.estado"
+                        :options="options"
+                        type="text"
+                        @change="salvarEndereco"
+                        placeholder=""
+                        required></b-form-select>
 
         </b-form-group>
       </b-col>
@@ -103,6 +117,7 @@
 </template>
 
 <script>
+  import Endereco from '../../models/endereco';
   export default {
     name: 'Endereco',
     props: {
@@ -113,17 +128,19 @@
     },
     data() {
       return {
-        endereco: {
-          cep: '',
-          numero: '',
-          complemento: '',
-          rua: '',
-          bairro: '',
-          municipio: ''
-        }
+        endereco: new Endereco('', '', '', '', '', '', ''),
+        options: []
       }
     },
-
+    mounted() {
+      var self = this;
+      let apiUri = process.env.IBGE_ESTADOS_API_URI
+      this.$http.get(apiUri)
+        .then(response => {
+          let opts = response.data.map(uf => ({ value: uf.sigla, text: uf.nome }));
+          self.options = [{ value: '', text: 'Selecione uma opção' }].concat(opts);
+        })
+    },
     methods: {
       carregarEndereco() {
         let apiUri = process.env.VIACEP_API_URI.replace('{CEP}', this.endereco.cep || '')
@@ -134,6 +151,7 @@
             this.endereco.rua = response.data.logradouro;
             this.endereco.bairro = response.data.bairro;
             this.endereco.municipio = response.data.localidade;
+            this.endereco.estado = response.data.uf;
             //TODO: colocar foco no input referente ao número
             this.salvarEndereco();
           })

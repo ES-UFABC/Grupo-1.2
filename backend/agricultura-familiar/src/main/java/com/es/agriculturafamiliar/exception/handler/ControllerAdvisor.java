@@ -2,6 +2,7 @@ package com.es.agriculturafamiliar.exception.handler;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.es.agriculturafamiliar.dto.ExceptionPayloadDTO;
 import com.es.agriculturafamiliar.exception.AuthException;
@@ -30,23 +31,24 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Recurso não encontrado")
 				.statusCode(HttpStatus.NOT_FOUND.value())
-				.description(exception.getMessage()) 
+				.description(new String[]{exception.getMessage()})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.NOT_FOUND);
 	}
-    
-	
+
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
-        String errorMessage = fieldErrors.get(0).getDefaultMessage();
+        List<String> errorMessages =  fieldErrors.stream().map(x -> x.getField() + ": " + x.getDefaultMessage()).collect(Collectors.toList());
+
         ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
                 .timestamp(LocalDateTime.now())
                 .title("Validation Error")
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .description(errorMessage)
+                .description(errorMessages.toArray(new String[errorMessages.size()]))
                 .build();
 
         return ResponseEntity.badRequest().body(exceptionPayload);
@@ -58,9 +60,9 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Usuário não encontrado")
 				.statusCode(HttpStatus.UNAUTHORIZED.value())
-				.description(exception.getMessage()) 
+				.description(new String[]{exception.getMessage()})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 
@@ -70,9 +72,9 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title(exception.getTitle())
 				.statusCode(exception.getHttpStatus().value())
-				.description(exception.getMessage()) 
+				.description(new String[]{exception.getMessage()})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, exception.getHttpStatus());
 	}
 
@@ -82,9 +84,9 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Token expirado")
 				.statusCode(HttpStatus.UNAUTHORIZED.value())
-				.description("Token fornecido é inválido") 
+				.description(new String[]{"Token fornecido é inválido"})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
 	}
 
@@ -94,9 +96,9 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Formação de token inválida")
 				.statusCode(HttpStatus.BAD_REQUEST.value())
-				.description("Token fornecido não pôde ser lido") 
+				.description(new String[]{"Token fornecido não pôde ser lido"})
 				.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
 	}
 
@@ -106,9 +108,9 @@ public class ControllerAdvisor {
 			.timestamp(LocalDateTime.now())
 			.title("Ocorreu um erro durante o processamento da requisição")
 			.statusCode(HttpStatus.UNPROCESSABLE_ENTITY.value())
-			.description(exception.getMessage())
+			.description(new String[]{exception.getMessage()})
 			.build();
-		
+
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 
@@ -118,20 +120,20 @@ public class ControllerAdvisor {
 				.timestamp(LocalDateTime.now())
 				.title("Campo inválido")
 				.statusCode(HttpStatus.CONFLICT.value())
-				.description(ex.getMostSpecificCause().getMessage()) 
+				.description(new String[]{ex.getMostSpecificCause().getMessage()})
 				.build();
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);
 	}
-	
+
 	@ExceptionHandler(value= {DataIntegrityViolationException.class})
 	protected ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-		
+
 		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Campo inválido")
 				.statusCode(HttpStatus.CONFLICT.value())
-				.description(ex.getMostSpecificCause().getMessage()) 
+				.description(new String[]{ex.getMostSpecificCause().getMessage()})
 				.build();
-		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);		
+		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);
 	}
 }
