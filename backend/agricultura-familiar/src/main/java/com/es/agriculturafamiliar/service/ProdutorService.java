@@ -45,7 +45,7 @@ public class ProdutorService {
         produtor = produtorRepository.save(produtor);
         
         var emailCadastroConfirmacaoPendenteEvent = EmailCadastroConfirmacaoPendenteEvent.builder()
-        	.codigoConfirmacao("123456")
+        	.codigoConfirmacao(confirmacaoCadastro.getCodigo())
         	.name(produtor.getNome())
         	.toEmail(user.getEmail())
         	.build();

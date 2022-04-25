@@ -13,7 +13,7 @@
         if (opts.type == 'error')
           alerts.ErrorAlert.fire({ html: opts.text });
         else if (opts.type == 'success')
-          alerts.SucessToaster.fire({ html: opts.text }).then(() => this.$router.push('/'));
+          alerts.SucessToaster.fire({ html: opts.text }).then(() => this.$router.push('/email-confirmation'));
         else if (opts.type == 'warning')
           alerts.WarningToaster.fire({ html: text });
       }
