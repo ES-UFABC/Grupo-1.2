@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AuthException extends RuntimeException {
-    private String title;
+    private static final long serialVersionUID = -8162365112708335074L;
+	private String title;
     private String message;
     private HttpStatus httpStatus;
     

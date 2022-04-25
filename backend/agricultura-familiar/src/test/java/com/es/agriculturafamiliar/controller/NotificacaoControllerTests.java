@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -67,7 +68,7 @@ public class NotificacaoControllerTests {
 	void findById_shouldReturnStatusOk_whenNotificationExists() throws Exception {
 		Notificacao notificacao = Notificacao.builder()
 			.assunto("Manutenção")
-            .mensagem("O sistema vai entrar em manutenção")
+            .mensagem("O sistema vai entrar em manutenção")            
             .dataPublicacao(LocalDateTime.now())
 			.build();
 
@@ -172,6 +173,7 @@ public class NotificacaoControllerTests {
 
 	@Test
 	void findAll_shouldReturnOk_whenNotificacoesAreRequested() throws Exception {
+		when(notificationService.findAll(any())).thenReturn(Page.empty());
 		mockMvc.perform(get(BASE_ENDPOINT))
 			.andExpect(status().isOk());
 	}

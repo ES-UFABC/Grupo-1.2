@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,7 +32,12 @@ public class Notificacao {
     private String assunto;
     @NotBlank
     private String mensagem;
+    
     @CreationTimestamp
     private LocalDateTime dataPublicacao;
+    
+    @ManyToOne
+    @JoinColumn(name = "administrador_id", referencedColumnName = "id")
+    private Administrador administrador;
     
 }
