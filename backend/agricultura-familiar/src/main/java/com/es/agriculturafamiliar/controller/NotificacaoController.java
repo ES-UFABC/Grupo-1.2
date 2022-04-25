@@ -36,7 +36,7 @@ public class NotificacaoController {
     private NotificacaoService notificationService;
 
     @GetMapping
-    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "40") int size) {
     	Pageable paging = PageRequest.of(page, size);
 
     	Page<NotificacaoResponse> notificacoes = notificationService.findAll(paging)
