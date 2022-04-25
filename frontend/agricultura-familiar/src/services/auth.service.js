@@ -21,7 +21,7 @@ class AuthService {
     localStorage.removeItem(process.env.LOCAL_STORAGE_AUTH_KEY);
   }
   registerProdutor(produtor) {
-    return axios.post(`${process.env.SERVER_URI}/produtor`, produtor);
+    return axios.post(`${process.env.SERVER_URI}/cadastro/produtor`, produtor);
   }
   registerConsumidor(consumidor) {
     return axios.post(`${process.env.SERVER_URI}/cadastro/consumidor`, consumidor);
