@@ -102,13 +102,13 @@ const router = new VueRouter({
       component: EmailConfirmation,
       children: [
         {
-          path: '/code-enter',
+          path: '/',
           name: 'code_enter',
           title: 'Code Enter',
           component: CodeEnter
         },
         {
-          path: '/confirmation-done',
+          path: 'confirmation-done',
           name: 'confirmation_done',
           title: 'Confirmation Done',
           component: ConfirmationDone
@@ -120,8 +120,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-    '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/consumidor-panel', '/email-confirmation',
-    '/email-confirmation/confirmation-done','/email-confirmation/code-enter'];
+    '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/consumidor-panel', '/email-confirmation/',
+    '/email-confirmation/confirmation-done'];
 
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
