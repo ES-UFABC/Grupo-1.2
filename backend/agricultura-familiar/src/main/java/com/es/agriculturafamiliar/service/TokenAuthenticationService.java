@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.entity.Administrador;
 import com.es.agriculturafamiliar.entity.AuthenticatedUser;
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.JwtToken;
@@ -35,6 +36,7 @@ public class TokenAuthenticationService {
     private final List<IAccountConfirmationValidator> accountConfirmationValidators;
     private final ConfirmacaoCadastroService confirmacaoCadastroService;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final AdministradorService administradorService;
 
     /**
      * Authenticates and returns a token, otherwise it throws an exception if the user's account is not enabled or credentials aren't valid
@@ -118,6 +120,11 @@ public class TokenAuthenticationService {
         if (RoleType.CONSUMIDOR.equals(role.getRole())) {
             var consumidorOpt = consumidorService.findByUserId(user.getId());
             return consumidorOpt.get().getCpf();
+        }
+        
+        if (RoleType.ADMIN.equals(role.getRole())) {
+        	Administrador administrador = administradorService.findByUserId(user.getId());
+        	return String.valueOf(administrador.getId());
         }
 
         return String.valueOf(user.getId());

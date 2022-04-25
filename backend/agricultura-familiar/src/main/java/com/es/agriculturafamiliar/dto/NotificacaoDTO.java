@@ -21,4 +21,6 @@ public class NotificacaoDTO {
 
     @NotEmpty
     private String mensagem;
+    
+    private Long adminId;
 }
