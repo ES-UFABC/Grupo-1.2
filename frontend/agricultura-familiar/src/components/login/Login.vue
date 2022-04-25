@@ -42,6 +42,8 @@
 </template>
 
 <script>
+
+  import alerts from '../../utils/alerts';
   export default {
     name: 'Login',
     data() {
@@ -57,14 +59,12 @@
 
         if (email && password) {
           this.$store.dispatch('auth/login', { email, password })
-            .then(() => {
-                this.$router.push('/profile');
+            .then((response) => {
+              console.log(response);
+              this.$emit('logged')
             },
-            error => {
-                console.log(error);
-                //(error.response && error.response.data) ||
-                //error.message ||
-                //error.toString();
+              error => {
+                alerts.ErrorAlert.fire({ html: error });
             }
           );
         }
