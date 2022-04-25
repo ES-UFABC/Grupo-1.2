@@ -43,25 +43,25 @@
         var interval = seconds / 31536000;
 
         if (interval > 1)
-          return `${Math.floor(interval)} anos`;
+          return `${Math.floor(interval)} anos atrás`;
         
         interval = seconds / 2592000;
         if (interval > 1)
-          return `${Math.floor(interval)} meses`;
+          return `${Math.floor(interval)} meses atrás`;
 
         interval = seconds / 86400;
         if (interval > 1)
-          return `${Math.floor(interval)} dias`;
+          return `${Math.floor(interval)} dias atrás`;
         
         interval = seconds / 3600;
         if (interval > 1) 
-          return `${Math.floor(interval)} horas`;
+          return `${Math.floor(interval)} horas atrás`;
         
         interval = seconds / 60;
         if (interval > 1) 
-          return `${Math.floor(interval)} minutos`;
+          return `${Math.floor(interval)} minutos atrás`;
         
-        return `${Math.floor(seconds)} segundos`;
+        return `${Math.floor(seconds)} segundos atrás`;
       }
     }
   }
