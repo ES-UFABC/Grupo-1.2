@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .regexMatchers(".*/admin.*").hasRole(RoleType.ADMIN.name())
                 .antMatchers("/consumidor/*").hasRole(RoleType.CONSUMIDOR.name())
-                .antMatchers("/produtor/*").hasRole(RoleType.PRODUTOR.name())            
+                .antMatchers("/produtor/*").hasRole(RoleType.PRODUTOR.name())
                 .antMatchers("/cadastro/*", "/login/*").permitAll()
                 .anyRequest().permitAll()                
             .and()            

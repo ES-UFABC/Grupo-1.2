@@ -55,6 +55,7 @@ public class ProdutorControllerTests {
     private static ObjectMapper objectMapper;
 
     public static final String BASE_ENDPOINT = "/produtor";
+    public static final String SAVE_ENDPOINT = "/cadastro/produtor";
 
     @BeforeEach
     public void setup(){
@@ -73,11 +74,14 @@ public class ProdutorControllerTests {
     void saveProdutor_shouldReturnBadRequest_WhenMandatoryFieldIsMissing() throws  Exception {
         Produtor produtorTeste = new Produtor();
         produtorTeste.setCpfOuCnpj("");
+        produtorTeste.setUser(new User());
+        produtorTeste.getUser().setEmail("");
 
-        mockMvc.perform(post(BASE_ENDPOINT)
+
+        mockMvc.perform(post(SAVE_ENDPOINT)
                         .content(objectMapper.writeValueAsString(produtorTeste))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @Test
