@@ -26,13 +26,7 @@
     },
     computed: {
       data() {
-        let ano = this.notificacao.dataPublicacao[0],
-          mes = this.notificacao.dataPublicacao[1] - 1,
-          dia = this.notificacao.dataPublicacao[2],
-          hora = this.notificacao.dataPublicacao[3],
-          minuto = this.notificacao.dataPublicacao[4],
-          segundo = this.notificacao.dataPublicacao[5]
-        return new Date(ano, mes, dia, hora, minuto, segundo);
+        return new Date(this.notificacao.dataPublicacao);
       },
       dataCompleta() {
         return `${this.data.toLocaleDateString()} ${this.data.toLocaleTimeString()}`
