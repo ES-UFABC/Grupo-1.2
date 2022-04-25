@@ -14,29 +14,7 @@
         <b-nav-item href="#">Verduras</b-nav-item>
       </b-navbar-nav>
 
-      <b-input-group class="search">
-        <b-input-group-prepend>
-          <span class="input-group-text">
-            <b-img src="../../../src/assets/search.svg" alt="Muda"></b-img>
-          </span>
-        </b-input-group-prepend>
-
-        <b-form-input
-          class="SearchInput"
-          size="lg"
-          placeholder="Busque por item ou produtor"
-        >
-        </b-form-input>
-
-        <b-input-group-append>
-          <span class="input-group-text">
-            <b-img
-              src="../../../src/assets/location.svg"
-              alt="Location"
-            ></b-img>
-          </span>
-        </b-input-group-append>
-      </b-input-group>
+      <Search />
 
       <b-navbar-nav class="ml-auto">
         <div class="search-minimized mt-auto mb-auto mr-2">
@@ -85,44 +63,18 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
-      <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
-      <!-- <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="#">Link</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
-        </b-navbar-nav>
-
-        <b-navbar-nav class="ml-auto">
-          <b-nav-form>
-            <b-form-input
-              size="sm"
-              class="mr-sm-2"
-              placeholder="Search"
-            ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit"
-              >Search</b-button
-            >
-          </b-nav-form>
-
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-      </b-collapse> -->
     </b-navbar>
   </div>
 </template>
+
+<script>
+import Search from "../search/Search.vue"
+export default {
+  components: {
+    Search
+  }
+}
+</script>
 
 <style scoped>
 @media (max-width: 576px) {
@@ -158,23 +110,7 @@
     display: none;
   }
 }
-.input-group-text {
-  width: 50px;
-  border: none;
-  background-color: #f8f8f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.SearchInput {
-  background-color: #f8f8f8;
-}
-.input-group-text img {
-  height: 26px;
-}
-.SearchInput {
-  border: none;
-}
+
 
 .cart-container {
   display: flex;
@@ -224,5 +160,3 @@
   margin-left: 8px;
 }
 </style>
-
-// 56
