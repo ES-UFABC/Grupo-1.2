@@ -30,6 +30,11 @@ public class ProdutoService {
         return produtos;
     }
 
+    public List<Produto> findProdutosByNome(String nome){
+        var produtos = produtoRepository.findByNomeAproximado(nome);
+        return produtos;
+    }
+
     public List<Produto> findAll(){
         var produtos = produtoRepository.findAll();
         return produtos;
