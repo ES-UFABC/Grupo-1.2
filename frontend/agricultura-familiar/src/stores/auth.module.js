@@ -14,8 +14,14 @@ export const auth = {
     login({ commit }, user) {
       return AuthService.login(user).then(
         user => {
-          commit('loginSuccess', user);
-          return Promise.resolve(user);
+          if (user) {
+            commit('loginSuccess', user);
+            return Promise.resolve(user);
+          }
+          else {
+            commit('loginFailure');
+            return Promise.reject("Erro ao conectar");
+          }
         },
         error => {
           commit('loginFailure');

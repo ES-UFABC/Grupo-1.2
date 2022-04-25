@@ -38,6 +38,12 @@ public class ProdutoController {
         return ResponseEntity.ok(produtos);
     }
 
+    @GetMapping("/busca")
+    public ResponseEntity<List<Produto>> findAllByNome(@RequestParam String nomeProduto){
+        var produtos = produtoService.findProdutosByNome(nomeProduto);
+        return ResponseEntity.ok(produtos);
+    }
+
     @PostMapping
     public ResponseEntity<Produto> saveProduto(@Valid @RequestBody Produto produto){
         produto = produtoService.saveProduto(produto);

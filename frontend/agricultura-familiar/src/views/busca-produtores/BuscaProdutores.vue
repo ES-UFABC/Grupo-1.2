@@ -1,6 +1,5 @@
 <template>
   <b-container fluid>
-    <NavBar/>
     <b-row>
       <b-col lg="3">
         <Busca @atualizar="obterEnderecoBusca" :estado-default="estado" :municipio-default="municipio" />

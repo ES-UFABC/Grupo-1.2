@@ -31,10 +31,12 @@ public class Produtor {
     private Long id;
     
     @NotBlank
+    @Column(unique = true)
     private String cpfOuCnpj;
 
     @NotBlank
     private String nome;
+    @NotBlank
     private String nomeFantasia;
 
 

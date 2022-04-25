@@ -20,7 +20,8 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/produtor")
 @AllArgsConstructor
 public class ProdutorController {
-    
+
+    @Autowired
     private final ProdutorService produtorService;
 
     @GetMapping("/{id}")
@@ -41,10 +42,10 @@ public class ProdutorController {
         return ResponseEntity.ok(produtor);
     }
 
-    @PostMapping
-    public ResponseEntity<Produtor> saveProdutor(@Valid @RequestBody Produtor produtor){
-        Produtor savedProdutor = produtorService.saveProdutor(produtor, produtor.getUser());
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedProdutor);
+    @GetMapping("/busca")
+    public ResponseEntity<List<Produtor>> findByNomeFantasia(@RequestParam String nomeFantasia){
+        var produtor = produtorService.findByNomeFantasia(nomeFantasia);
+        return ResponseEntity.ok(produtor);
     }
 
     @PutMapping("/{id}")

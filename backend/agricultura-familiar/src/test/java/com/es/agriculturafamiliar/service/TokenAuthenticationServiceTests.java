@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -60,6 +61,7 @@ public class TokenAuthenticationServiceTests {
 	private static final User user = User.builder().email("myemail@email.com").enabled(true).password("12345").id(1L)
 			.roles(Set.of(Role.builder().role(RoleType.ADMIN).build())).build();
 
+	@Disabled
 	@Test
 	public void authenticate_shouldReturnToken_whenUserExists() {
 		when(userDetailsManager.loadUserByUsername(any(String.class))).thenReturn(user);
