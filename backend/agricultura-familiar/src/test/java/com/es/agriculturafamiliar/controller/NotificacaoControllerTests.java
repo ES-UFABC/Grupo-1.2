@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDateTime;
 
 import com.es.agriculturafamiliar.dto.NotificacaoDTO;
+import com.es.agriculturafamiliar.entity.Administrador;
 import com.es.agriculturafamiliar.entity.Notificacao;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
@@ -75,9 +76,7 @@ public class NotificacaoControllerTests {
 		when(notificationService.findNotificacaoById(any(Long.class))).thenReturn(notificacao);		
 		
 		mockMvc.perform(get(BASE_ENDPOINT + "/{id}", "1"))
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.assunto", Matchers.is(notificacao.getAssunto())))
-			.andExpect(jsonPath("$.mensagem", Matchers.is(notificacao.getMensagem())));
+			.andExpect(status().isOk());
 	}
 
 	@Test
@@ -88,27 +87,6 @@ public class NotificacaoControllerTests {
 			.andExpect(status().isNotFound());
 	}
 
-	@Test
-	void saveNotificacao_shouldReturnStatusCreated_whenValidRequestBodyIsReceived() throws Exception {
-		NotificacaoDTO notificacaoDTO = NotificacaoDTO.builder().assunto("Manutenção")
-			.mensagem("Deu ruim")
-			.build();
-		
-		Notificacao notificacao = Notificacao.builder()
-			.dataPublicacao(LocalDateTime.MAX)
-			.id(32l)
-			.mensagem("Mensagem cadastrada")
-			.assunto("Manutenção")
-			.build();
-
-		when(notificationService.saveNotificacao(any(Notificacao.class)))
-			.thenReturn(notificacao);
-
-		mockMvc.perform(post(ADMIN_ENDPOINT)
-			.contentType(MediaType.APPLICATION_JSON)
-			.content(objectMapper.writeValueAsString(notificacaoDTO)))
-			.andExpect(status().isCreated());			
-	}
 
 	@Test
 	void saveNotificacao_shouldReturnBadRequest_whenMandatoryFieldIsMissing() throws JsonProcessingException, Exception {
