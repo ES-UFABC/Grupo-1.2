@@ -1,7 +1,7 @@
 
 <template>
   <div class="panel">
-    <NavBar />
+    <NavBar @pesquisar="pesquisar" @abrirGeolocalizacao="abrirGeolocalizacao" />
     <transition name="router-animation">
       <router-view />
     </transition>
@@ -19,6 +19,12 @@ export default {
     };
   },
   methods: {
+    pesquisar() {
+      console.log('pesquisando');
+    },
+    abrirGeolocalizacao() {
+      this.$router.push("/painel/buscar-produtor");
+    },
   },
 };
 </script>
@@ -29,5 +35,6 @@ export default {
     background-repeat: repeat;
     background-size: 200px;
     background-attachment: fixed;
+    margin-top: 70px;
   }
 </style>

@@ -14,7 +14,7 @@
         <b-nav-item href="#">Verduras</b-nav-item>
       </b-navbar-nav>
 
-      <Search />
+      <Search @pesquisar="pesquisar" @abrirGeolocalizacao="abrirGeolocalizacao" />
 
       <b-navbar-nav class="ml-auto">
         <div class="search-minimized mt-auto mb-auto mr-2">
@@ -77,6 +77,12 @@ export default {
     logoff() {
       this.$store.dispatch("auth/logout");
       this.$router.push("/");
+    },
+    pesquisar() {
+      this.$emit('pesquisar')
+    },
+    abrirGeolocalizacao() {
+      this.$emit('abrirGeolocalizacao')
     },
   },
 };

@@ -1,9 +1,9 @@
 <template>
   <b-input-group class="search">
     <b-input-group-prepend>
-      <span class="input-group-text">
+      <button class="input-group-text" @click="pesquisar">
         <b-img src="../../../src/assets/search.svg" alt="Muda"></b-img>
-      </span>
+      </button>
     </b-input-group-prepend>
 
     <b-form-input
@@ -11,13 +11,17 @@
       size="lg"
       placeholder="Busque por item ou produtor"
       list="historico"
+      v-model="term"
+      autocomplete="off"
+      ref="search"
+      @focus.prevent="carregarHistorico"
     >
     </b-form-input>
 
     <b-input-group-append>
-      <span class="input-group-text">
+      <button class="input-group-text" @click="abrirGeolocalizacao">
         <b-img src="../../../src/assets/location.svg" alt="Location"></b-img>
-      </span>
+      </button>
     </b-input-group-append>
 
     <datalist id="historico">
@@ -27,18 +31,30 @@
 </template>
 
 <script>
+import SearchHistoryService from '../../services/search-history-service'
 export default {
   data() {
     return {
-      item: "",
-      history: [
-        "A Throne Too Far",
-        "The Cat Wasn't Invited",
-        "You Only Meow Once",
-        "Catless in Seattle",
-      ],
+      term: "",
+      history: [],
     };
   },
+  methods: {
+    pesquisar() {
+      this.$emit('pesquisar', this.term)
+      SearchHistoryService.salvarPesquisaNoHistoricoDeBuscas(this.term)
+    },
+    abrirGeolocalizacao() {
+      this.$emit('abrirGeolocalizacao')
+    },
+    carregarHistorico() {
+      let self = this;
+      SearchHistoryService.carregarHistoricoDeBuscas()
+        .then(historico => {
+          self.history = historico.termos
+        })
+    }
+  }
 };
 </script>
 
