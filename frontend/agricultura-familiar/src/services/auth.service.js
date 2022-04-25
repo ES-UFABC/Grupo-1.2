@@ -26,5 +26,10 @@ class AuthService {
   registerConsumidor(consumidor) {
     return axios.post(`${process.env.SERVER_URI}/cadastro/consumidor`, consumidor);
   }
+
+  carregarUsuario() {
+    let user = JSON.parse(localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY)).user;
+    return user;
+  }
 }
 export default new AuthService();

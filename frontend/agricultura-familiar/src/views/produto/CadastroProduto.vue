@@ -77,8 +77,7 @@
             <b-form-group id="input-group-txt-foto" label="Foto do Produto" label-for="txt-foto">
               <b-form-input id="txt-foto"
                             v-model="produto.foto"
-                            placeholder=""
-                            required></b-form-input>
+                            placeholder=""></b-form-input>
             </b-form-group>
           </b-col>
         </b-form-row>       
@@ -94,39 +93,42 @@
 <script>
   import Cadastro from '../../components/cadastro/Cadastro';
   import ProdutoService from '../../services/produto-service';
+  import AuthService from '../../services/auth.service';
+
+
   export default {
     name: 'CadastroProduto',
     extends: Cadastro,
     data() {
       return {
         produto: {
-            estimavaDeProducaoSazonalidade: 0, 
-            foto: '', //nao é obrigatorio, formato texto
-            nome: '',
-            preco: 0,
-            quantidade: 0,
-            unidadeDeMedida: ''  
-            }
-        }
+          estimavaDeProducaoSazonalidade: 0, 
+          foto: '', //nao é obrigatorio, formato texto
+          nome: '',
+          preco: 0,
+          quantidade: 0,
+          unidadeDeMedida: ''  
+        },
+        produtor: null
+      }
     },
     computed: {
       model() {
         return {
-            condicoesEspeciaisDeEntrega: true,
-            estimavaDeProducaoSazonalidade: produto.estimava_sazonalidade, 
-            foto: produto.foto, //nao é obrigatorio, formato texto
-            nome: produto.nome,
-            preco: produto.preco,
-            endpoint: 'cadastro-produto/',
-            produtor: 0, //id
-            quantidade: produto.quantidade,
-            tipologia: 'DESCONHECIDA',
-            unidadeDeMedida: produto.unidade_medida
+          condicoesEspeciaisDeEntrega: true,
+          estimavaDeProducaoSazonalidade: this.produto.estimava_sazonalidade, 
+          foto: this.produto.foto, //nao é obrigatorio, formato texto
+          nome: this.produto.nome,
+          preco: this.produto.preco,
+          produtor: this.produtor,
+          quantidade: this.produto.quantidade,
+          tipologia: 'DESCONHECIDA',
+          unidadeDeMedida: this.produto.unidade_medida
         }
       }
     },
     mounted() {
-      console.log(this);
+      this.produtor = AuthService.carregarUsuario();
     },
     methods: {
       enviar() {
@@ -142,7 +144,7 @@
       tratarResponse(response) {
         switch (response.status) {
           case 201:
-            return { text: 'Produto cadastrado com sucesso!', type: 'success' };
+            return { text: `Produto ${this.produto.nome} cadastrado com sucesso!`, type: 'success' };
           case 409:
             return { text: 'Produto já cadastrado...', type: 'warning' };
           default:

@@ -86,12 +86,6 @@ const router =  new VueRouter ({
       ]
     },
     {
-      path: '/cadastro-produto',
-      name: 'cadastro_produto',
-      title: 'Cadastro Produto',
-      component: CadastroProduto
-    },
-    {
       path: '/painel',
       name: 'painel',
       title: 'Painel',
@@ -117,8 +111,13 @@ const router =  new VueRouter ({
         },
         {
           path: 'notificacoes',
-          name: 'painel_consumidor_notificacoes',
+          name: 'painel_produtor_notificacoes',
           component: PainelNotificacoes,
+        },
+        {
+          path: 'produto',
+          name: 'painel_produtor_cadastro_produto',
+          component: CadastroProduto,
         },
       ]
     },
@@ -127,7 +126,7 @@ const router =  new VueRouter ({
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/cadastro-produto'];
+                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro'];
 
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);

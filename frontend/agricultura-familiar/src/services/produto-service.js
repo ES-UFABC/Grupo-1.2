@@ -5,9 +5,8 @@ import Endereco from '../models/endereco';
 class ProdutoService {
   salvarProduto(produto) {
     let uri = `${process.env.SERVER_URI}/produto`;
-    return axios.post(uri, {
+    return axios.post(uri, produto, {
       headers: authHeader(),
-      params: { produto }
     });
   }
 }

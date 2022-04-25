@@ -1,5 +1,8 @@
 <template>
   <div class="text-center">
+    <b-button variant="primary" @click="abrirTelaProduto">
+      Cadastrar Produto
+    </b-button>
     <b-button variant="primary" @click="abrirNotificacoes">
       Notificações <b-badge variant="light">4</b-badge>
     </b-button>
@@ -14,6 +17,9 @@
     methods: {
       abrirNotificacoes() {
         this.$router.push('/painel/notificacoes')
+      },
+      abrirTelaProduto() {
+        this.$router.push('/painel/produto')
       }
     }
   }
