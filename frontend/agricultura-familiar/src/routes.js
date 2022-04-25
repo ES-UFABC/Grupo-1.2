@@ -20,6 +20,8 @@ import PainelProdutor from './views/painel-produtor/PainelProdutor';
 import BuscaProdutores from './views/busca-produtores/BuscaProdutores.vue'
 import PainelNotificacoes from './components/painel-notificacoes/PainelNotificacoes.vue';
 
+import CadastroProduto from './views/produto/CadastroProduto.vue';
+
 Vue.use(VueRouter);
 
 const router =  new VueRouter ({
@@ -84,6 +86,12 @@ const router =  new VueRouter ({
       ]
     },
     {
+      path: '/cadastro-produto',
+      name: 'cadastro_produto',
+      title: 'Cadastro Produto',
+      component: CadastroProduto
+    },
+    {
       path: '/painel',
       name: 'painel',
       title: 'Painel',
@@ -119,7 +127,7 @@ const router =  new VueRouter ({
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro'];
+                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro', '/cadastro-produto'];
 
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
