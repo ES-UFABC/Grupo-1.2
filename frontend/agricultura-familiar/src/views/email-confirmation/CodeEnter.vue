@@ -18,9 +18,10 @@
       </b-input-group>
       Insira o código recebido em seu Email:
       <b-input-group>
-        <div class="input-wrapper">
-          <PincodeInput v-model="code" placeholder="*" length="6" />
-        </div>
+        <!-- <div class="input-wrapper">
+          <PincodeInput v-model="token" placeholder="*" length="6" />
+        </div> -->
+        <b-form-input v-model="token" placeholder="******"></b-form-input>
       </b-input-group>
     </b-form-group>
 
@@ -30,14 +31,31 @@
 
 <script>
 import PincodeInput from "vue-pincode-input";
+import axios from "axios";
+import AuthService from "../../services/auth.service";
 
 export default {
   name: "CondeEnter",
   components: { PincodeInput },
   data() {
     return {
-      code: "",
+      email: "",
+      token: "",
     };
+  },
+  methods: {
+    enviar() {
+      const { email, token } = this;
+
+      AuthService.confirmationEmail({ email, token })
+        .then((response) => {
+          console.log(response);
+          this.$router.push("/email-confirmation/confirmation-done");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

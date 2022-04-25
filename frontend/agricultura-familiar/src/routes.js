@@ -119,12 +119,6 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/consumidor-panel',
-      name: 'panel_consumidor',
-      title: 'Panel Consumidor',
-      component: ConsumidorPanel
-    },
-    {
       path: '/email-confirmation',
       name: 'email_confirmation',
       title: 'Email Confirmation',
@@ -149,7 +143,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro'];
+                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro',
+                          '/email-confirmation/', '/email-confirmation/confirmation-done'];
 
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
