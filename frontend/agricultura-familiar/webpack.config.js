@@ -2,9 +2,6 @@ var path = require('path')
 var webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 var prodPort = process.env.PORT || 9000;
-
-console.log("Prod port é %d", prodPort);
-
 module.exports = {
   entry: './src/main.js',
   output: {
