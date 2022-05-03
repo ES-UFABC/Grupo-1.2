@@ -83,7 +83,8 @@ module.exports = {
     port: prodPort
   },
   performance: {
-    hints: false
+    hints: false,
+    maxAssetSize: 51200000
   },
   devtool: '#eval-source-map',
 }
