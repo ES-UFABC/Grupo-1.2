@@ -1,6 +1,4 @@
-package com.es.agriculturafamiliar.dto;
-
-import javax.validation.constraints.NotBlank;
+package com.es.agriculturafamiliar.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TipoProducaoDTO {
-    
-    @NotBlank
-    private String nome;
+public class AdminRegistrationRequest {
+	
+	private UserCredentialsRequest user;
+	private String nome;
+
 }

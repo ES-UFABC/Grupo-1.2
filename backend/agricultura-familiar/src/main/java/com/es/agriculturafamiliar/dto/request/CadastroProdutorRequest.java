@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.request;
 
 import java.util.List;
 import java.util.Set;
@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProdutorRequestDTO {
+public class CadastroProdutorRequest {
     @NotNull
     @Valid    
-    private UserCredentialsDTO userCredentials;
+    private UserCredentialsRequest userCredentials;
 
     @NotBlank
     private String cpfOuCnpj;
@@ -47,7 +47,7 @@ public class ProdutorRequestDTO {
     private Boolean certificacaoAgroecologico;
     private String organico;
     private String geolocalizacao;    
-    private Set<@Valid TipoProducaoDTO> tiposProducao;
+    private Set<@Valid TipoProducaoRequest> tiposProducao;
     private Set<String> telefones;
     private Set<String> entidadesAtendidas;
     private Set<String> formasPagamento;

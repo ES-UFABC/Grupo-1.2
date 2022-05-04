@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.constants;
+package com.es.agriculturafamiliar.enums;
 
 import java.util.Arrays;
 

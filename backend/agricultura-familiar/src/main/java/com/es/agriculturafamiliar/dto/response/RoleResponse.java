@@ -1,6 +1,6 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.response;
 
-import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.enums.RoleType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDTO {
+public class RoleResponse {
     private RoleType role;
     
 }

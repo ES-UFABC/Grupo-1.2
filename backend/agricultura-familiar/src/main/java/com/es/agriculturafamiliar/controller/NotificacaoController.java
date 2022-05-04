@@ -2,7 +2,7 @@ package com.es.agriculturafamiliar.controller;
 
 import javax.validation.Valid;
 
-import com.es.agriculturafamiliar.dto.NotificacaoDTO;
+import com.es.agriculturafamiliar.dto.request.NotificacaoCreationRequest;
 import com.es.agriculturafamiliar.dto.response.NotificacaoResponse;
 import com.es.agriculturafamiliar.entity.Notificacao;
 import com.es.agriculturafamiliar.service.NotificacaoService;
@@ -53,10 +53,10 @@ public class NotificacaoController {
     }
 
     @PostMapping("/admin")
-    public ResponseEntity<?> saveNotificacao(@Valid @RequestBody NotificacaoDTO notificacaoDTO) {        
+    public ResponseEntity<?> saveNotificacao(@Valid @RequestBody NotificacaoCreationRequest notificacaoDTO) {        
 //        Notificacao notificacao = modelMapper.map(notificacaoDTO, Notificacao.class);
-        Notificacao notificacao = modelMapper.typeMap(NotificacaoDTO.class, Notificacao.class)
-        		.addMapping(NotificacaoDTO::getAdminId, (dest, v) -> dest.getAdministrador().setId((Long) v))
+        Notificacao notificacao = modelMapper.typeMap(NotificacaoCreationRequest.class, Notificacao.class)
+        		.addMapping(NotificacaoCreationRequest::getAdminId, (dest, v) -> dest.getAdministrador().setId((Long) v))
         		.map(notificacaoDTO);
         
         notificationService.saveNotificacao(notificacao);
@@ -73,7 +73,7 @@ public class NotificacaoController {
     }
 
     @PutMapping("/admin/{id}")
-    public ResponseEntity<?> updateNotificacoa(@PathVariable Long id, @RequestBody NotificacaoDTO notificacao) {
+    public ResponseEntity<?> updateNotificacoa(@PathVariable Long id, @RequestBody NotificacaoCreationRequest notificacao) {
         Notificacao notificacaoConvertida = modelMapper.map(notificacao, Notificacao.class);
         Notificacao notificacaoAtualizada = notificationService.update(notificacaoConvertida, id);        
         return ResponseEntity.ok(notificacaoAtualizada);

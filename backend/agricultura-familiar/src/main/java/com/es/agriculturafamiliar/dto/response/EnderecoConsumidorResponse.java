@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto.cadastroconsumidor;
+package com.es.agriculturafamiliar.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnderecoConsumidorDtoOut {
+public class EnderecoConsumidorResponse {
     private Integer idEndereco;
     private String flagEnderecoPrincipal;
     private String cep;

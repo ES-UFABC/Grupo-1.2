@@ -1,6 +1,6 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.request;
 
-import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.enums.RoleType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegenerateConfirmationCodeDTO {
+public class RegenerateConfirmationCodeRequest {
 	private String email;
 }

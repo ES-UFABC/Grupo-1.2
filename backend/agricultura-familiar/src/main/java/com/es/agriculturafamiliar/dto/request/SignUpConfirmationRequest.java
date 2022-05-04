@@ -1,9 +1,9 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.enums.RoleType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignUpConfirmationDTO {
+public class SignUpConfirmationRequest {
 	@NotBlank
 	private String token;
 	@Email

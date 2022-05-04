@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExceptionPayloadDTO {
+public class ExceptionPayloadResponse {
     private int statusCode;
 	private String title;	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")

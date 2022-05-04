@@ -4,9 +4,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.enums.RoleType;
 import com.es.agriculturafamiliar.exception.UserAlreadySignedUpException;
 import com.es.agriculturafamiliar.repository.UserRepository;
 

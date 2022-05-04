@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.response;
 
 import java.util.Set;
 
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-    private boolean enabled;
-    private Set<Role> roles;
+public class UserResponse {
+	private boolean enabled;
+	private Set<Role> roles;
 }
