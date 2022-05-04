@@ -54,7 +54,6 @@ public class NotificacaoController {
 
     @PostMapping("/admin")
     public ResponseEntity<?> saveNotificacao(@Valid @RequestBody NotificacaoCreationRequest notificacaoDTO) {        
-//        Notificacao notificacao = modelMapper.map(notificacaoDTO, Notificacao.class);
         Notificacao notificacao = modelMapper.typeMap(NotificacaoCreationRequest.class, Notificacao.class)
         		.addMapping(NotificacaoCreationRequest::getAdminId, (dest, v) -> dest.getAdministrador().setId((Long) v))
         		.map(notificacaoDTO);
