@@ -1,7 +1,5 @@
 package com.es.agriculturafamiliar.config;
 
-import com.es.agriculturafamiliar.constants.RoleType;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+
+import com.es.agriculturafamiliar.enums.RoleType;
 
 @Configuration
 @EnableWebSecurity

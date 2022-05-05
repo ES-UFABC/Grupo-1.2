@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.request;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonRootName(value = "notificacao")
-public class NotificacaoDTO {
+public class NotificacaoCreationRequest {
 
     @NotEmpty
     private String assunto;

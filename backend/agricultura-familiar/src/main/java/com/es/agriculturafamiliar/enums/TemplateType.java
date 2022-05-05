@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.constants;
+package com.es.agriculturafamiliar.enums;
 
 public enum TemplateType {
     EMAIL_SIGNUP_DEFAULT("default-email-signup"),

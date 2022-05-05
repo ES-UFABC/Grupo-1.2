@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.es.agriculturafamiliar.dto.ExceptionPayloadDTO;
+import com.es.agriculturafamiliar.dto.response.ExceptionPayloadResponse;
 import com.es.agriculturafamiliar.exception.AuthException;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 
@@ -27,7 +27,7 @@ import io.jsonwebtoken.MalformedJwtException;
 public class ControllerAdvisor {
     @ExceptionHandler(value = {ResourceNotFoundException.class})
 	public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException exception) {
-		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Recurso não encontrado")
 				.statusCode(HttpStatus.NOT_FOUND.value())
@@ -44,7 +44,7 @@ public class ControllerAdvisor {
         List<FieldError> fieldErrors = result.getFieldErrors();
         List<String> errorMessages =  fieldErrors.stream().map(x -> x.getField() + ": " + x.getDefaultMessage()).collect(Collectors.toList());
 
-        ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+        ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .title("Validation Error")
                 .statusCode(HttpStatus.BAD_REQUEST.value())
@@ -56,7 +56,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     protected ResponseEntity<?> handleUsernameNotFoundException(UsernameNotFoundException exception) {
-		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Usuário não encontrado")
 				.statusCode(HttpStatus.UNAUTHORIZED.value())
@@ -68,7 +68,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(AuthException.class)
     protected ResponseEntity<?> handleAuthException(AuthException exception) {
-		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
 				.title(exception.getTitle())
 				.statusCode(exception.getHttpStatus().value())
@@ -80,7 +80,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(ExpiredJwtException.class)
     protected ResponseEntity<?> handleExpiredJwtException(ExpiredJwtException exception) {
-		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Token expirado")
 				.statusCode(HttpStatus.UNAUTHORIZED.value())
@@ -92,7 +92,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(MalformedJwtException.class)
     protected ResponseEntity<?> handleMalformedJwtException(MalformedJwtException exception) {
-		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Formação de token inválida")
 				.statusCode(HttpStatus.BAD_REQUEST.value())
@@ -104,7 +104,7 @@ public class ControllerAdvisor {
 
 	@ExceptionHandler(value = {RuntimeException.class})
 	protected ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
-		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 			.timestamp(LocalDateTime.now())
 			.title("Ocorreu um erro durante o processamento da requisição")
 			.statusCode(HttpStatus.UNPROCESSABLE_ENTITY.value())
@@ -116,7 +116,7 @@ public class ControllerAdvisor {
 
 	@ExceptionHandler(value= {JpaSystemException.class})
 	protected ResponseEntity<Object> handleIllegalArgumentException(JpaSystemException ex) {
-		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Campo inválido")
 				.statusCode(HttpStatus.CONFLICT.value())
@@ -128,7 +128,7 @@ public class ControllerAdvisor {
 	@ExceptionHandler(value= {DataIntegrityViolationException.class})
 	protected ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
 
-		ExceptionPayloadDTO exceptionPayload = ExceptionPayloadDTO.builder()
+		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Campo inválido")
 				.statusCode(HttpStatus.CONFLICT.value())

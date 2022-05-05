@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto.cadastroconsumidor;
+package com.es.agriculturafamiliar.dto.request;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.es.agriculturafamiliar.dto.UserCredentialsDTO;
 import com.es.agriculturafamiliar.dto.endereco.EnderecoDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CadastroConsumidorDtoIn {
+public class CadastroConsumidorRequest {
 
     @NotBlank(message = "Nome deve ser preenchido")
     private String nome;
@@ -38,5 +37,5 @@ public class CadastroConsumidorDtoIn {
     private List<@Valid EnderecoDto> endereco;
     
     @NotNull
-    private @Valid UserCredentialsDTO user;
+    private @Valid UserCredentialsRequest user;
 }

@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

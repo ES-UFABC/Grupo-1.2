@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto;
+package com.es.agriculturafamiliar.dto.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserCredentialsDTO {
+public class UserCredentialsRequest {
     @NotBlank
     @Email
     private String email;

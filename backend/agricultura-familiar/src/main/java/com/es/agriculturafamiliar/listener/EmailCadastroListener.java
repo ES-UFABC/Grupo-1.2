@@ -3,8 +3,8 @@ package com.es.agriculturafamiliar.listener;
 import java.util.Map;
 
 import com.es.agriculturafamiliar.config.EmailProperties;
-import com.es.agriculturafamiliar.constants.TemplateType;
 import com.es.agriculturafamiliar.entity.Email;
+import com.es.agriculturafamiliar.enums.TemplateType;
 import com.es.agriculturafamiliar.event.EmailCadastroEvent;
 import com.es.agriculturafamiliar.service.AsyncMessageService;
 

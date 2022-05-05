@@ -1,8 +1,7 @@
-package com.es.agriculturafamiliar.dto.cadastroconsumidor;
+package com.es.agriculturafamiliar.dto.response;
 
 import java.util.List;
 
-import com.es.agriculturafamiliar.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -15,14 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CadastroConsumidorDtoOut {
+public class CadastroConsumidorResponse {
 
     private String nome;
     private String email;
     private String telefone;
     private String cpf;
-    private UserDTO user;
-    private List<EnderecoConsumidorDtoOut> endereco;
+    private UserResponse user;
+    private List<EnderecoConsumidorResponse> endereco;
 
 
 }
