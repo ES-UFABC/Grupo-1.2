@@ -1,7 +1,7 @@
 package com.es.agriculturafamiliar.controller.mapper;
 
-import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoIn;
-import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoOut;
+import com.es.agriculturafamiliar.dto.cadastroConsumidor.CadastroConsumidorDtoIn;
+import com.es.agriculturafamiliar.dto.cadastroConsumidor.CadastroConsumidorDtoOut;
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import org.mapstruct.Mapper;
 

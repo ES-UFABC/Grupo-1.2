@@ -1,19 +1,14 @@
 package com.es.agriculturafamiliar.controller;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
-import com.es.agriculturafamiliar.service.ProdutoService;
 import com.es.agriculturafamiliar.service.ProdutorService;
-
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import lombok.AllArgsConstructor;
+import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController()

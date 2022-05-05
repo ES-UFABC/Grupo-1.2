@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto.cadastroconsumidor;
+package com.es.agriculturafamiliar.dto.cadastroConsumidor;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

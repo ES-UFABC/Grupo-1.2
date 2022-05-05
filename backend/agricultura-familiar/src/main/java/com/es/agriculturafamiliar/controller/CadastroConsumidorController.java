@@ -1,8 +1,8 @@
 package com.es.agriculturafamiliar.controller;
 
 import com.es.agriculturafamiliar.controller.mapper.CadastroConsumidorMapper;
-import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoIn;
-import com.es.agriculturafamiliar.dto.cadastroconsumidor.CadastroConsumidorDtoOut;
+import com.es.agriculturafamiliar.dto.cadastroConsumidor.CadastroConsumidorDtoIn;
+import com.es.agriculturafamiliar.dto.cadastroConsumidor.CadastroConsumidorDtoOut;
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroConsumidorUseCase;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import java.net.URI;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
