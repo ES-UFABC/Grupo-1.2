@@ -1,9 +1,8 @@
 package com.es.agriculturafamiliar.entity.consumidorPedido;
 
 import com.es.agriculturafamiliar.entity.cadastroconsumidor.CadastroConsumidorEntity;
-import com.es.agriculturafamiliar.entity.produtor.Produtor;
-import com.es.agriculturafamiliar.repository.ProdutorRepository;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,16 +13,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "consumidor_pedido")
 @NoArgsConstructor
+@Builder
 public class ConsumidorPedidoEntity {
+
     @Id
-    @Column(name = "id")
-    private String id;
-    @OneToOne
-    @JoinColumn(name = "cpf", referencedColumnName = "id_consumidor")
-    private CadastroConsumidorEntity idConsumidor;
-    @OneToOne
-    @JoinColumn(name = "cpf_ou_cnpj", referencedColumnName = "id_produtor")
-    private String idProdutor;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "id_consumidor")
+    private String idConsumidor;
+    @Column(name = "id_produtor")
+    private Long idProdutor;
     @Column(name = "pedido")
     private String pedido;
+
 }
