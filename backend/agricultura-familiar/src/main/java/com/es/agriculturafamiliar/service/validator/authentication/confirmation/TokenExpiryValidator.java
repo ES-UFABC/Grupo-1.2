@@ -1,10 +1,6 @@
 package com.es.agriculturafamiliar.service.validator.authentication.confirmation;
 
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.exception.AuthException;
-import com.es.agriculturafamiliar.exception.CodigoConfirmacaoExpiradoException;
+import com.es.agriculturafamiliar.exception.CodigoConfirmacaoException;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +35,7 @@ public class TokenExpiryValidator implements IAccountConfirmationValidator {
 
 		if (now.isAfter(expiresAt)) {
 			log.info("Código de confirmação expirado");
-			throw new CodigoConfirmacaoExpiradoException();
+			throw new CodigoConfirmacaoException();
 		}
 
 		log.info("Código de confirmação não expirado");

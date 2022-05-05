@@ -5,12 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +17,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.User;
-import com.es.agriculturafamiliar.exception.CodigoConfirmacaoExpiradoException;
+import com.es.agriculturafamiliar.exception.CodigoConfirmacaoException;
 
 @ExtendWith(MockitoExtension.class)
 @TestPropertySource(properties = { "conformationCodeValidityInMinutes=20" })
@@ -46,7 +42,7 @@ public class TokenExpiryValidatorTests {
 		
 		String token = "123456";
 					
-		assertThrows(CodigoConfirmacaoExpiradoException.class, () -> tokenExpiryValidator.validate(user, token));
+		assertThrows(CodigoConfirmacaoException.class, () -> tokenExpiryValidator.validate(user, token));
 	}
 	
 	@Test
