@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.User;
-import com.es.agriculturafamiliar.exception.CodigoConfirmacaoInvalidoException;
+import com.es.agriculturafamiliar.exception.CodigoConfirmacaoException;
 
 @ExtendWith(MockitoExtension.class)
 public class MatchTokenValidatorTests {
@@ -26,7 +26,7 @@ public class MatchTokenValidatorTests {
 		
 		String token = "421313";
 		
-		assertThrows(CodigoConfirmacaoInvalidoException.class, () -> matchTokenValidator.validate(user, token));		
+		assertThrows(CodigoConfirmacaoException.class, () -> matchTokenValidator.validate(user, token));
 	}
 	
 	@Test
