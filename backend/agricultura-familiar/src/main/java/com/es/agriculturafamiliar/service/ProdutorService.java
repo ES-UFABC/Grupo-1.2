@@ -71,11 +71,30 @@ public class ProdutorService {
                 .orElseThrow(() -> new ResourceNotFoundException("Produtor was not found"));
     }
 
+    @Transactional
     public Produtor updateProdutor(Produtor produtor, Long id){
         var findProdutor = findProdutorById(id);
-        produtor.setId(findProdutor.getId());
-        var updatedProdutor = produtorRepository.save(produtor);
+        findProdutor.setTipoProdutor(produtor.getTipoProdutor());
+        findProdutor.setOrganico(produtor.getOrganico());
+        findProdutor.setNomeFantasia(produtor.getNomeFantasia());
+        findProdutor.setRegiaoDeProducao(produtor.getRegiaoDeProducao());
+        findProdutor.setAtendeNoEnderecoDeProducao(produtor.getAtendeNoEnderecoDeProducao());
+        findProdutor.setCadastroEntidade(produtor.getCadastroEntidade());
+        findProdutor.setTipoProdutor(produtor.getTipoProdutor());
+        findProdutor.setRegistroOuCertificacao(produtor.getRegistroOuCertificacao());
+        findProdutor.setCertificacaoAgroecologico(produtor.getCertificacaoAgroecologico());
+        findProdutor.setAgroecologico(produtor.getAgroecologico());
+        findProdutor.setOrganico(produtor.getOrganico());
+        findProdutor.setEntidadesAtendidas(produtor.getEntidadesAtendidas());
+        findProdutor.setTiposProducao(produtor.getTiposProducao());
+        findProdutor.setTelefones(produtor.getTelefones());
+        findProdutor.setFormasPagamento(produtor.getFormasPagamento());
+        findProdutor.setRegistrosOuCertificacoes(produtor.getRegistrosOuCertificacoes());
+        findProdutor.setPaginasExternas(produtor.getPaginasExternas());
+
+        var updatedProdutor = produtorRepository.save(findProdutor);
         return updatedProdutor;
+
     }
 
     public void deleteProdutorById(Long id){

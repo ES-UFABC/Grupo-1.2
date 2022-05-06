@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.es.agriculturafamiliar.dto.request.UpdateProdutorResquest;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
@@ -15,10 +16,13 @@ import com.es.agriculturafamiliar.service.ITokenService;
 import com.es.agriculturafamiliar.service.ProdutorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.models.Model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -29,6 +33,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.ui.ModelMap;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ProdutorController.class)
@@ -48,6 +53,9 @@ public class ProdutorControllerTests {
 
     @MockBean
     ITokenService tokenService;
+
+    @MockBean
+    ModelMapper modelMapper;
 
     @Autowired
     private ProdutorController produtorController;
@@ -93,8 +101,9 @@ public class ProdutorControllerTests {
     void updateEndereco_shouldReturnNoContent_whenUpdateIsSuccessful() throws Exception {
         Produtor produtorTeste = new Produtor();
         produtorTeste.setNome("teste");
-        
-        Assertions.assertEquals(produtorController.updateProdutor(produtorTeste, 1L).getStatusCode(), HttpStatus.OK);
+
+        ModelMapper modelMapper = new ModelMapper();
+        Assertions.assertEquals(produtorController.updateProdutor(modelMapper.map(produtorTeste, UpdateProdutorResquest.class), 1L).getStatusCode(), HttpStatus.OK);
 
     }
 
