@@ -1,4 +1,4 @@
-name: Muda-Frontend
+name: Frontend Build
 
 defaults:
   run:

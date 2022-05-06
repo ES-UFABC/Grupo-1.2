@@ -1,6 +1,8 @@
 [![Code coverage](https://codecov.io/gh/ES-UFABC/Muda/branch/main/graph/badge.svg?token=6e5dlQjjxr)](https://codecov.io/gh/ES-UFABC/Muda)
 [![Back-end build](https://github.com/ES-UFABC/Muda/actions/workflows/backend.yaml/badge.svg)](https://github.com/ES-UFABC/Muda/actions/workflows/backend.yaml)
 [![Front-end build](https://github.com/ES-UFABC/Muda/actions/workflows/frontend.yaml/badge.svg)](https://github.com/ES-UFABC/Muda/actions/workflows/frontend.yaml)
+[![Back-end deploy](https://github.com/ES-UFABC/Muda/actions/workflows/backend.yaml/badge.svg)](https://github.com/ES-UFABC/Muda/actions/workflows/backend-deploy.yaml)
+[![Front-end deploy](https://github.com/ES-UFABC/Muda/actions/workflows/frontend.yaml/badge.svg)](https://github.com/ES-UFABC/Muda/actions/workflows/frontend-deploy.yaml)
 
 ## Sobre
 
