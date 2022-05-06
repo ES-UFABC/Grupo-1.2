@@ -104,12 +104,6 @@ const router =  new VueRouter ({
           component: PainelProdutor,
         },
         {
-          path: 'buscar-produtor',
-          name: 'buscar_produtor',
-          title: 'Buscar',
-          component: BuscaProdutores,
-        },
-        {
           path: 'notificacoes',
           name: 'painel_produtor_notificacoes',
           component: PainelNotificacoes,

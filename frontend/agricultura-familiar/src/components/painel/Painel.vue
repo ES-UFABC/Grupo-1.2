@@ -29,7 +29,7 @@ export default {
       })
     },
     abrirGeolocalizacao() {
-      this.$router.push("/painel/buscar-produtor");
+      this.$router.push("/painel/consumidor");
     },
   },
 };

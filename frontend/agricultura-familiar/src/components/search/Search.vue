@@ -15,6 +15,7 @@
       autocomplete="off"
       ref="search"
       @focus.prevent="carregarHistorico"
+      @contextmenu="limparHistorico"
     >
     </b-form-input>
 
@@ -51,7 +52,17 @@ export default {
       let self = this;
       SearchHistoryService.carregarHistoricoDeBuscas()
         .then(historico => {
+          self.history.length = 0;
           self.history = historico.termos
+        })
+
+      self.$router.push('/painel/consumidor')
+    },
+    limparHistorico() {
+      SearchHistoryService.limparHistoricoDeBuscas()
+        .then(cleaned => {
+          if (cleaned)
+              console.log('Historico apagado...')
         })
     }
   }

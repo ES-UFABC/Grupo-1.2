@@ -40,7 +40,6 @@ export default {
     },
     mounted() {
       this.geolocate();
-      console.log(this.enderecos);
     },
     methods: {
       carregarEnderecoCentro() {
