@@ -7,7 +7,7 @@ defaults:
 on:
   push:
     branches:
-      - issue34/feature
+      - main
     paths:
       - "backend/agricultura-familiar/**"
   workflow_dispatch:
