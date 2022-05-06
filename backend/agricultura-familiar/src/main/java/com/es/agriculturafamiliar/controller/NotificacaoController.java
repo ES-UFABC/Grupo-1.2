@@ -2,13 +2,16 @@ package com.es.agriculturafamiliar.controller;
 
 import javax.validation.Valid;
 
-import com.es.agriculturafamiliar.dto.NotificacaoDTO;
+import com.es.agriculturafamiliar.dto.request.NotificacaoCreationRequest;
+import com.es.agriculturafamiliar.dto.response.NotificacaoResponse;
 import com.es.agriculturafamiliar.entity.Notificacao;
 import com.es.agriculturafamiliar.service.NotificacaoService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -32,20 +36,28 @@ public class NotificacaoController {
     private NotificacaoService notificationService;
 
     @GetMapping
-    public ResponseEntity<?> findAll() {
-        Page<Notificacao> notificacoes = notificationService.findAll();
+    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "40") int size) {
+    	Pageable paging = PageRequest.of(page, size);
+
+    	Page<NotificacaoResponse> notificacoes = notificationService.findAll(paging)
+    			.map(notificacao -> modelMapper.map(notificacao, NotificacaoResponse.class));
+        
         return ResponseEntity.ok(notificacoes);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findNotificacaoById(@PathVariable Long id)  {
-        Notificacao notificacao = notificationService.findNotificacaoById(id);         
-        return ResponseEntity.ok(notificacao);
+        Notificacao notificacao = notificationService.findNotificacaoById(id);
+        NotificacaoResponse notificacaoResponse = modelMapper.map(notificacao, NotificacaoResponse.class);
+        return ResponseEntity.ok(notificacaoResponse);
     }
 
     @PostMapping("/admin")
-    public ResponseEntity<?> saveNotificacao(@Valid @RequestBody NotificacaoDTO notificacaoDTO) {        
-        Notificacao notificacao = modelMapper.map(notificacaoDTO, Notificacao.class);
+    public ResponseEntity<?> saveNotificacao(@Valid @RequestBody NotificacaoCreationRequest notificacaoDTO) {        
+        Notificacao notificacao = modelMapper.typeMap(NotificacaoCreationRequest.class, Notificacao.class)
+        		.addMapping(NotificacaoCreationRequest::getAdminId, (dest, v) -> dest.getAdministrador().setId((Long) v))
+        		.map(notificacaoDTO);
+        
         notificationService.saveNotificacao(notificacao);
 
         return ResponseEntity
@@ -60,7 +72,7 @@ public class NotificacaoController {
     }
 
     @PutMapping("/admin/{id}")
-    public ResponseEntity<?> updateNotificacoa(@PathVariable Long id, @RequestBody NotificacaoDTO notificacao) {
+    public ResponseEntity<?> updateNotificacoa(@PathVariable Long id, @RequestBody NotificacaoCreationRequest notificacao) {
         Notificacao notificacaoConvertida = modelMapper.map(notificacao, Notificacao.class);
         Notificacao notificacaoAtualizada = notificationService.update(notificacaoConvertida, id);        
         return ResponseEntity.ok(notificacaoAtualizada);

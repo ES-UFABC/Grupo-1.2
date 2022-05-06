@@ -1,8 +1,8 @@
 package com.es.agriculturafamiliar.models.usecase.cadastroconsumidor;
 
-import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.enums.RoleType;
 import com.es.agriculturafamiliar.event.EmailCadastroEvent;
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import com.es.agriculturafamiliar.repository.cadastroconsumidor.CadastroConsumidorRepository;

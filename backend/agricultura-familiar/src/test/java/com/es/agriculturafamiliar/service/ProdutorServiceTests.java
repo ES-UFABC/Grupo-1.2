@@ -8,9 +8,10 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.Optional;
 
+import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
-import com.es.agriculturafamiliar.enums.TipoProdutor;
+import com.es.agriculturafamiliar.enums.TipoProdutor;import com.es.agriculturafamiliar.exception.CodigoConfirmacaoExpiradoException;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
 
@@ -76,6 +77,7 @@ public class ProdutorServiceTests {
 
         when(customUserDetailsService.createUser(any())).thenReturn(user);
         when(produtorRepository.save(any(Produtor.class))).thenReturn(returnedSavedProdutor);
+        when(confirmacaoCadastroService.createConfirmacaoCadastro()).thenReturn(ConfirmacaoCadastro.builder().codigo("123456").build());
 
         var savedProdutor = produtorService.saveProdutor(produtor, user);
 

@@ -1,9 +1,7 @@
 package com.es.agriculturafamiliar.controller;
 
 import com.es.agriculturafamiliar.entity.Produto;
-import com.es.agriculturafamiliar.enums.Tipologia;
 import com.es.agriculturafamiliar.service.ProdutoService;
-import com.es.agriculturafamiliar.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 
-@RestController()
+@RestController
 @RequestMapping("/produto")
 public class ProdutoController {
 
@@ -35,6 +33,12 @@ public class ProdutoController {
     @GetMapping("/tipo/{tipologiaCod}")
     public ResponseEntity<List<Produto>> findAllByTipologia(@PathVariable Integer tipologiaCod){
         var produtos = produtoService.findProdutosByTipologia(tipologiaCod);
+        return ResponseEntity.ok(produtos);
+    }
+
+    @GetMapping("/busca")
+    public ResponseEntity<List<Produto>> findAllByNome(@RequestParam String nomeProduto){
+        var produtos = produtoService.findProdutosByNome(nomeProduto);
         return ResponseEntity.ok(produtos);
     }
 

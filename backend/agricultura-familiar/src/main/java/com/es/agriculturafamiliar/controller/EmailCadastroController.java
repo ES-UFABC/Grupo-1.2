@@ -17,11 +17,6 @@ import lombok.AllArgsConstructor;
 public class EmailCadastroController {
 
     private final ApplicationEventPublisher applicationEventPublisher;
-    
-    @GetMapping
-    public ResponseEntity<?> hullo() {
-        return ResponseEntity.ok("hullo");
-    }
 
     @GetMapping("/email")
     public ResponseEntity<?> sendEMail(@RequestParam String name, @RequestParam String toEmail) {

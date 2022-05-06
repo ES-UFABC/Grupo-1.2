@@ -13,4 +13,7 @@ import java.util.List;
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> findByTipologia(Integer tipologia);
+
+    @Query(value = "SELECT * FROM produto WHERE SOUNDEX(nome) = SOUNDEX(:nome)", nativeQuery = true)
+    List<Produto> findByNomeAproximado(String nome);
 }

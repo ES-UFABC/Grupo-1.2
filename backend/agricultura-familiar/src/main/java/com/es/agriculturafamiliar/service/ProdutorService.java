@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Optional;
 
-import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
+import com.es.agriculturafamiliar.enums.RoleType;
 import com.es.agriculturafamiliar.event.EmailCadastroConfirmacaoPendenteEvent;
 
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
@@ -45,7 +45,7 @@ public class ProdutorService {
         produtor = produtorRepository.save(produtor);
         
         var emailCadastroConfirmacaoPendenteEvent = EmailCadastroConfirmacaoPendenteEvent.builder()
-        	.codigoConfirmacao("123456")
+        	.codigoConfirmacao(confirmacaoCadastro.getCodigo())
         	.name(produtor.getNome())
         	.toEmail(user.getEmail())
         	.build();
@@ -60,6 +60,10 @@ public class ProdutorService {
 
     public List<Produtor> findByLocalizacao(String estado, String cidade){
         return produtorRepository.findByEnderecosEstadoAndEnderecosMunicipio(estado, cidade);
+    }
+
+    public List<Produtor> findByNomeFantasia(String nomeFantasia){
+        return produtorRepository.findByNomeFantasiaAproximado(nomeFantasia);
     }
 
     public Produtor findProdutorById(Long id){

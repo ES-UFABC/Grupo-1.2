@@ -21,7 +21,6 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty
-    @Column(unique = true)
     private String nome;
     @NotEmpty
     private String unidadeDeMedida;

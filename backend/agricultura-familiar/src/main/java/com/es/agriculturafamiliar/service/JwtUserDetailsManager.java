@@ -1,11 +1,13 @@
 package com.es.agriculturafamiliar.service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.enums.RoleType;
+import com.es.agriculturafamiliar.exception.UserAlreadySignedUpException;
 import com.es.agriculturafamiliar.repository.UserRepository;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,9 +37,15 @@ public class JwtUserDetailsManager implements ICustomUserDetailsService<User> {
     @Override
     public User createUser(UserDetails user) {
     	User userToBePersisted = (User) user;
+
+    	Optional<User> optionalUser = userRepository.findUserByEmail(user.getUsername());
+    	
+    	if (optionalUser.isPresent()) {
+    		throw new UserAlreadySignedUpException();
+    	}    	
+    	
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         
-
         Set<Role> roles = getRoles(user);
         userToBePersisted.setPassword(encodedPassword);
         userToBePersisted.setRoles(roles);
