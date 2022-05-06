@@ -56,7 +56,8 @@ export default {
           self.history = historico.termos
         })
 
-      self.$router.push('/painel/consumidor')
+      if (self.$route.path !== '/painel/consumidor')
+        self.$router.push('/painel/consumidor')
     },
     limparHistorico() {
       SearchHistoryService.limparHistoricoDeBuscas()

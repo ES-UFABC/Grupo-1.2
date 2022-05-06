@@ -25,7 +25,6 @@
   import ProductCard from "../../components/productcard/ProductCard.vue";
   import ProdutorService from '../../services/produtor.service';
   import ConsumidorService from '../../services/consumidor.service';
-  import NavBar from '../../components/navbar/NavBar'
 
   import Geolocalizacao from '../../components/geolocalizacao/Geolocalizacao';
   import ListaProdutores from '../../components/lista-produtores/ListaProdutores';
@@ -33,6 +32,7 @@
   export default {
   name: 'PainelProdutor',
   components: { ProductCard, Geolocalizacao, ListaProdutores, Busca },
+  props: { teste: String },
   data() {
     return {
       cards: Array.from(Array(3).keys()),
