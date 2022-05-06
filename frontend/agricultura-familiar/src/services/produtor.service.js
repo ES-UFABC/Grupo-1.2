@@ -16,6 +16,14 @@ class ProdutorService {
       params: { estado, municipio }
     });
   }
+  carregarProdutoresPorNome(nome) {
+    let uri = `${process.env.SERVER_URI}/produtor/busca`;
+    return axios.get(uri, {
+      headers: authHeader(),
+      params: { nomeFantasia: nome }
+    });
+  }
+
   carregarNotificacoes() {
     let uri = `${process.env.SERVER_URI}/notificacao`;
     return axios.get(uri, {

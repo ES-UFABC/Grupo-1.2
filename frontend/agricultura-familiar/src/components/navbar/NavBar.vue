@@ -78,8 +78,8 @@ export default {
       this.$store.dispatch("auth/logout");
       this.$router.push("/");
     },
-    pesquisar() {
-      this.$emit('pesquisar')
+    pesquisar(termo) {
+      this.$emit('pesquisar', termo)
     },
     abrirGeolocalizacao() {
       this.$emit('abrirGeolocalizacao')

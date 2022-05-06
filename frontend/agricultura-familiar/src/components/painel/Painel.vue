@@ -2,6 +2,7 @@
 <template>
   <div class="panel">
     <NavBar @pesquisar="pesquisar" @abrirGeolocalizacao="abrirGeolocalizacao" />
+    <DeckProdutores v-if="produtores.length" :produtores="produtores" />
     <transition name="router-animation">
       <router-view />
     </transition>
@@ -9,18 +10,23 @@
 </template>
 
 <script>
-import NavBar from "../../components/navbar/NavBar.vue";
+  import NavBar from "../../components/navbar/NavBar.vue";
+  import ProdutorService from '../../services/produtor.service'
 export default {
   components: {
-    NavBar,
+    NavBar
   },
   data() {
     return {
+      produtores: []
     };
   },
   methods: {
-    pesquisar() {
-      console.log('pesquisando');
+    pesquisar(termo) {
+      console.log(termo)
+      ProdutorService.carregarProdutoresPorNome(termo).then(response => {
+        this.produtores = response.data;
+      })
     },
     abrirGeolocalizacao() {
       this.$router.push("/painel/buscar-produtor");
