@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.config;
+package com.es.agriculturafamiliar.config.email;
 
 import java.util.Properties;
 

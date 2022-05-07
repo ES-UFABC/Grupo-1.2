@@ -5,8 +5,10 @@ import java.util.Set;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
 
 import lombok.AllArgsConstructor;
@@ -20,38 +22,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CadastroProdutorRequest {
     @NotNull
-    @Valid    
-    private UserCredentialsRequest userCredentials;
+    @Valid
+    private UserCredentialsRequest user;
 
-    @NotBlank
+    @NotBlank(message = "o cpf/cnpj é obrigatório")
     private String cpfOuCnpj;
-
-    @NotBlank
+    @NotBlank(message = "o nome é obrigatório")
     private String nome;
-
+    @NotBlank(message = "o nome fantasia é obrigatório")
     private String nomeFantasia;
-
-    @NotBlank
-    private String email;
-    
-    private List<@Valid EnderecoProdutorRequest> enderecos;
-    private String regiaoDeProducao;
-    private Boolean atendeNoEnderecoDeProducao;
-    private Boolean cadastroEntidade;
-
-    @NotNull
-    @Builder.Default
-    private Integer tipoProdutor = TipoProdutor.INDIVIDUAL.getCod();
-    private Boolean registroOuCertificacao;
-    private Boolean agroecologico;
-    private Boolean certificacaoAgroecologico;
-    private String organico;
-    private String geolocalizacao;    
-    private Set<@Valid TipoProducaoRequest> tiposProducao;
+    @NotEmpty(message="ao menos um endereço deve ser informado")
+    private List<Endereco> enderecos;
+    @NotEmpty(message="ao menos um telefone deve ser informado")
     private Set<String> telefones;
-    private Set<String> entidadesAtendidas;
-    private Set<String> formasPagamento;
-    private Set<String> registrosOuCertificacoes;
-    private Set<String> paginasExternas;
+    @NotNull(message = "deve ser informado se o produtor atende no endereço de produção")
+    private Boolean atendeNoEnderecoDeProducao;
 
 }

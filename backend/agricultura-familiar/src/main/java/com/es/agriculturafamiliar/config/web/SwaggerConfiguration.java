@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.config;
+package com.es.agriculturafamiliar.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

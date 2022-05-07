@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.config;
+package com.es.agriculturafamiliar.config.database;
 
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.annotation.Bean;
