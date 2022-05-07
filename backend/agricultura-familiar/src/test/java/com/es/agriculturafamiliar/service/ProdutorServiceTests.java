@@ -11,7 +11,7 @@ import java.util.Optional;
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
-import com.es.agriculturafamiliar.enums.TipoProdutor;import com.es.agriculturafamiliar.exception.CodigoConfirmacaoExpiradoException;
+import com.es.agriculturafamiliar.enums.TipoProdutor;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
 

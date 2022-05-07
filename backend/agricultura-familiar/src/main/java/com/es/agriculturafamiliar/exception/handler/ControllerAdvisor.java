@@ -8,7 +8,6 @@ import com.es.agriculturafamiliar.dto.response.ExceptionPayloadResponse;
 import com.es.agriculturafamiliar.exception.AuthException;
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaSystemException;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 
 
@@ -78,25 +76,13 @@ public class ControllerAdvisor {
 		return new ResponseEntity<>(exceptionPayload, exception.getHttpStatus());
 	}
 
-    @ExceptionHandler(ExpiredJwtException.class)
-    protected ResponseEntity<?> handleExpiredJwtException(ExpiredJwtException exception) {
-		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
-				.timestamp(LocalDateTime.now())
-				.title("Token expirado")
-				.statusCode(HttpStatus.UNAUTHORIZED.value())
-				.description(new String[]{"Token fornecido é inválido"})
-				.build();
-
-		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
-	}
-
     @ExceptionHandler(MalformedJwtException.class)
     protected ResponseEntity<?> handleMalformedJwtException(MalformedJwtException exception) {
 		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
-				.title("Formação de token inválida")
+				.title("Token expirado/inválido")
 				.statusCode(HttpStatus.BAD_REQUEST.value())
-				.description(new String[]{"Token fornecido não pôde ser lido"})
+				.description(new String[]{"Token fornecido não pôde ser lido."})
 				.build();
 
 		return new ResponseEntity<>(exceptionPayload, HttpStatus.UNAUTHORIZED);
@@ -116,18 +102,6 @@ public class ControllerAdvisor {
 
 	@ExceptionHandler(value= {JpaSystemException.class})
 	protected ResponseEntity<Object> handleIllegalArgumentException(JpaSystemException ex) {
-		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
-				.timestamp(LocalDateTime.now())
-				.title("Campo inválido")
-				.statusCode(HttpStatus.CONFLICT.value())
-				.description(new String[]{ex.getMostSpecificCause().getMessage()})
-				.build();
-		return new ResponseEntity<>(exceptionPayload, HttpStatus.CONFLICT);
-	}
-
-	@ExceptionHandler(value= {DataIntegrityViolationException.class})
-	protected ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-
 		ExceptionPayloadResponse exceptionPayload = ExceptionPayloadResponse.builder()
 				.timestamp(LocalDateTime.now())
 				.title("Campo inválido")
