@@ -43,6 +43,11 @@ export default {
   methods: {
     pesquisar() {
       this.$emit('pesquisar', this.term)
+      if(this.term)
+        this.$store.dispatch('search/setTerm', this.term)
+      else
+        this.$store.dispatch('search/cleanTerm')
+
       SearchHistoryService.salvarPesquisaNoHistoricoDeBuscas(this.term)
     },
     abrirGeolocalizacao() {

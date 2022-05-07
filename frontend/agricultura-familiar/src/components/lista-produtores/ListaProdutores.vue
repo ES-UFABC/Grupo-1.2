@@ -41,6 +41,11 @@
     },
     mounted() {
       console.log(this.produtores)
+    },
+    watch: {
+      produtores(newV, oldV) {
+        console.log(newV, oldV);
+      }
     }
   }
 </script>

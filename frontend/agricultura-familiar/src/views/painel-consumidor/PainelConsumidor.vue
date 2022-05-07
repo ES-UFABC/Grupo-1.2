@@ -7,7 +7,7 @@
         <ListaProdutores :produtores="busca.produtores" />
       </b-col>
       <b-col lg="9">
-        <Geolocalizacao v-if="busca.enderecoConsumidor"
+        <Geolocalizacao 
                         :enderecoCentral="this.busca.enderecoConsumidor"
                         :enderecos="this.enderecosProdutores" />
       </b-col>
@@ -59,25 +59,19 @@
   computed: {
     enderecosProdutores() {
       return this.busca.produtores.map(p => p.enderecos[0]);
+    },
+    searchTerm() {
+      return this.$store.state.search.term;
     }
   },
-  mounted() {
+    mounted() {
     ConsumidorService.obterEnderecoDoConsumidor().then(address => {
       this.busca.enderecoConsumidor = address;
-      this.pesquisar();
+      this.pesquisarPorGeolocalizacao();
     });
   },
   methods: {
-    splitArrayIntoChunksOfLen(arr, len) {
-      var chunks = [],
-        i = 0,
-        n = arr.length;
-      while (i < n) {
-        chunks.push(arr.slice(i, (i += len)));
-      }
-      return chunks;
-    },
-    pesquisar() {
+    pesquisarPorGeolocalizacao() {
       const { municipio, estado } = this.busca;
       return ProdutorService.carregarProdutoresPorLocalizacao(estado, municipio)
         .then(response => {
@@ -88,12 +82,27 @@
           }
         )
     },
+    pesquisarPorNomeFantasia(nome) {
+      ProdutorService.carregarProdutoresPorNome(nome).then(response => {
+        this.busca.produtores = response.data;
+      }).catch(error => {
+        console.log("Erro na consulta", error);
+      })
+    },
     obterEnderecoBusca(endereco) {
       this.busca.municipio = endereco.municipio;
       this.busca.estado = endereco.estado;
-      this.pesquisar();
+      this.pesquisarPorGeolocalizacao();
     },
   },
+  watch: {
+    searchTerm (newTerm, oldTerm) {
+      if(newTerm)
+        this.pesquisarPorNomeFantasia(newTerm)
+      else
+        this.produtores = []
+    }
+  }
 };
 </script>
 

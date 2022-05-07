@@ -1,7 +1,7 @@
 
 <template>
   <div class="panel">
-    <NavBar @pesquisar="pesquisar" @abrirGeolocalizacao="abrirGeolocalizacao" />
+    <NavBar @abrirGeolocalizacao="abrirGeolocalizacao" />
     <DeckProdutores v-if="produtores.length" :produtores="produtores" />
     <transition name="router-animation">
       <router-view />
@@ -22,12 +22,6 @@ export default {
     };
   },
   methods: {
-    pesquisar(termo) {
-      console.log(termo)
-      ProdutorService.carregarProdutoresPorNome(termo).then(response => {
-        this.produtores = response.data;
-      })
-    },
     abrirGeolocalizacao() {
       this.$router.push("/painel/consumidor");
     },
