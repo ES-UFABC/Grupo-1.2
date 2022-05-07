@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.config;
+package com.es.agriculturafamiliar.config.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

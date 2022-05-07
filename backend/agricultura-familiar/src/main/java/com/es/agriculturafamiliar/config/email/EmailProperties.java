@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.config;
+package com.es.agriculturafamiliar.config.email;
 
 import org.springframework.context.annotation.Configuration;
 import lombok.Getter;

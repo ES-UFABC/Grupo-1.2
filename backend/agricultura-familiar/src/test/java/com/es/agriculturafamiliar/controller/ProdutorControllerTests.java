@@ -1,7 +1,5 @@
 package com.es.agriculturafamiliar.controller;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,16 +14,12 @@ import com.es.agriculturafamiliar.service.ITokenService;
 import com.es.agriculturafamiliar.service.ProdutorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.swagger.models.Model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -33,7 +27,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.ui.ModelMap;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ProdutorController.class)
@@ -62,7 +55,7 @@ public class ProdutorControllerTests {
     private Produtor produtor;
     private static ObjectMapper objectMapper;
 
-    public static final String BASE_ENDPOINT = "/produtor";
+    public static final String BASE_ENDPOINT = "/produtor/lista";
     public static final String SAVE_ENDPOINT = "/cadastro/produtor";
 
     @BeforeEach

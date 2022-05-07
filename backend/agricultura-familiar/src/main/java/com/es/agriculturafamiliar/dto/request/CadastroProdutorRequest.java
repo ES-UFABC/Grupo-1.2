@@ -35,5 +35,7 @@ public class CadastroProdutorRequest {
     private List<Endereco> enderecos;
     @NotEmpty(message="ao menos um telefone deve ser informado")
     private Set<String> telefones;
+    @NotNull(message = "deve ser informado se o produtor atende no endereço de produção")
+    private Boolean atendeNoEnderecoDeProducao;
 
 }

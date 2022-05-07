@@ -2,7 +2,7 @@ package com.es.agriculturafamiliar.listener;
 
 import java.util.Map;
 
-import com.es.agriculturafamiliar.config.EmailProperties;
+import com.es.agriculturafamiliar.config.email.EmailProperties;
 import com.es.agriculturafamiliar.entity.Email;
 import com.es.agriculturafamiliar.enums.TemplateType;
 import com.es.agriculturafamiliar.event.EmailCadastroEvent;
