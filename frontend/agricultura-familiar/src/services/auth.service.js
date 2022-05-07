@@ -2,13 +2,13 @@ import axios from 'axios';
 class AuthService {
   login(user) {
     return axios
-      .post(`${process.env.SERVER_URI}/login`, {
+      .post(`${process.env.VUE_APP_SERVER_URI}/login`, {
         email: user.email,
         password: user.password
       })
       .then(response => {
         if (response.data.token) {
-          localStorage.setItem(process.env.LOCAL_STORAGE_AUTH_KEY, JSON.stringify(response.data));
+          localStorage.setItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY, JSON.stringify(response.data));
         }
         return response.data;
       })
@@ -18,13 +18,13 @@ class AuthService {
       });
   }
   logout() {
-    localStorage.removeItem(process.env.LOCAL_STORAGE_AUTH_KEY);
+    localStorage.removeItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY);
   }
   registerProdutor(produtor) {
-    return axios.post(`${process.env.SERVER_URI}/cadastro/produtor`, produtor);
+    return axios.post(`${process.env.VUE_APP_SERVER_URI}/cadastro/produtor`, produtor);
   }
   registerConsumidor(consumidor) {
-    return axios.post(`${process.env.SERVER_URI}/cadastro/consumidor`, consumidor);
+    return axios.post(`${process.env.VUE_APP_SERVER_URI}/cadastro/consumidor`, consumidor);
   }
 
   confirmationEmail(user) {

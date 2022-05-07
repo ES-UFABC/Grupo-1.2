@@ -1,10 +1,10 @@
 import AuthService from '../services/auth.service';
 
-const user = JSON.parse(localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY));
+const user = JSON.parse(localStorage.getItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY));
 
 const initialState = user
-                      ? { status: { loggedIn: true }, user }
-                      : { status: { loggedIn: false }, user: null };
+  ? { status: { loggedIn: true }, user }
+  : { status: { loggedIn: false }, user: null };
 
 
 export const auth = {

@@ -150,11 +150,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro',
-                          '/email-confirmation/', '/email-confirmation/confirmation-done'];
+    '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro',
+    '/email-confirmation/', '/email-confirmation/confirmation-done'];
 
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
+  const loggedIn = localStorage.getItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY);
 
   if (authRequired && !loggedIn) // trying to access a restricted page + not logged in
     next('/'); // redirect to root page

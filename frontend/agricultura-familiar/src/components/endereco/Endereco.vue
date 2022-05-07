@@ -134,7 +134,7 @@
     },
     mounted() {
       var self = this;
-      let apiUri = process.env.IBGE_ESTADOS_API_URI
+      let apiUri = process.env.VUE_APP_IBGE_ESTADOS_API_URI
       this.$http.get(apiUri)
         .then(response => {
           let opts = response.data.map(uf => ({ value: uf.sigla, text: uf.nome }));
@@ -143,7 +143,7 @@
     },
     methods: {
       carregarEndereco() {
-        let apiUri = process.env.VIACEP_API_URI.replace('{CEP}', this.endereco.cep || '')
+        let apiUri = process.env.VUE_APP_VIACEP_API_URI.replace('{CEP}', this.endereco.cep || '')
 
         this.$http.get(apiUri)
           .then((response) => {

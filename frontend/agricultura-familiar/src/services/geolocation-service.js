@@ -12,7 +12,7 @@ class GeolocationService {
         input: `${endereco.rua}, n${endereco.numero}, ${endereco.bairro} ${endereco.municipio}, ${endereco.cep}`,
         inputtype: 'textquery',
         fields: 'formatted_address,name,rating,opening_hours,geometry',
-        key: process.env.MAPS_API_KEY,
+        key: process.env.VUE_APP_MAPS_API_KEY,
         //locationbias: 'circle:radius@-22.8305,-43.2192 '
       }
     }).then(response => {
@@ -21,10 +21,10 @@ class GeolocationService {
 
       return response.data.candidates[0].geometry.location;
     })
-    .catch(error => {
-      console.log(error);
-      return { lat: 0, lng: 0 }
-    });
+      .catch(error => {
+        console.log(error);
+        return { lat: 0, lng: 0 }
+      });
   }
 }
 export default new GeolocationService();

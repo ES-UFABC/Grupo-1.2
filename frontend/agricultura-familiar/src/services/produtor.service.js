@@ -10,7 +10,7 @@ class ProdutorService {
     return axios.get(uri, { headers: authHeader() });
   }
   carregarProdutoresPorLocalizacao(estado, municipio) {
-    let uri = `${process.env.SERVER_URI}/produtor/geolocalizacao`;
+    let uri = `${process.env.VUE_APP_SERVER_URI}/produtor/geolocalizacao`;
     return axios.get(uri, {
       headers: authHeader(),
       params: { estado, municipio }
