@@ -11,8 +11,7 @@ import java.util.function.Function;
 
 import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.exception.AuthException;
-import com.es.agriculturafamiliar.exception.ExpiredTokenException;
-import com.es.agriculturafamiliar.exception.InvalidTokenException;
+import com.es.agriculturafamiliar.exception.TokenException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -67,12 +66,8 @@ public class JwtTokenService implements ITokenService {
         final String username = getUsernameFromToken(token);
         boolean isValidUsername = username.equals(userDetails.getUsername());
 
-        if (!isValidUsername) {
-            throw new InvalidTokenException();
-        }
-
-        if (isTokenExpired(token)) {
-            throw new ExpiredTokenException();
+        if (!isValidUsername || isTokenExpired(token)) {
+            throw new TokenException();
         }
 
         return true;

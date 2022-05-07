@@ -1,0 +1,31 @@
+name: frontend-deploy
+
+defaults:
+  run:
+    working-directory: ./frontend/agricultura-familiar
+  
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/agricultura-familiar/**"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy
+        uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME_FRONTEND}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: "frontend/agricultura-familiar"

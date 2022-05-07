@@ -7,9 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.es.agriculturafamiliar.constants.RoleType;
-
 import org.springframework.security.core.GrantedAuthority;
+
+import com.es.agriculturafamiliar.enums.RoleType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

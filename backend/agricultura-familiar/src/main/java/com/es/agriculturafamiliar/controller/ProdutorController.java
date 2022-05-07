@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.es.agriculturafamiliar.dto.request.UpdateProdutorResquest;
+import com.es.agriculturafamiliar.dto.response.ProdutorPerfilResponse;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
-import com.es.agriculturafamiliar.service.ProdutoService;
 import com.es.agriculturafamiliar.service.ProdutorService;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,16 +26,22 @@ public class ProdutorController {
     @Autowired
     private final ProdutorService produtorService;
 
+    private final ModelMapper modelMapper;
+
+
     @GetMapping("/{id}")
-    public ResponseEntity<Produtor> findById(@PathVariable Long id){
-        var produtor = produtorService.findProdutorById(id);
-        return ResponseEntity.ok(produtor);
+    public ResponseEntity<ProdutorPerfilResponse> findProdutorPerfilById(@PathVariable Long id){
+        Produtor produtor = produtorService.findProdutorById(id);
+        var produtoPerfilDto = modelMapper.map(produtor, ProdutorPerfilResponse.class);
+        return ResponseEntity.ok(produtoPerfilDto);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Produtor>> findAll(){
+    @GetMapping("/lista")
+    public ResponseEntity<List<ProdutorPerfilResponse>> findAll(){
         var produtores = produtorService.findAll();
-        return ResponseEntity.ok(produtores);
+        List<ProdutorPerfilResponse> entityToDto = modelMapper.map(produtores, new TypeToken<List<ProdutorPerfilResponse>>(){}.getType());
+
+        return ResponseEntity.ok(entityToDto);
     }
 
     @GetMapping("/geolocalizacao")
@@ -49,9 +57,10 @@ public class ProdutorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produtor> updateProdutor(@Valid @RequestBody Produtor produtor, @PathVariable Long id){
+    public ResponseEntity<?> updateProdutor(@Valid @RequestBody UpdateProdutorResquest updateProdutorResquest, @PathVariable Long id){
+        var produtor = modelMapper.map(updateProdutorResquest, Produtor.class);
         var produtorAtualizado = produtorService.updateProdutor(produtor, id);
-        return ResponseEntity.ok(produtorAtualizado);
+        return ResponseEntity.ok(updateProdutorResquest);
     }
 
     @DeleteMapping("/{id}")

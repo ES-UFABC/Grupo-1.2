@@ -4,14 +4,14 @@ import Endereco from '../models/endereco';
 
 class ConsumidorService {
   obterConsumidorAutenticado() {
-    let user = JSON.parse(localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY)).user;
-    let uri = `${process.env.SERVER_URI}/cadastro/consumidor/${user ? user.id : 0}`;
+    let user = JSON.parse(localStorage.getItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY)).user;
+    let uri = `${process.env.VUE_APP_SERVER_URI}/cadastro/consumidor/${user ? user.id : 0}`;
     return axios.get(uri, { headers: authHeader() });
   }
   obterEnderecoDoConsumidor() {
     return this.obterConsumidorAutenticado().then(address => {
       const { rua, numero, bairro, municipio, estado, cep, complemento } = address.data.endereco[0];
-      return Promise.resolve(new Endereco(rua, numero, bairro, municipio, estado, cep, complemento ));
+      return Promise.resolve(new Endereco(rua, numero, bairro, municipio, estado, cep, complemento));
     });
   }
   //getUserBoard() {

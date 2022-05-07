@@ -2,7 +2,7 @@ package com.es.agriculturafamiliar.service;
 
 import javax.mail.internet.MimeMessage;
 
-import com.es.agriculturafamiliar.config.AsyncMessageSenderFactory;
+import com.es.agriculturafamiliar.config.email.AsyncMessageSenderFactory;
 import com.es.agriculturafamiliar.entity.Email;
 
 import org.springframework.beans.factory.annotation.Autowired;

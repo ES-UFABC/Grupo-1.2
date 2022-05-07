@@ -7,13 +7,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.Administrador;
 import com.es.agriculturafamiliar.entity.AuthenticatedUser;
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.enums.RoleType;
 import com.es.agriculturafamiliar.event.RenovacaoCodigoConfirmacaoEvent;
 import com.es.agriculturafamiliar.exception.AccountConfirmationNotRequiredException;
 import com.es.agriculturafamiliar.exception.AuthException;

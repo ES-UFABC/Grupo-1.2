@@ -1,11 +1,10 @@
 package com.es.agriculturafamiliar.controller;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.es.agriculturafamiliar.dto.request.UpdateProdutorResquest;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
@@ -19,9 +18,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -49,12 +47,15 @@ public class ProdutorControllerTests {
     @MockBean
     ITokenService tokenService;
 
+    @MockBean
+    ModelMapper modelMapper;
+
     @Autowired
     private ProdutorController produtorController;
     private Produtor produtor;
     private static ObjectMapper objectMapper;
 
-    public static final String BASE_ENDPOINT = "/produtor";
+    public static final String BASE_ENDPOINT = "/produtor/lista";
     public static final String SAVE_ENDPOINT = "/cadastro/produtor";
 
     @BeforeEach
@@ -93,8 +94,9 @@ public class ProdutorControllerTests {
     void updateEndereco_shouldReturnNoContent_whenUpdateIsSuccessful() throws Exception {
         Produtor produtorTeste = new Produtor();
         produtorTeste.setNome("teste");
-        
-        Assertions.assertEquals(produtorController.updateProdutor(produtorTeste, 1L).getStatusCode(), HttpStatus.OK);
+
+        ModelMapper modelMapper = new ModelMapper();
+        Assertions.assertEquals(produtorController.updateProdutor(modelMapper.map(produtorTeste, UpdateProdutorResquest.class), 1L).getStatusCode(), HttpStatus.OK);
 
     }
 

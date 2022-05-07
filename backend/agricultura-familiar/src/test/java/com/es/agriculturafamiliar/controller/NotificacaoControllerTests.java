@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDateTime;
 
-import com.es.agriculturafamiliar.dto.NotificacaoDTO;
+import com.es.agriculturafamiliar.dto.request.NotificacaoCreationRequest;
 import com.es.agriculturafamiliar.entity.Administrador;
 import com.es.agriculturafamiliar.entity.Notificacao;
 import com.es.agriculturafamiliar.entity.User;
@@ -90,7 +90,7 @@ public class NotificacaoControllerTests {
 
 	@Test
 	void saveNotificacao_shouldReturnBadRequest_whenMandatoryFieldIsMissing() throws JsonProcessingException, Exception {
-		NotificacaoDTO notificacao = NotificacaoDTO.builder()
+		NotificacaoCreationRequest notificacao = NotificacaoCreationRequest.builder()
 			.build();
 
 		mockMvc.perform(post(ADMIN_ENDPOINT)
@@ -121,7 +121,7 @@ public class NotificacaoControllerTests {
 
 	@Test
 	void updateNotificacao_shouldReturnNoContent_whenUpdateIsSuccessful() throws Exception {
-		NotificacaoDTO novaNotificacao = NotificacaoDTO.builder().assunto("Novo assunto")
+		NotificacaoCreationRequest novaNotificacao = NotificacaoCreationRequest.builder().assunto("Novo assunto")
 			.mensagem("Olá que tá").build();
 
 		Notificacao notificacaoAtualizada = new Notificacao();
@@ -137,7 +137,7 @@ public class NotificacaoControllerTests {
 
 	@Test
 	void updateNotificacao_shouldNotFound_whenUpdateFailsBecauseResourceNotExists() throws Exception {
-		NotificacaoDTO novaNotificacao = NotificacaoDTO.builder().assunto("Novo assunto")
+		NotificacaoCreationRequest novaNotificacao = NotificacaoCreationRequest.builder().assunto("Novo assunto")
 			.mensagem("Olá que tá").build();
 
 		when(notificationService.update(any(), any(Long.class)))

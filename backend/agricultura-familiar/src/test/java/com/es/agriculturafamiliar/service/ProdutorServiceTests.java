@@ -1,13 +1,14 @@
 package com.es.agriculturafamiliar.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
+import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.enums.TipoProdutor;
@@ -31,15 +32,15 @@ public class ProdutorServiceTests {
     private ProdutorRepository produtorRepository;
 
     @Mock
-    private JwtUserDetailsManager customUserDetailsService; 
+    private JwtUserDetailsManager customUserDetailsService;
 
     @Mock
     private ApplicationEventPublisher applicationEventPublisher;
-    
+
     @Mock
     private ConfirmacaoCadastroService confirmacaoCadastroService;
-    
-    
+
+
     @Test
     public void saveProdutor_shouldReturnSavedProdutor_whenSuccessful(){
         User user = new User();
@@ -76,6 +77,7 @@ public class ProdutorServiceTests {
 
         when(customUserDetailsService.createUser(any())).thenReturn(user);
         when(produtorRepository.save(any(Produtor.class))).thenReturn(returnedSavedProdutor);
+        when(confirmacaoCadastroService.createConfirmacaoCadastro()).thenReturn(ConfirmacaoCadastro.builder().codigo("123456").build());
 
         var savedProdutor = produtorService.saveProdutor(produtor, user);
 
@@ -133,5 +135,49 @@ public class ProdutorServiceTests {
         produtor.setNome("Atualizado");
 
         assertThrows(ResourceNotFoundException.class, () -> produtorService.updateProdutor(produtor, 1345L));
+    }
+
+    @Test
+    public void updateProdutor_shouldUpdateEntity_whenSuccessful() {
+        var produtor = new Produtor();
+        produtor.setId(1L);
+        produtor.setOrganico("SIM");
+        produtor.setNomeFantasia("teste");
+        produtor.setRegiaoDeProducao("");
+        produtor.setAtendeNoEnderecoDeProducao(true);
+        produtor.setCadastroEntidade(true);
+        produtor.setTipoProdutor(TipoProdutor.INDIVIDUAL);
+        produtor.setRegistroOuCertificacao(true);
+        produtor.setCertificacaoAgroecologico(true);
+        produtor.setAgroecologico(true);
+        produtor.setOrganico("SIM");
+        produtor.setEntidadesAtendidas(null);
+        produtor.setTiposProducao(null);
+        produtor.setTelefones(null);
+        produtor.setFormasPagamento(null);
+        produtor.setRegistrosOuCertificacoes(null);
+        produtor.setPaginasExternas(null);
+
+        when(produtorRepository.findById(any(Long.class))).thenReturn(Optional.of(produtor));
+        when(produtorRepository.save(any())).thenReturn(produtor);
+
+        var response = produtorService.updateProdutor(produtor, 1L);
+        assertEquals(response.getId(), produtor.getId());
+    }
+
+    @Test
+    public void updateProdutor_shouldDeleteEntity_whenSuccessful(){
+        when(produtorRepository.findById(any(Long.class))).thenReturn(Optional.of(new Produtor()));
+        doNothing().when(produtorRepository).delete(any());
+        produtorService.deleteProdutorById(1L);
+        verify(produtorRepository, times(1)).delete(any());
+    }
+
+    @Test
+    public void findAll_shouldReturnProdutorList_whenSuccessful(){
+        when(produtorRepository.findAll()).thenReturn(new ArrayList<Produtor>());
+        var response = produtorService.findAll();
+        assertEquals(response.size(), 0);
+        assertNotNull(response);
     }
 }

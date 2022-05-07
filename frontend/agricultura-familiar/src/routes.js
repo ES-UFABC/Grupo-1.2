@@ -13,6 +13,10 @@ import ProdutorHome from './views/produtor/ProdutorHome.vue';
 import ProdutorLogin from './views/produtor/ProdutorLogin.vue';
 import ProdutorCadastro from './views/produtor/ProdutorCadastro.vue';
 
+import EmailConfirmation from './views/email-confirmation/EmailConfirmation.vue';
+import CodeEnter from './views/email-confirmation/CodeEnter.vue';
+import ConfirmationDone from './views/email-confirmation/ConfirmationDone.vue';
+
 import Painel from './components/painel/Painel';
 import PainelConsumidor from './views/painel-consumidor/PainelConsumidor';
 import PainelProdutor from './views/painel-produtor/PainelProdutor';
@@ -23,7 +27,7 @@ import CadastroProduto from './views/produto/CadastroProduto.vue';
 
 Vue.use(VueRouter);
 
-const router =  new VueRouter ({
+const router = new VueRouter({
   mode: 'hash',
   routes: [
     {
@@ -114,15 +118,36 @@ const router =  new VueRouter ({
         },
       ]
     },
+    {
+      path: '/email-confirmation',
+      name: 'email_confirmation',
+      title: 'Email Confirmation',
+      component: EmailConfirmation,
+      children: [
+        {
+          path: '/',
+          name: 'code_enter',
+          title: 'Code Enter',
+          component: CodeEnter
+        },
+        {
+          path: 'confirmation-done',
+          name: 'confirmation_done',
+          title: 'Confirmation Done',
+          component: ConfirmationDone
+        }
+      ]
+    },
   ]
 });
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro'];
+    '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro',
+    '/email-confirmation/', '/email-confirmation/confirmation-done'];
 
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
+  const loggedIn = localStorage.getItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY);
 
   if (authRequired && !loggedIn) // trying to access a restricted page + not logged in
     next('/'); // redirect to root page

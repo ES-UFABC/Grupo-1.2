@@ -2,7 +2,7 @@ package com.es.agriculturafamiliar.entity;
 
 import java.util.Map;
 
-import com.es.agriculturafamiliar.constants.TemplateType;
+import com.es.agriculturafamiliar.enums.TemplateType;
 
 import lombok.Builder;
 import lombok.Data;
