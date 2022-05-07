@@ -17,7 +17,7 @@ class ProdutorService {
     });
   }
   carregarProdutoresPorNome(nome) {
-    let uri = `${process.env.SERVER_URI}/produtor/busca`;
+    let uri = `${process.env.VUE_APP_SERVER_URI}/produtor/busca`;
     return axios.get(uri, {
       headers: authHeader(),
       params: { nomeFantasia: nome }

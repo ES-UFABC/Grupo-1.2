@@ -9,11 +9,12 @@
     <b-form-input
       class="SearchInput"
       size="lg"
-      placeholder="Busque por item ou produtor"
+      placeholder="Busque um produtor"
       list="historico"
       v-model="term"
       autocomplete="off"
       ref="search"
+      debounce="1500"
       @focus.prevent="carregarHistorico"
       @contextmenu="limparHistorico"
     >
@@ -70,6 +71,11 @@ export default {
           if (cleaned)
               console.log('Historico apagado...')
         })
+    }
+  },
+  watch: {
+    term: function (newTerm, oldTerm) {
+      this.pesquisar()
     }
   }
 };

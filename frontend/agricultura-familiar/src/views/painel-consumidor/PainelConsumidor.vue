@@ -100,7 +100,7 @@
       if(newTerm)
         this.pesquisarPorNomeFantasia(newTerm)
       else
-        this.produtores = []
+        this.pesquisarPorGeolocalizacao()
     }
   }
 };

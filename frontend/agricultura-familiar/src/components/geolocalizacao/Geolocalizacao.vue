@@ -72,7 +72,6 @@ export default {
       enderecos: {
         handler(newValue, oldValue) {
           this.markers = [this.coordenadasCentro];
-          console.log(oldValue, newValue);
           if(newValue.length)
             newValue.forEach(e => {
               GeolocalizacaoService.carregarCoordenadasPorEndereco(e).then(coords => {
