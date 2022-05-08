@@ -9,12 +9,14 @@
     <b-form-input
       class="SearchInput"
       size="lg"
-      placeholder="Busque por item ou produtor"
+      placeholder="Busque um produtor"
       list="historico"
       v-model="term"
       autocomplete="off"
       ref="search"
+      debounce="1500"
       @focus.prevent="carregarHistorico"
+      @contextmenu="limparHistorico"
     >
     </b-form-input>
 
@@ -42,6 +44,11 @@ export default {
   methods: {
     pesquisar() {
       this.$emit('pesquisar', this.term)
+      if(this.term)
+        this.$store.dispatch('search/setTerm', this.term)
+      else
+        this.$store.dispatch('search/cleanTerm')
+
       SearchHistoryService.salvarPesquisaNoHistoricoDeBuscas(this.term)
     },
     abrirGeolocalizacao() {
@@ -51,8 +58,24 @@ export default {
       let self = this;
       SearchHistoryService.carregarHistoricoDeBuscas()
         .then(historico => {
+          self.history.length = 0;
           self.history = historico.termos
         })
+
+      if (self.$route.path !== '/painel/consumidor')
+        self.$router.push('/painel/consumidor')
+    },
+    limparHistorico() {
+      SearchHistoryService.limparHistoricoDeBuscas()
+        .then(cleaned => {
+          if (cleaned)
+              console.log('Historico apagado...')
+        })
+    }
+  },
+  watch: {
+    term: function (newTerm, oldTerm) {
+      this.pesquisar()
     }
   }
 };

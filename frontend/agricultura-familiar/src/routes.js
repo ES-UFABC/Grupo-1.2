@@ -21,7 +21,6 @@ import Painel from './components/painel/Painel';
 import PainelConsumidor from './views/painel-consumidor/PainelConsumidor';
 import PainelProdutor from './views/painel-produtor/PainelProdutor';
 
-import BuscaProdutores from './views/busca-produtores/BuscaProdutores.vue'
 import PainelNotificacoes from './components/painel-notificacoes/PainelNotificacoes.vue';
 
 import CadastroProduto from './views/produto/CadastroProduto.vue';
@@ -106,12 +105,6 @@ const router = new VueRouter({
           name: 'painel_produtor',
           title: 'Muda',
           component: PainelProdutor,
-        },
-        {
-          path: 'buscar-produtor',
-          name: 'buscar_produtor',
-          title: 'Buscar',
-          component: BuscaProdutores,
         },
         {
           path: 'notificacoes',
