@@ -59,7 +59,7 @@
     methods: {
       carregarEstados() {
         var self = this;
-        let apiUri = process.env.IBGE_ESTADOS_API_URI
+        let apiUri = process.env.VUE_APP_IBGE_ESTADOS_API_URI
 
         this.$http.get(apiUri)
           .then(response => {
@@ -72,7 +72,7 @@
       },
       carregarMunicipios() {
         var self = this;
-        let apiUri = process.env.IBGE_MUNICIPIOS_API_URI.replace('{UF}', this.estado || '')
+        let apiUri = process.env.VUE_APP_IBGE_MUNICIPIOS_API_URI.replace('{UF}', this.estado || '')
 
         this.$http.get(apiUri)
           .then((response) => {

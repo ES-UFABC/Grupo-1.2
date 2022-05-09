@@ -21,10 +21,12 @@ import Painel from './components/painel/Painel';
 import PainelConsumidor from './views/painel-consumidor/PainelConsumidor';
 import PainelProdutor from './views/painel-produtor/PainelProdutor';
 
-import BuscaProdutores from './views/busca-produtores/BuscaProdutores.vue'
 import PainelNotificacoes from './components/painel-notificacoes/PainelNotificacoes.vue';
 
 import CadastroProduto from './views/produto/CadastroProduto.vue';
+
+import Geolocalizacao from './components/geolocalizacao/Geolocalizacao'
+import PerfilProdutor from './components/perfil-produtor/PerfilProdutor'
 
 Vue.use(VueRouter);
 
@@ -100,18 +102,28 @@ const router = new VueRouter({
           name: 'painel_consumidor',
           title: 'Muda',
           component: PainelConsumidor,
+          children: [
+            {
+              path: 'maps',
+              name: 'maps',
+              title: 'Muda',
+              component: Geolocalizacao,
+              props: true
+            },
+            {
+              path: 'produtor/:id',
+              name: 'perfil_produtor',
+              title: 'Muda',
+              component: PerfilProdutor,
+              props: true
+            }
+          ]
         },
         {
           path: 'produtor',
           name: 'painel_produtor',
           title: 'Muda',
           component: PainelProdutor,
-        },
-        {
-          path: 'buscar-produtor',
-          name: 'buscar_produtor',
-          title: 'Buscar',
-          component: BuscaProdutores,
         },
         {
           path: 'notificacoes',
@@ -150,11 +162,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/consumidor', '/consumidor/home', '/consumidor/login', '/consumidor/cadastro',
-                            '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro',
-                          '/email-confirmation/', '/email-confirmation/confirmation-done'];
+    '/produtor', '/produtor/home', '/produtor/login', '/produtor/cadastro',
+    '/email-confirmation/', '/email-confirmation/confirmation-done'];
 
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem(process.env.LOCAL_STORAGE_AUTH_KEY);
+  const loggedIn = localStorage.getItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY);
 
   if (authRequired && !loggedIn) // trying to access a restricted page + not logged in
     next('/'); // redirect to root page

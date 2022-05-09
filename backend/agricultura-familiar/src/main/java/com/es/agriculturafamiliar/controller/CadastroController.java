@@ -2,8 +2,12 @@ package com.es.agriculturafamiliar.controller;
 
 
 import com.es.agriculturafamiliar.controller.mapper.CadastroConsumidorMapper;
-import com.es.agriculturafamiliar.dto.cadastroConsumidor.CadastroConsumidorDtoIn;
-import com.es.agriculturafamiliar.dto.cadastroConsumidor.CadastroConsumidorDtoOut;
+
+import com.es.agriculturafamiliar.dto.request.CadastroConsumidorRequest;
+import com.es.agriculturafamiliar.dto.request.CadastroProdutorRequest;
+import com.es.agriculturafamiliar.dto.response.CadastroConsumidorResponse;
+import com.es.agriculturafamiliar.dto.response.CadastroProdutorResponse;
+
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroConsumidorUseCase;
@@ -38,13 +42,14 @@ public class CadastroController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/produtor")
-    public ResponseEntity<Produtor> saveProdutor(@Valid @RequestBody Produtor produtor){
-        Produtor savedProdutor = produtorService.saveProdutor(produtor, produtor.getUser());
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedProdutor);
+    public ResponseEntity<CadastroProdutorResponse> saveProdutor(@Valid @RequestBody CadastroProdutorRequest cadastroProdutorRequest){
+        Produtor produtor = modelMapper.map(cadastroProdutorRequest, Produtor.class);
+        produtor = produtorService.saveProdutor(produtor, produtor.getUser());
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(produtor, CadastroProdutorResponse.class));
     }
 
     @PostMapping("/consumidor")
-    public ResponseEntity<CadastroConsumidorDtoOut> cadastraConsumidor(@Valid @RequestBody CadastroConsumidorDtoIn requestDTO) {
+    public ResponseEntity<CadastroConsumidorResponse> cadastraConsumidor(@Valid @RequestBody CadastroConsumidorRequest requestDTO) {
 
         final Optional<CadastroConsumidorDomain> usecaseDomainOut = useCase.cadastraConsumidor(mapper.toModel(requestDTO));
 
@@ -52,7 +57,7 @@ public class CadastroController {
             throw new NoSuchElementException();
         }
 
-        final CadastroConsumidorDtoOut resultado = mapper.toDto(usecaseDomainOut.get());
+        final CadastroConsumidorResponse resultado = mapper.toDto(usecaseDomainOut.get());
 
         log.info(resultado.toString());
 

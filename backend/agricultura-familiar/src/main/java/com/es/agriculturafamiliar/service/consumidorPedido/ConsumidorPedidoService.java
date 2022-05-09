@@ -1,7 +1,7 @@
 package com.es.agriculturafamiliar.service.consumidorPedido;
 
 import com.es.agriculturafamiliar.controller.mapper.ConsumidorPedidoEntityMapper;
-import com.es.agriculturafamiliar.dto.consumidorPedidos.ConsumidorPedidoDTO;
+import com.es.agriculturafamiliar.dto.request.ConsumidorPedidoRequest;
 import com.es.agriculturafamiliar.repository.ProdutorRepository;
 import com.es.agriculturafamiliar.repository.cadastroconsumidor.CadastroConsumidorRepository;
 import com.es.agriculturafamiliar.repository.consumidorPedido.jpa.ConsumidorPedidoRepository;
@@ -22,7 +22,7 @@ public class ConsumidorPedidoService {
     private final ProdutorRepository produtorRepository;
 
 
-    public void cadastraPedido(ConsumidorPedidoDTO dto) {
+    public void cadastraPedido(ConsumidorPedidoRequest dto) {
         log.info("ConsumidorPedidoService - cadastraPedido - idConsumidor: {}, idProdutor {}, pedido: {}",
                 dto.getIdConsumidor(), dto.getIdProdutor(), dto.getPedido());
 
@@ -45,7 +45,7 @@ public class ConsumidorPedidoService {
         log.info("Deleção física do Pedido realizada com sucesso");
     }
 
-    private void verificaExistenciaConsumidorEhProdutor(ConsumidorPedidoDTO dto) {
+    private void verificaExistenciaConsumidorEhProdutor(ConsumidorPedidoRequest dto) {
         var verificaExistenciaConsumidor =
                 cadastroConsumidorRepository.consultaPorChave(dto.getIdConsumidor());
 

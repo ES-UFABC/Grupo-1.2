@@ -2,7 +2,7 @@
   <div>
     <b-navbar fixed="top">
       <b-navbar-brand href="/">
-        <b-img src="../../../public/muda_green_small.png" alt="Muda"></b-img>
+        <img src="../../../public/muda_green_small.png" alt="Muda"/>
         <h1>Muda</h1>
       </b-navbar-brand>
 
@@ -14,12 +14,11 @@
         <b-nav-item href="#">Verduras</b-nav-item>
       </b-navbar-nav>
 
-      <Search @pesquisar="pesquisar" @abrirGeolocalizacao="abrirGeolocalizacao" />
+      <Search @abrirGeolocalizacao="abrirGeolocalizacao" />
 
       <b-navbar-nav class="ml-auto">
         <div class="search-minimized mt-auto mb-auto mr-2">
-          <a href=""
-            ><img src="../../../src/assets/search.svg" alt="search" />
+          <a href=""><img src="../../../src/assets/search.svg" alt="search" />
           </a>
         </div>
 
@@ -77,9 +76,6 @@ export default {
     logoff() {
       this.$store.dispatch("auth/logout");
       this.$router.push("/");
-    },
-    pesquisar() {
-      this.$emit('pesquisar')
     },
     abrirGeolocalizacao() {
       this.$emit('abrirGeolocalizacao')

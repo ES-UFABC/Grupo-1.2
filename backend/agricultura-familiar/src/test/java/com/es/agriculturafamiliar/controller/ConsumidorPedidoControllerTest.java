@@ -1,6 +1,6 @@
 package com.es.agriculturafamiliar.controller;
 
-import com.es.agriculturafamiliar.dto.consumidorPedidos.ConsumidorPedidoDTO;
+import com.es.agriculturafamiliar.dto.request.ConsumidorPedidoRequest;
 import com.es.agriculturafamiliar.service.ITokenService;
 import com.es.agriculturafamiliar.service.consumidorPedido.ConsumidorPedidoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +36,7 @@ public class ConsumidorPedidoControllerTest {
     void cadastraComSucesso() throws Exception {
         var request = MockMvcRequestBuilders
                 .post(BASE_ENDPOINT)
-                .content(asJsonString(ConsumidorPedidoDTO.builder().
+                .content(asJsonString(ConsumidorPedidoRequest.builder().
                         idConsumidor("1").idProdutor(1L).pedido("soja").build()))
                 .contentType(MediaType.APPLICATION_JSON);
 

@@ -2,25 +2,27 @@
   <b-input-group class="search">
     <b-input-group-prepend>
       <button class="input-group-text" @click="pesquisar">
-        <b-img src="../../../src/assets/search.svg" alt="Muda"></b-img>
+        <img src="../../../src/assets/search.svg" alt="Muda"/>
       </button>
     </b-input-group-prepend>
 
     <b-form-input
       class="SearchInput"
       size="lg"
-      placeholder="Busque por item ou produtor"
+      placeholder="Busque um produtor"
       list="historico"
       v-model="term"
       autocomplete="off"
       ref="search"
+      debounce="1500"
       @focus.prevent="carregarHistorico"
+      @contextmenu="limparHistorico"
     >
     </b-form-input>
 
     <b-input-group-append>
       <button class="input-group-text" @click="abrirGeolocalizacao">
-        <b-img src="../../../src/assets/location.svg" alt="Location"></b-img>
+        <img src="../../../src/assets/location.svg" alt="Location"/>
       </button>
     </b-input-group-append>
 
@@ -42,6 +44,11 @@ export default {
   methods: {
     pesquisar() {
       this.$emit('pesquisar', this.term)
+      if(this.term)
+        this.$store.dispatch('search/setTerm', this.term)
+      else
+        this.$store.dispatch('search/cleanTerm')
+
       SearchHistoryService.salvarPesquisaNoHistoricoDeBuscas(this.term)
     },
     abrirGeolocalizacao() {
@@ -51,8 +58,24 @@ export default {
       let self = this;
       SearchHistoryService.carregarHistoricoDeBuscas()
         .then(historico => {
+          self.history.length = 0;
           self.history = historico.termos
         })
+
+      if (!['/painel/consumidor', '/painel/consumidor/maps'].includes(self.$route.path))
+        self.$router.push('/painel/consumidor')
+    },
+    limparHistorico() {
+      SearchHistoryService.limparHistoricoDeBuscas()
+        .then(cleaned => {
+          if (cleaned)
+              console.log('Historico apagado...')
+        })
+    }
+  },
+  watch: {
+    term: function (newTerm, oldTerm) {
+      this.pesquisar()
     }
   }
 };

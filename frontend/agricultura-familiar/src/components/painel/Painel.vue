@@ -1,7 +1,7 @@
 
 <template>
   <div class="panel">
-    <NavBar @pesquisar="pesquisar" @abrirGeolocalizacao="abrirGeolocalizacao" />
+    <NavBar @abrirGeolocalizacao="abrirGeolocalizacao" />
     <transition name="router-animation">
       <router-view />
     </transition>
@@ -9,21 +9,16 @@
 </template>
 
 <script>
-import NavBar from "../../components/navbar/NavBar.vue";
+  import NavBar from "../../components/navbar/NavBar.vue";
 export default {
-  components: {
-    NavBar,
-  },
+  components: { NavBar },
   data() {
     return {
     };
   },
   methods: {
-    pesquisar() {
-      console.log('pesquisando');
-    },
     abrirGeolocalizacao() {
-      this.$router.push("/painel/buscar-produtor");
+      this.$router.push("/painel/consumidor/");
     },
   },
 };

@@ -1,88 +1,85 @@
 <template>
-  <div>
-    <!--<div>
-      <h2>Buscar</h2>
-      <GmapAutocomplete @place_changed='setPlace' />
-      <button @click='addMarker'> Add </button>
-    </div>
-    <br>-->
-    <GmapMap :v-if="this.coordenadasCentro"
-             :center='coordenadasCentro || {}'
+  <div :v-if="this.coordenadasCentro">
+    <GmapMap :center='this.coordenadasCentro'
              :zoom='12'
              style='width:100%;  height: 100vh;'>
       <GmapMarker :key="index"
-                  v-for="(m, index) in markers"
+                  v-for="(m, index) in this.markers"
                   :position="m.position"
-                  :title="m.title"
+                  icon="http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
                   :clickable="true"
-                  @click="coordenadasCentro=m.position" />
+                  @click="openInfoWindowTemplate(index)" />
+      <GmapMarker :position="this.coordenadasCentro"
+                  icon="http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                  :clickable="true"
+                  @click="openInfoWindowTemplate(-1)"/>
+      <gmap-info-window :options="infoWindow.options"
+          :position="infoWindow.position"
+          :opened="infoWindow.open"
+          @closeclick="infoWindow.open=false">
+          <div v-html="infoWindow.template"></div>
+      </gmap-info-window>
     </GmapMap>
   </div>
 </template>
 
 <script>
   import GeolocalizacaoService from '../../services/geolocation-service';
-export default {
+
+  export default {
     name: 'Geolocalizacao',
-    props: {
-      enderecoCentral: Object,
-      enderecos: {
-        type: Array,
-        required: true
-      }
-    },
     data() {
       return {
-        markers: [],
-        places: [],
-        coordenadasCentro: null
+        infoWindow: {
+          options: {
+            maxWidth: 300,
+            pixelOffset: { width: 0, height: -35 }
+          },
+          position: { lat: 0, lng: 0 },
+          open: false,
+          template: ''
+        }
       }
     },
     mounted() {
       this.geolocate();
-      console.log(this.enderecos);
+    },
+    computed: {
+      coordenadasCentro() {
+        return this.$store.state.geolocation.consumerCoords
+      },
+      enderecoCentral() {
+        return this.$store.state.geolocation.consumerAddress
+      },
+      markers() {
+        return this.$store.state.geolocation.producersCoords
+      },
     },
     methods: {
       carregarEnderecoCentro() {
-        GeolocalizacaoService.carregarCoordenadasPorEndereco(this.enderecoCentral).then(coords => {
-          this.coordenadasCentro = coords;
-        });
-      },
-      addMarker() {
-        if (this.currentPlace) {
-          const marker = {
-            lat: this.currentPlace.geometry.location.lat(),
-            lng: this.currentPlace.geometry.location.lng(),
-          };
-          this.markers.push({ position: marker });
-        }
+        GeolocalizacaoService.carregarCoordenadasPorEndereco(this.enderecoCentral)
+          .then(coords => this.$store.dispatch('geolocation/setconsumerCoords', coords));
       },
       geolocate: function () {
         //carrego pelo o endereço cadastrado
         this.carregarEnderecoCentro();
-        //se tiver permissão na localização, uso ela
-        navigator.geolocation.getCurrentPosition(position => {
-          this.coordenadasCentro = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-        });
       },
-    },
-    watch: {
-      enderecos: {
-        handler(newValue, oldValue) {
-          this.markers = [this.coordenadasCentro];
-          console.log(oldValue, newValue);
-          if(newValue.length)
-            newValue.forEach(e => {
-              GeolocalizacaoService.carregarCoordenadasPorEndereco(e).then(coords => {
-                this.markers.push({ position: coords })
-              });
-            })
-        },
-        deep: true
-      }
+      openInfoWindowTemplate(index) {
+        let getTemplate = function(titulo, rua, num, cidade){
+          return `<b>${titulo}</b><br>${rua},${num}<br>${cidade}<br>`
+        }
+        if (index > -1) {
+          const { position, address } = this.markers[index]
+          this.infoWindow.position = position
+          this.infoWindow.template = getTemplate(address.produtor, address.rua, address.numero, address.municipio)
+        }
+        else {
+          const address = this.enderecoCentral;
+          this.infoWindow.position = this.coordenadasCentro
+          this.infoWindow.template = getTemplate('Você', address.rua, address.numero, address.municipio)
+        }
+         this.infoWindow.open = true
+      },
     }
 }
 </script>

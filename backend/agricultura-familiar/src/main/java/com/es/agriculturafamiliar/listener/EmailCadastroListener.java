@@ -2,9 +2,9 @@ package com.es.agriculturafamiliar.listener;
 
 import java.util.Map;
 
-import com.es.agriculturafamiliar.config.EmailProperties;
-import com.es.agriculturafamiliar.constants.TemplateType;
+import com.es.agriculturafamiliar.config.email.EmailProperties;
 import com.es.agriculturafamiliar.entity.Email;
+import com.es.agriculturafamiliar.enums.TemplateType;
 import com.es.agriculturafamiliar.event.EmailCadastroEvent;
 import com.es.agriculturafamiliar.service.AsyncMessageService;
 
@@ -13,7 +13,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @AllArgsConstructor
 @Component
 public class EmailCadastroListener {
@@ -23,6 +24,7 @@ public class EmailCadastroListener {
     @EventListener
     @Async
     public void onEmailCadastroEvent(EmailCadastroEvent emailCadastroEvent) {
+    	log.debug("Evento EmailCadastroEvent capturado, enviando email");
         String name = emailCadastroEvent.getName();
         String to = emailCadastroEvent.getToEmail();
 

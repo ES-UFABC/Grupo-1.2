@@ -1,6 +1,6 @@
 package com.es.agriculturafamiliar.controller;
 
-import com.es.agriculturafamiliar.dto.consumidorPedidos.ConsumidorPedidoDTO;
+import com.es.agriculturafamiliar.dto.request.ConsumidorPedidoRequest;
 import com.es.agriculturafamiliar.service.consumidorPedido.ConsumidorPedidoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class ConsumidorPedidoController {
 
     @PostMapping
     public ResponseEntity<?> cadastraPedido (
-            @Valid @RequestBody ConsumidorPedidoDTO requestDTO) {
+            @Valid @RequestBody ConsumidorPedidoRequest requestDTO) {
         log.info("ConsumidorPedidoController - cadastraPedido - idConsumidor: {}, idProdutor {}, pedido: {}",
                 requestDTO.getIdConsumidor(), requestDTO.getIdProdutor(), requestDTO.getPedido());
 

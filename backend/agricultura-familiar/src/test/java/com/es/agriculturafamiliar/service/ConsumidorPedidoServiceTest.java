@@ -1,7 +1,7 @@
 package com.es.agriculturafamiliar.service;
 
 import com.es.agriculturafamiliar.controller.mapper.ConsumidorPedidoEntityMapper;
-import com.es.agriculturafamiliar.dto.consumidorPedidos.ConsumidorPedidoDTO;
+import com.es.agriculturafamiliar.dto.request.ConsumidorPedidoRequest;
 import com.es.agriculturafamiliar.entity.consumidorPedido.ConsumidorPedidoEntity;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
@@ -42,7 +42,7 @@ public class ConsumidorPedidoServiceTest {
     public void erroAoCadastrar_idConsumidorNaoExiste() {
         Mockito.when(cadastroConsumidorRepository.consultaPorChave("572.355.330-56")).thenReturn(Optional.empty());
         Assertions.assertThrows(NoSuchElementException.class, () -> useCase.cadastraPedido(
-                ConsumidorPedidoDTO.builder().idConsumidor("572.355.330-56").build()));
+                ConsumidorPedidoRequest.builder().idConsumidor("572.355.330-56").build()));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ConsumidorPedidoServiceTest {
                 Optional.of(CadastroConsumidorDomain.builder().build()));
         Mockito.when(produtorRepository.findById(1L)).thenReturn(Optional.empty());
         Assertions.assertThrows(NoSuchElementException.class, () -> useCase.cadastraPedido(
-                ConsumidorPedidoDTO.builder().idConsumidor("572.355.330-56").idProdutor(1L).build()));
+                ConsumidorPedidoRequest.builder().idConsumidor("572.355.330-56").idProdutor(1L).build()));
     }
 
     @Test
@@ -66,8 +66,8 @@ public class ConsumidorPedidoServiceTest {
                 mockConsumidorPedidoEntity());
     }
 
-    private ConsumidorPedidoDTO mockConsumidorPedidoDto() {
-        return ConsumidorPedidoDTO.builder()
+    private ConsumidorPedidoRequest mockConsumidorPedidoDto() {
+        return ConsumidorPedidoRequest.builder()
                 .idConsumidor("572.355.330-56")
                 .idProdutor(1L)
                 .pedido("soja")

@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
-import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.enums.RoleType;
 import com.es.agriculturafamiliar.exception.AuthException;
 
 import org.junit.jupiter.api.Test;

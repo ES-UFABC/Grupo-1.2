@@ -12,20 +12,25 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.es.agriculturafamiliar.constants.RoleType;
+import com.es.agriculturafamiliar.entity.Administrador;
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.JwtToken;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
+import com.es.agriculturafamiliar.enums.RoleType;
 import com.es.agriculturafamiliar.event.RenovacaoCodigoConfirmacaoEvent;
 import com.es.agriculturafamiliar.exception.AccountConfirmationNotRequiredException;
 import com.es.agriculturafamiliar.service.validator.authentication.IAuthenticationValidator;
@@ -57,16 +62,20 @@ public class TokenAuthenticationServiceTests {
 	
 	@Mock
 	private ApplicationEventPublisher applicationEventPublisher;
+	
+	@Mock
+	private AdministradorService administradorService;
 
 	private static final User user = User.builder().email("myemail@email.com").enabled(true).password("12345").id(1L)
 			.roles(Set.of(Role.builder().role(RoleType.ADMIN).build())).build();
+	
 
-	@Disabled
 	@Test
 	public void authenticate_shouldReturnToken_whenUserExists() {
 		when(userDetailsManager.loadUserByUsername(any(String.class))).thenReturn(user);
 		when(tokenService.generateToken(any()))
 				.thenReturn(JwtToken.builder().token("token").expirationDate(Instant.now().toString()).build());
+		when(administradorService.findByUserId(any())).thenReturn(Administrador.builder().id(1L).build());
 
 		JwtToken jwtToken = tokenAuthenticationService.authenticate(user);
 		assertNotNull(jwtToken);

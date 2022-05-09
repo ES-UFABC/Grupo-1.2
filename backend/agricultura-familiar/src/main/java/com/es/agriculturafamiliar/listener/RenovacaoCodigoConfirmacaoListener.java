@@ -6,10 +6,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import com.es.agriculturafamiliar.config.EmailProperties;
-import com.es.agriculturafamiliar.config.FrontEndProperties;
-import com.es.agriculturafamiliar.constants.TemplateType;
+import com.es.agriculturafamiliar.config.email.EmailProperties;
+import com.es.agriculturafamiliar.config.web.FrontEndProperties;
 import com.es.agriculturafamiliar.entity.Email;
+import com.es.agriculturafamiliar.enums.TemplateType;
 import com.es.agriculturafamiliar.event.RenovacaoCodigoConfirmacaoEvent;
 import com.es.agriculturafamiliar.service.AsyncMessageService;
 

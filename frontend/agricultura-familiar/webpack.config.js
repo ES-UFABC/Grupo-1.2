@@ -1,7 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
-
+var prodPort = process.env.PORT || 9000;
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -31,7 +31,7 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader',
-          'sass-loader?indentedSyntax'  
+          'sass-loader?indentedSyntax'
         ],
       },
       {
@@ -79,10 +79,12 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    port: prodPort
   },
   performance: {
-    hints: false
+    hints: false,
+    maxAssetSize: 51200000
   },
   devtool: '#eval-source-map',
 }

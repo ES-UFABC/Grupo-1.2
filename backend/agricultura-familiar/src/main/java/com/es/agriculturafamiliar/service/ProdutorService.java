@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Optional;
 
-import com.es.agriculturafamiliar.constants.RoleType;
 import com.es.agriculturafamiliar.entity.ConfirmacaoCadastro;
 import com.es.agriculturafamiliar.entity.Role;
 import com.es.agriculturafamiliar.entity.User;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
+import com.es.agriculturafamiliar.enums.RoleType;
 import com.es.agriculturafamiliar.event.EmailCadastroConfirmacaoPendenteEvent;
 
 import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
@@ -71,11 +71,30 @@ public class ProdutorService {
                 .orElseThrow(() -> new ResourceNotFoundException("Produtor was not found"));
     }
 
+    @Transactional
     public Produtor updateProdutor(Produtor produtor, Long id){
         var findProdutor = findProdutorById(id);
-        produtor.setId(findProdutor.getId());
-        var updatedProdutor = produtorRepository.save(produtor);
+        findProdutor.setTipoProdutor(produtor.getTipoProdutor());
+        findProdutor.setOrganico(produtor.getOrganico());
+        findProdutor.setNomeFantasia(produtor.getNomeFantasia());
+        findProdutor.setRegiaoDeProducao(produtor.getRegiaoDeProducao());
+        findProdutor.setAtendeNoEnderecoDeProducao(produtor.getAtendeNoEnderecoDeProducao());
+        findProdutor.setCadastroEntidade(produtor.getCadastroEntidade());
+        findProdutor.setTipoProdutor(produtor.getTipoProdutor());
+        findProdutor.setRegistroOuCertificacao(produtor.getRegistroOuCertificacao());
+        findProdutor.setCertificacaoAgroecologico(produtor.getCertificacaoAgroecologico());
+        findProdutor.setAgroecologico(produtor.getAgroecologico());
+        findProdutor.setOrganico(produtor.getOrganico());
+        findProdutor.setEntidadesAtendidas(produtor.getEntidadesAtendidas());
+        findProdutor.setTiposProducao(produtor.getTiposProducao());
+        findProdutor.setTelefones(produtor.getTelefones());
+        findProdutor.setFormasPagamento(produtor.getFormasPagamento());
+        findProdutor.setRegistrosOuCertificacoes(produtor.getRegistrosOuCertificacoes());
+        findProdutor.setPaginasExternas(produtor.getPaginasExternas());
+
+        var updatedProdutor = produtorRepository.save(findProdutor);
         return updatedProdutor;
+
     }
 
     public void deleteProdutorById(Long id){
