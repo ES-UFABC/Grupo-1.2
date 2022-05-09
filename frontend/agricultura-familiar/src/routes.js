@@ -166,14 +166,24 @@ router.beforeEach((to, from, next) => {
     '/email-confirmation/', '/email-confirmation/confirmation-done'];
 
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY);
-
+  const session = JSON.parse(localStorage.getItem(process.env.VUE_APP_LOCAL_STORAGE_AUTH_KEY) || '{}');
+  const loggedIn = session && session.token && new Date() <= new Date(session.expirationDate);
   if (authRequired && !loggedIn) // trying to access a restricted page + not logged in
     next('/'); // redirect to root page
   else if (!authRequired && loggedIn) // trying to access a public page + logged in
     next('/painel'); // redirect to painel
   else //authRequired + logged in
-    next(); //do nothing
+  {
+    //se é consumidor tentando acessar produtor
+    const ehConsumidor = session && session.user && session.user.roles && session.user.roles[0].role === 'CONSUMIDOR';
+    const ehProdutor = session && session.user && session.user.roles && session.user.roles[0].role === 'PRODUTOR';
+    if (ehProdutor && to.path.indexOf('painel/consumidor') > 0) //se é produtor tentando acessar consumidor
+      console.log('acesso negado')
+    else if (ehConsumidor && to.path.indexOf('painel/produtor') > 0)
+      console.log('acesso negado')
+    //else
+      next(); //do nothing
+  }
 
 });
 

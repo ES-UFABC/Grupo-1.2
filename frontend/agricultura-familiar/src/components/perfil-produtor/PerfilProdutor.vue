@@ -83,7 +83,7 @@
       carregarProdutor() {
         let self = this;
         ProdutorService.carregarProdutorPorId(self.id)
-          .then(response => { self.produtor = response.data; console.log(response.data) })
+          .then(response => { self.produtor = response.data; })
       }
     },
     watch: {

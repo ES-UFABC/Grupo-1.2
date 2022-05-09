@@ -49,9 +49,7 @@
                 placeholder=""
                 required
               ></b-form-input>
-              <b-form-text id="input-live-help"
-                >Nome que aparecerá para seus clientes.</b-form-text
-              >
+              <b-form-text id="input-live-help">Nome que aparecerá para seus clientes.</b-form-text>
             </b-form-group>
           </b-col>
         </b-form-row>

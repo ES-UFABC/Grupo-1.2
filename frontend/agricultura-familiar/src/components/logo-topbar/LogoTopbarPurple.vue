@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar sticky="true">
+    <b-navbar sticky>
       <b-navbar-brand href="/">
         <img src="../../../public/muda_purple_small.png" alt="Muda">
         <h1>Muda</h1>
