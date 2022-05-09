@@ -1,17 +1,18 @@
 <template>
   <b-form @submit.prevent="enviar">
-    <b-card-text>Informe seu e-mail</b-card-text>
       <b-form-row>
         <b-col>
           <b-form-group id="input-group-txt-pedido">
-              <b-form-input id="txt-pedido"
+              <b-form-textarea id="txt-pedido"
                             type="pedido"
                             v-model="pedido"
-                            placeholder="Informe seu pedido"></b-form-input>
+                            required
+                            max="255"
+                            placeholder="Pedido"></b-form-textarea>
           </b-form-group>
         </b-col>
       </b-form-row>
-      <b-button type="submit" variant="primary">Entrar</b-button>
+      <b-button type="submit" variant="primary">Enviar Pedido</b-button>
   </b-form>
 </template>
 
@@ -22,11 +23,11 @@
   export default {
     name: 'ConsumidorPedido',
     props: {
-      idConsumidor: {
+      consumidor: {
         type: String,
         required: true
       },
-      idProdutor: {
+      produtor: {
         type: Number,
         required: true
       } 
@@ -38,7 +39,7 @@
     },
     methods: {
       enviar() {
-        PedidoService.salvarPedido(idConsumidor, idProdutor, pedido)
+        PedidoService.salvarPedido(this.consumidor, this.produtor, this.pedido)
           .then(response => {
             alerts.SucessToaster.fire({ html: "Enviado com sucesso!" })
           },

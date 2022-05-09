@@ -13,7 +13,8 @@
           <span class="text-black-50">{{ this.telefones }}</span>
         </div>
         <!-- Seção Pedido -->
-        <ConsumidorPedido :id-consumidor="idConsumidor" :id-produtor="this.id" />
+        <ConsumidorPedido v-if="this.produtor.produtos.length" :consumidor="this.idConsumidor" :produtor="this.id" />
+        <p v-else>Não há produtos para pedir.</p>
       </b-col>
       <b-col md="8" class="border-right" >
         <div class="p-3 py-5">
@@ -42,6 +43,7 @@
 
 <script>
   import ProdutorService from '../../services/produtor.service'
+  import ConsumidorService from '../../services/consumidor.service'
   import ProductCard from '../productcard/ProductCard'
   import ConsumidorPedido from '../consumidor-pedido/ConsumidorPedido'
   export default {
@@ -74,6 +76,9 @@
     },
     mounted() {
       this.carregarProdutor()
+      ConsumidorService.obterConsumidorAutenticado().then(dt => {
+        this.idConsumidor = dt.data.cpf
+      })
     },
     methods: {
       voltar() {
