@@ -7,9 +7,15 @@
 <script>
   export default {
     name: 'Voltar',
+    props: {
+      override: Boolean
+    },
     methods: {
       goBack() {
-        this.$router.go(-1);
+        if(!this.override)
+          this.$router.go(-1);
+        else
+          this.$emit('goback')
       }
     }
   }

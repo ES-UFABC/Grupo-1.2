@@ -1,6 +1,6 @@
 <template>
   <b-container class="rounded bg-white" v-if="this.produtor">
-    <button @click="voltar">Voltar</button>
+    <Voltar @goback="voltar" override/>
     <b-row>
       <b-col md="4" class="border-right">
         <div class="d-flex flex-column align-items-center text-center">
@@ -46,9 +46,10 @@
 <script>
   import ProdutorService from '../../services/produtor.service'
   import ProductCard from '../productcard/ProductCard'
+  import Voltar from '../voltar/Voltar'
   export default {
     name: 'PerfilProdutor',
-    components: { ProductCard },
+    components: { ProductCard, Voltar },
     props: {
       //id: {
       //  required: false,
