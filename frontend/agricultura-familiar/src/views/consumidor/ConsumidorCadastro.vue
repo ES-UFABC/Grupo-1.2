@@ -242,61 +242,6 @@ export default {
 };
 </script>
 
+<style scoped src="../../styles/cadastro.css"></style>
 
-<style scoped>
-.titulo {
-  font-size: 24px;
-}
-.form-control {
-  height: 56px;
-  background-color: #f8f8f8;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-  border: none;
-  border-radius: 8px;
-}
-
-.input-group-prepend {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  border: none;
-  background-color: #f8f8f8;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-  border: none;
-  border-right: 2px solid #D0D0D0;
-  border-radius: 8px 0 0 8px;
-}
-
-.input-group-prepend img {
-  width: 26px;
-  height: 26px;
-  margin-right: 5px;
-}
-
-.card-footer {
-  background-color: white;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.card-footer button {
-  height: 58px;
-  width: 200px;
-  border: none;
-  border-radius: 16px;
-  background-color: #38C961;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 17px;
-}
-
-@media (max-width: 576px) {
-  .card-footer button {
-  width: 100%;
-}
-}
-
-</style>
+<style scoped src="../../styles/cadastro-consumidor.css"></style>

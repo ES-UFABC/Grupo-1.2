@@ -1,8 +1,15 @@
 <template>
-  <b-row>
+  <b-row class="page-container"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
     <b-col sm="10" md="10" lg="8" offset-sm="1" offset-md="1" offset-lg="2" class="content animated fadeInUp">
       <b-form @submit.prevent ="enviar">
-        <h3>Cadastro do Produto</h3>
+        <Voltar />
+        <h3 class="titulo">Cadastro do Produto</h3>
         <hr />
         <!-- Nome do produto -->
         <b-form-row>
@@ -22,9 +29,7 @@
             <b-form-group id="input-group-float-preco-do-produto" label="Preço" label-for="float-preco-do-produto">
               <b-input-group>
                 <b-input-group-prepend>
-                  <b-input-group-text>
-                    <b-icon icon="cash" />
-                  </b-input-group-text>
+                  <img src="../../assets/price.svg" alt="nota de dinheiro">
                 </b-input-group-prepend>
               <b-form-input id="float-preco-do-produto"
                             v-model="produto.preco"
@@ -94,10 +99,11 @@
   import Cadastro from '../../components/cadastro/Cadastro';
   import ProdutoService from '../../services/produto-service';
   import AuthService from '../../services/auth.service';
-
+  import Voltar from '../../components/voltar/Voltar'
 
   export default {
     name: 'CadastroProduto',
+    components: { Voltar },
     extends: Cadastro,
     data() {
       return {
@@ -156,3 +162,7 @@
 
   }
 </script>
+
+<style src="../../styles/cadastro-produto.css" scoped></style>
+<style src="../../styles/cadastro-produtor.css" scoped></style>
+<style src="../../styles/cadastro.css" scoped></style>
