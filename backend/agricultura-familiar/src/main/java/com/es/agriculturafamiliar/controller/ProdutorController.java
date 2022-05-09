@@ -9,13 +9,13 @@ import com.es.agriculturafamiliar.dto.response.ProdutorPerfilResponse;
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.service.ProdutorService;
 
+import lombok.AllArgsConstructor;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import lombok.AllArgsConstructor;
 
 
 @RestController()

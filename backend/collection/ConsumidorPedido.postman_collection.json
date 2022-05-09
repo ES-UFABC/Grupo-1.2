@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "44173589-ebe5-4c0c-ad3d-68348e55c663",
+		"name": "ConsumidorPedido",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ConsumidorPedido delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/agricultura-familiar/api/consumidor/pedidos?idConsumidor=572.355.330-56&idProdutor=1&pedido=soja",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agricultura-familiar",
+						"api",
+						"consumidor",
+						"pedidos"
+					],
+					"query": [
+						{
+							"key": "idConsumidor",
+							"value": "572.355.330-56"
+						},
+						{
+							"key": "idProdutor",
+							"value": "1"
+						},
+						{
+							"key": "pedido",
+							"value": "soja"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsumidorPedido post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idConsumidor\": \"572.355.330-56\",\r\n    \"idProdutor\": 1,\r\n    \"pedido\": \"soja\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/agricultura-familiar/api/consumidor/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agricultura-familiar",
+						"api",
+						"consumidor",
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

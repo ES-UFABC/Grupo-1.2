@@ -1,4 +1,4 @@
-package com.es.agriculturafamiliar.dto.endereco;
+package com.es.agriculturafamiliar.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class EnderecoDto {
+public class EnderecoRequest {
 
     @NotBlank(message = "Deve-se informar se o endereço é o principal")
     @Pattern(regexp = "(S|N)", message = "o endereço principal só pode receber os valores S ou N")
