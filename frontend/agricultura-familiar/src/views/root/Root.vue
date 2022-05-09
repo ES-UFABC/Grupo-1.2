@@ -1,18 +1,50 @@
 <template>
-  <div>
-    <img src="../../../public/muda_green_small.png" alt="Muda"> Muda
-    <b-card title="Muda" sub-title="___">
-      <b-card-text>
-        Como você vai fazer parte da nossa comunidade?
-      </b-card-text>
-
-      <router-link to="/consumidor" class="card-link">Quero Comprar!</router-link>
-      <router-link to="/produtor" class="card-link">Sou Produtor!</router-link>
-    </b-card>
+  <div class="page-container">
+    <LogoTopbar />
+    <div>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&family=Roboto:wght@500&display=swap"
+        rel="stylesheet"
+      />
+      <b-card>
+        <b-card-title>
+          Como você vai fazer parte da nossa comunidade?
+        </b-card-title>
+        <div class="buttons">
+          <button class="button-row button-consumidor" @click="pushConsumidor">
+            <img src="../../assets/wanna-buy.svg" alt="sacola de mercado" />
+            <div class="button-text">Quero Comprar!</div>
+          </button>
+          <button class="button-row button-produtor" @click="pushProdutor">
+            <img src="../../assets/im_a_producer.svg" alt="rastelo" />
+            <div class="button-text">Sou Produtor!</div>
+          </button>
+        </div>
+      </b-card>
+    </div>
   </div>
 </template>
 
 <script>
-  export default {
-  }
+import LogoTopbar from "../../components/logo-topbar/LogoTopbarGreen.vue";
+
+export default {
+  methods: {
+    pushConsumidor() {
+      this.$router.push("/consumidor");
+    },
+    pushProdutor() {
+      this.$router.push("/produtor");
+    },
+  },
+  components: {
+    LogoTopbar,
+  },
+};
+
+
 </script>
+
+<style scoped src="../../styles/root.css"></style>
