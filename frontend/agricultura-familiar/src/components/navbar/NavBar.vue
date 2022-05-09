@@ -2,7 +2,7 @@
   <div>
     <b-navbar fixed="top">
       <b-navbar-brand href="/">
-        <img src="../../../public/muda_green_small.png" alt="Muda"/>
+        <img src="../../../public/muda_green_small.png" alt="Muda">
         <h1>Muda</h1>
       </b-navbar-brand>
 

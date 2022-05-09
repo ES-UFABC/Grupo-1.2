@@ -2,7 +2,7 @@
   <b-input-group class="search">
     <b-input-group-prepend>
       <button class="input-group-text" @click="pesquisar">
-        <img src="../../../src/assets/search.svg" alt="Muda"/>
+        <img src="../../../src/assets/search.svg" alt="Muda">
       </button>
     </b-input-group-prepend>
 
@@ -22,7 +22,7 @@
 
     <b-input-group-append>
       <button class="input-group-text" @click="abrirGeolocalizacao">
-        <img src="../../../src/assets/location.svg" alt="Location"/>
+        <img src="../../../src/assets/location.svg" alt="Location">
       </button>
     </b-input-group-append>
 

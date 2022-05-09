@@ -2,7 +2,7 @@
   <div>
     <b-navbar sticky="true">
       <b-navbar-brand href="/">
-        <b-img src="../../../public/muda_purple_small.png" alt="Muda"></b-img>
+        <img src="../../../public/muda_purple_small.png" alt="Muda">
         <h1>Muda</h1>
       </b-navbar-brand>
     </b-navbar>
