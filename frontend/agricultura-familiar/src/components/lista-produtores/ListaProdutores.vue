@@ -19,7 +19,7 @@
                        v-for="(produtor, index) in produtores"
                        class="d-flex align-items-center">
 
-      <b-avatar variant="success"
+      <b-avatar variant="primary"
                 icon="people-fill"
                 class="mr-3"></b-avatar>
 
@@ -43,3 +43,10 @@
     }
   }
 </script>
+
+
+<style>
+  .b-avatar {
+    background-color: #8e67fc;
+  }
+</style>

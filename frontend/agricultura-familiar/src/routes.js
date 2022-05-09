@@ -25,6 +25,9 @@ import PainelNotificacoes from './components/painel-notificacoes/PainelNotificac
 
 import CadastroProduto from './views/produto/CadastroProduto.vue';
 
+import Geolocalizacao from './components/geolocalizacao/Geolocalizacao'
+import PerfilProdutor from './components/perfil-produtor/PerfilProdutor'
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -99,6 +102,22 @@ const router = new VueRouter({
           name: 'painel_consumidor',
           title: 'Muda',
           component: PainelConsumidor,
+          children: [
+            {
+              path: 'maps',
+              name: 'maps',
+              title: 'Muda',
+              component: Geolocalizacao,
+              props: true
+            },
+            {
+              path: 'produtor',
+              name: 'produtor',
+              title: 'Muda',
+              component: PerfilProdutor,
+              props: true
+            }
+          ]
         },
         {
           path: 'produtor',
