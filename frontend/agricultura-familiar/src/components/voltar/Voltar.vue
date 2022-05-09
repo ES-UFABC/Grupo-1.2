@@ -1,5 +1,7 @@
 <template>
-  <button @click="goBack">Voltar</button>
+  <button @click="goBack">
+    <img src="../../assets/arrow.svg" alt="voltar">
+  </button>
 </template>
 
 <script>
@@ -12,3 +14,10 @@
     }
   }
 </script>
+
+<style scoped>
+button {
+  background: none;
+  border: none;
+}
+</style>
