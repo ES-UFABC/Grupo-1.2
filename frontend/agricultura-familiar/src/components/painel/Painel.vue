@@ -26,9 +26,6 @@ export default {
 
 <style>
    body {
-    background-image: url("../../../public/background-tile.png");
-    background-repeat: repeat;
-    background-size: 200px;
     background-attachment: fixed;
     margin-top: 70px;
   }

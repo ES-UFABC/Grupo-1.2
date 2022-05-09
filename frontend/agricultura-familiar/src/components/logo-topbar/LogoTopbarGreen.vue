@@ -10,7 +10,7 @@
 </template>
 <style scoped>
 .navbar {
-  background-color: white;
+  background-color:transparent;
   height: 78px;
 }
 
