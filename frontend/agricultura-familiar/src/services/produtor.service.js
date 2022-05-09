@@ -31,5 +31,12 @@ class ProdutorService {
       params: {}
     });
   }
+
+  carregarProdutorPorId(id) {
+    let uri = `${process.env.VUE_APP_SERVER_URI}/produtor/${id}`;
+    return axios.get(uri, {
+      headers: authHeader(),
+    });
+  }
 }
 export default new ProdutorService();

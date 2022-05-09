@@ -2,7 +2,7 @@
   <b-input-group class="search">
     <b-input-group-prepend>
       <button class="input-group-text" @click="pesquisar">
-        <b-img src="../../../src/assets/search.svg" alt="Muda"></b-img>
+        <img src="../../../src/assets/search.svg" alt="Muda"/>
       </button>
     </b-input-group-prepend>
 
@@ -22,7 +22,7 @@
 
     <b-input-group-append>
       <button class="input-group-text" @click="abrirGeolocalizacao">
-        <b-img src="../../../src/assets/location.svg" alt="Location"></b-img>
+        <img src="../../../src/assets/location.svg" alt="Location"/>
       </button>
     </b-input-group-append>
 
@@ -62,7 +62,7 @@ export default {
           self.history = historico.termos
         })
 
-      if (self.$route.path !== '/painel/consumidor')
+      if (!['/painel/consumidor', '/painel/consumidor/maps'].includes(self.$route.path))
         self.$router.push('/painel/consumidor')
     },
     limparHistorico() {

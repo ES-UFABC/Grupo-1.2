@@ -4,55 +4,59 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import com.es.agriculturafamiliar.entity.Notificacao;
-import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
-import com.es.agriculturafamiliar.repository.NotificacaoRepository;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-@Disabled
+import com.es.agriculturafamiliar.entity.Administrador;
+import com.es.agriculturafamiliar.entity.Notificacao;
+import com.es.agriculturafamiliar.exception.ResourceNotFoundException;
+import com.es.agriculturafamiliar.repository.NotificacaoRepository;
+
 @ExtendWith(MockitoExtension.class)
 public class NotificacaoServiceTests {
+	
+	@InjectMocks
+	private NotificacaoService notificacaoService;
     
-    @InjectMocks
-    private static NotificacaoService notificacaoService;
-
+	
     @Mock
-    private static NotificacaoRepository notificacaoRepository;
+    private NotificacaoRepository notificacaoRepository;
+    
+    @Mock
+    private AdministradorService administradorService;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     public void saveNotificacao_shouldReturnSavedNotification_whenSuccessful() {
+    	Administrador adm = Administrador.builder().id(1L).build();
+    	
         Notificacao notificacao = Notificacao.builder()
             .assunto("Hola")
             .mensagem("Que passa")
+            .administrador(adm)
             .build();
         
         Notificacao returnedSavedNotificacao = Notificacao.builder()
             .assunto(notificacao.getAssunto())
             .mensagem(notificacao.getMensagem())
             .id(3123l)
+            .administrador(adm)
             .dataPublicacao(LocalDateTime.now())
             .build();
 
         when(notificacaoRepository.save(any(Notificacao.class)))
             .thenReturn(returnedSavedNotificacao);
+        when(administradorService.findById(anyLong()))
+        	.thenReturn(adm);
         
         Notificacao savedNotificacao = notificacaoService.saveNotificacao(notificacao);
 
