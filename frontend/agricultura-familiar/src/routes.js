@@ -111,8 +111,8 @@ const router = new VueRouter({
               props: true
             },
             {
-              path: 'produtor',
-              name: 'produtor',
+              path: 'produtor/:id',
+              name: 'perfil_produtor',
               title: 'Muda',
               component: PerfilProdutor,
               props: true

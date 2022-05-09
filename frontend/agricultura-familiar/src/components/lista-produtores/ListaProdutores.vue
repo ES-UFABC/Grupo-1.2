@@ -20,11 +20,16 @@
                        class="d-flex align-items-center">
 
       <b-avatar variant="primary"
+                :badge="produtor.produtos.length"
+                badge-variant="success"
                 icon="people-fill"
                 class="mr-3"></b-avatar>
 
-      <span class="mr-auto">{{ produtor.nomeFantasia }}</span>
-      <b-badge>7</b-badge>
+      <span class="mr-auto">
+        <router-link class="link" :to="{ name: 'perfil_produtor', params: { id: produtor.id }}">{{ produtor.nomeFantasia }}</router-link>
+      </span>
+      
+      <b-badge pill :variant="produtor.agroecologico ? 'success' : 'warning'">{{produtor.agroecologico ? 'Agroecológico' : 'Não certificado'}}</b-badge>
 
     </b-list-group-item>
   </b-list-group>
@@ -40,6 +45,7 @@
       }
     },
     mounted() {
+      console.log(this.produtores)
     }
   }
 </script>
@@ -48,5 +54,11 @@
 <style>
   .b-avatar {
     background-color: #8e67fc;
+  }
+  .link{
+      color: #000;
+  }
+  .router-link-active{
+      font-weight: bold
   }
 </style>
