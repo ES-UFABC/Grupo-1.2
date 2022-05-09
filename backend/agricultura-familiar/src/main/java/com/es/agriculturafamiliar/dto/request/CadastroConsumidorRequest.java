@@ -6,7 +6,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.es.agriculturafamiliar.dto.endereco.EnderecoDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -34,7 +33,7 @@ public class CadastroConsumidorRequest {
     private String cpf;
 
     @NotNull(message ="Uma lista de endereços deve ser fornecido")
-    private List<@Valid EnderecoDto> endereco;
+    private List<com.es.agriculturafamiliar.dto.request.EnderecoRequest> endereco;
     
     @NotNull
     private @Valid UserCredentialsRequest user;

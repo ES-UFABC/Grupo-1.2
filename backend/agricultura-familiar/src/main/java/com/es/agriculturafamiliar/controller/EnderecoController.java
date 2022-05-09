@@ -2,7 +2,6 @@ package com.es.agriculturafamiliar.controller;
 
 import com.es.agriculturafamiliar.entity.Endereco;
 import com.es.agriculturafamiliar.service.EnderecoService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

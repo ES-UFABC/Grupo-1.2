@@ -2,10 +2,12 @@ package com.es.agriculturafamiliar.controller;
 
 
 import com.es.agriculturafamiliar.controller.mapper.CadastroConsumidorMapper;
+
 import com.es.agriculturafamiliar.dto.request.CadastroConsumidorRequest;
 import com.es.agriculturafamiliar.dto.request.CadastroProdutorRequest;
 import com.es.agriculturafamiliar.dto.response.CadastroConsumidorResponse;
 import com.es.agriculturafamiliar.dto.response.CadastroProdutorResponse;
+
 import com.es.agriculturafamiliar.entity.produtor.Produtor;
 import com.es.agriculturafamiliar.models.domain.cadastroconsumidor.CadastroConsumidorDomain;
 import com.es.agriculturafamiliar.models.usecase.cadastroconsumidor.CadastroConsumidorUseCase;
