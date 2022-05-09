@@ -15,7 +15,7 @@
       offset-lg="2"
       class="content animated fadeInUp"
     >
-      <b-form @submit.prevent="enviar" v-if="show" :state="this.senhaValida">
+      <b-form @submit.prevent="enviar" :state="this.senhaValida">
         <h3 class="titulo">Seus dados</h3>
         <hr />
         <!-- Nome -->

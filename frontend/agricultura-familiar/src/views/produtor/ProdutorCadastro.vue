@@ -15,7 +15,7 @@
       offset-lg="1"
       class="content animated fadeInUp"
     >
-      <b-form @submit.prevent="enviar" v-if="show">
+      <b-form @submit.prevent="enviar">
         <h3 class="titulo">Seus dados</h3>
         <hr />
         <!-- Nome -->
