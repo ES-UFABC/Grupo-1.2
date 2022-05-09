@@ -18,8 +18,7 @@
 
       <b-navbar-nav class="ml-auto">
         <div class="search-minimized mt-auto mb-auto mr-2">
-          <a href=""
-            ><img src="../../../src/assets/search.svg" alt="search" />
+          <a href=""><img src="../../../src/assets/search.svg" alt="search" />
           </a>
         </div>
 

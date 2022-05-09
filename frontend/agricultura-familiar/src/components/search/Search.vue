@@ -62,7 +62,7 @@ export default {
           self.history = historico.termos
         })
 
-      if (self.$route.path !== '/painel/consumidor')
+      if (!['/painel/consumidor', '/painel/consumidor/maps'].includes(self.$route.path))
         self.$router.push('/painel/consumidor')
     },
     limparHistorico() {

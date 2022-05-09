@@ -2,7 +2,6 @@
 <template>
   <div class="panel">
     <NavBar @abrirGeolocalizacao="abrirGeolocalizacao" />
-    <DeckProdutores v-if="produtores.length" :produtores="produtores" />
     <transition name="router-animation">
       <router-view />
     </transition>
@@ -11,19 +10,15 @@
 
 <script>
   import NavBar from "../../components/navbar/NavBar.vue";
-  import ProdutorService from '../../services/produtor.service'
 export default {
-  components: {
-    NavBar
-  },
+  components: { NavBar },
   data() {
     return {
-      produtores: []
     };
   },
   methods: {
     abrirGeolocalizacao() {
-      this.$router.push("/painel/consumidor");
+      this.$router.push("/painel/consumidor/");
     },
   },
 };
