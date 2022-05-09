@@ -13,10 +13,7 @@
           <span class="text-black-50">{{ this.telefones }}</span>
         </div>
         <!-- Seção Pedido -->
-        <div class="pY-2">
-          <div class="d-flex justify-content-between align-items-center experience"><span>Enviar</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-          <div class="col-md-12"><label class="labels">Pedido</label><textarea type="text" class="form-control" placeholder="experience" value=""></textarea></div> <br>
-        </div>
+        <ConsumidorPedido :id-consumidor="idConsumidor" :id-produtor="this.id" />
       </b-col>
       <b-col md="8" class="border-right" >
         <div class="p-3 py-5">
@@ -46,9 +43,10 @@
 <script>
   import ProdutorService from '../../services/produtor.service'
   import ProductCard from '../productcard/ProductCard'
+  import ConsumidorPedido from '../consumidor-pedido/ConsumidorPedido'
   export default {
     name: 'PerfilProdutor',
-    components: { ProductCard },
+    components: { ProductCard, ConsumidorPedido },
     props: {
       //id: {
       //  required: false,
@@ -57,7 +55,9 @@
     },
     data() {
       return {
-        produtor: null
+        produtor: null,
+        idConsumidor: ""
+
       }
     },
     computed: {
