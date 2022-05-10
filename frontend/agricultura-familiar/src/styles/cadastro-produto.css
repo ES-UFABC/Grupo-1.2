@@ -1,0 +1,14 @@
+.page-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.input-group-prepend {
+  width: 50px !important;
+}
+
+.input-group-prepend img {
+  width: 30px !important;
+  height: 30px !important;
+  margin-right: 0 !important;
+}

@@ -32,9 +32,7 @@ export default {
   padding: 4vw 5vw;
   display: flex;
   justify-content: center;
-  background-image: url("../../../public/background-tile.png");
-  background-repeat: repeat;
-  background-size: 200px;
+  background-color:#de7be018
 }
 .card {
   background-color: white;

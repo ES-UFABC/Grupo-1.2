@@ -1,6 +1,6 @@
 <template>
   <b-container class="rounded bg-white" v-if="this.produtor">
-    <button @click="voltar">Voltar</button>
+    <Voltar @goback="voltar" override/>
     <b-row>
       <b-col md="4" class="border-right">
         <div class="d-flex flex-column align-items-center text-center">
@@ -45,10 +45,11 @@
   import ProdutorService from '../../services/produtor.service'
   import ConsumidorService from '../../services/consumidor.service'
   import ProductCard from '../productcard/ProductCard'
+  import Voltar from '../voltar/Voltar'
   import ConsumidorPedido from '../consumidor-pedido/ConsumidorPedido'
   export default {
     name: 'PerfilProdutor',
-    components: { ProductCard, ConsumidorPedido },
+    components: { ProductCard, Voltar , ConsumidorPedido },
     props: {
       //id: {
       //  required: false,
@@ -87,7 +88,7 @@
       carregarProdutor() {
         let self = this;
         ProdutorService.carregarProdutorPorId(self.id)
-          .then(response => { self.produtor = response.data; console.log(response.data) })
+          .then(response => { self.produtor = response.data; })
       }
     },
     watch: {
