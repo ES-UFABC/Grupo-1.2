@@ -2,10 +2,11 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 class PedidoService {
-  salvarPedido(idConsumidor, idProdutor, pedido) {
+  salvarPedido(requestDTO) {
     let uri = `${process.env.VUE_APP_SERVER_URI}/consumidor/pedidos`;
-    return axios.post(uri, { idConsumidor, idProdutor, pedido }, {
-      headers: authHeader() 
+    console.log(requestDTO);
+    return axios.post(uri, requestDTO, {
+      headers: authHeader()
     });
   }
 }

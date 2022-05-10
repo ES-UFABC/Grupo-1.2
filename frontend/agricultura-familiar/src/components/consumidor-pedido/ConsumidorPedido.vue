@@ -37,14 +37,20 @@
         pedido: '',
       }
     },
+    computed: {
+      model() {
+        return {
+          idConsumidor: this.consumidor,
+          idProdutor: this.produtor,
+          pedido: this.pedido
+        }
+      }
+    },
     methods: {
       enviar() {
-        PedidoService.salvarPedido(this.consumidor, this.produtor, this.pedido)
-          .then(response => {
-            alerts.SucessToaster.fire({ html: "Enviado com sucesso!" })
-          },
-            error => alerts.ErrorAlert.fire({ html: error })
-          )
+        PedidoService.salvarPedido(this.model)
+          .then(response => alerts.SucessToaster.fire({ html: "Enviado com sucesso!" }),
+                error => alerts.ErrorAlert.fire({ html: error }))
 
       }
     }
