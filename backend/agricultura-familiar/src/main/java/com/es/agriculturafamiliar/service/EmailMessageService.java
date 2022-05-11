@@ -31,8 +31,9 @@ public class EmailMessageService implements AsyncMessageService<Email> {
         try{
             MimeMessage constructedMessage = asyncMessageSenderFactory.createAsyncMessageSender(data, mailSender);
             mailSender.send(constructedMessage);
+            log.info("Email enviado com sucesso");
         } catch (Exception e){
-            log.debug("ERRO AO ENVIAR COMUNICAÇÃO DE CADASTRO: {}", e.getMessage());
+            log.info("Erro ao enviar email {}", e.getMessage());
         }
 
     }
