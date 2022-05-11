@@ -13,10 +13,8 @@
           <span class="text-black-50">{{ this.telefones }}</span>
         </div>
         <!-- Seção Pedido -->
-        <div class="pY-2">
-          <div class="d-flex justify-content-between align-items-center experience"><span>Enviar</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-          <div class="col-md-12"><label class="labels">Pedido</label><textarea type="text" class="form-control" placeholder="experience" value=""></textarea></div> <br>
-        </div>
+        <ConsumidorPedido v-if="this.produtor.produtos.length" :consumidor="this.idConsumidor" :produtor="this.id" />
+        <p v-else>Não há produtos para pedir.</p>
       </b-col>
       <b-col md="8" class="border-right" >
         <div class="p-3 py-5">
@@ -45,11 +43,13 @@
 
 <script>
   import ProdutorService from '../../services/produtor.service'
+  import ConsumidorService from '../../services/consumidor.service'
   import ProductCard from '../productcard/ProductCard'
   import Voltar from '../voltar/Voltar'
+  import ConsumidorPedido from '../consumidor-pedido/ConsumidorPedido'
   export default {
     name: 'PerfilProdutor',
-    components: { ProductCard, Voltar },
+    components: { ProductCard, Voltar , ConsumidorPedido },
     props: {
       //id: {
       //  required: false,
@@ -58,7 +58,9 @@
     },
     data() {
       return {
-        produtor: null
+        produtor: null,
+        idConsumidor: ""
+
       }
     },
     computed: {
@@ -75,6 +77,9 @@
     },
     mounted() {
       this.carregarProdutor()
+      ConsumidorService.obterConsumidorAutenticado().then(dt => {
+        this.idConsumidor = dt.data.cpf
+      })
     },
     methods: {
       voltar() {
