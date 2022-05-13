@@ -15,22 +15,16 @@
 Back-end: Spring Boot  
 Front-end: VueJS  
 Banco de dados: MySQL  
-CI: Github Actions
+CI/CD: Github Actions  
+Hospedagem: Heroku
 
 ## Como executar
 
 ### Back-end
-Pré-requisitos:
-
-- Swagger 
-
-Para acessar o contrato das APIs:  
-1 - Navegar até a pasta Backend -> contrato -> swagger.yaml  
-2 - Importar o arquivo em um leitor de Swagger. Como sugestão, https://editor.swagger.io/
 
 - Docker 
 
-Para o ambiente foi desenvolvido o arquivo docker-compose.dev.yml, assim para rodar a aplicação faça:  
+Para o ambiente de desenvolvimento está disponibilizado o arquivo docker-compose.dev.yml, assim para rodar a aplicação faça:  
 1 - No terminal, navegue até a pasta `backend/agricultura-familiar`  
 2 - Execute `docker-compose --file docker-compose.dev.yml up --build` 
 
@@ -38,7 +32,7 @@ Ao final da execução a aplicação está disponível em `localhost:8080` e o b
 A aplicação está configurada para aceitar remote-debugging, assim consulte o guia da sua IDE para fazer uso desta funcionalidade.
 
 ### Front-end
-Pré-requisitos:
+
 - Node.js 
 
 Para rodar a aplicação siga os seguintes passos:  
@@ -48,7 +42,11 @@ Para rodar a aplicação siga os seguintes passos:
 
 Ao final da execução a aplicação estará disponível em `localhost:9000`.
 
-## Testes
+- Docker
+
+Para o ambiente de desenvolvimento está disponibilizado o arquivo docker-compose.dev.yml, assim para rodar a aplicação faça:  
+1 - No terminal, navegue até a pasta `frontend/agricultura-familiar`  
+2 - Execute `docker-compose --file docker-compose.dev.yml up --build` 
 
 ## Membros
 
